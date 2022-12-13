@@ -45,3 +45,9 @@ Module statistique
 	- show la moyenne des comptes clients 
 	- show la liste des commandes pour un client
 
+My dev Steps
+	1) Model => Dev model juste Personne/clients + Dev partie software
+	2) MV & V
+	3) tester 
+	4) Faire le reste du Model
+
