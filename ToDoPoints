@@ -1,0 +1,44 @@
+Methods/Techs to used
+- MVVN
+- WPF
+
+
+
+
+Module Client
+	class
+	class software
+	- Ajouter
+	- supprimer
+	- modifier 
+	- showBy ordre alphabétique/Par ville/Par Montant des achats cumulé => ce qui permettra de connaître les meilleurs clients
+
+Module Salarie
+	class
+	- Chauffeur tarif => ancienneté. 
+	class software
+	- Afficher organigramme
+	- embaucher
+	- licencier
+	- modifier
+
+Module Commande
+	class
+	- prix => distence parcourt+véhicule+produit+tarifChauffeur.
+	class software
+	- créer/modifier une commande
+		=> PointA - PointB
+		=> assigne chauffeur  
+		=> Méthode donne chemin le plus court
+	- prix d’une commande
+	- Déterminer le chemin 
+
+
+Module statistique
+	class software
+	- show par chauffeur le nombre de livraisons effectuées 
+	- show les commandes selon une période de temps 
+	- show la moyenne des prix des commandes 
+	- show la moyenne des comptes clients 
+	- show la liste des commandes pour un client
+
