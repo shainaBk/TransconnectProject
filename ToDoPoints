@@ -1,4 +1,14 @@
 Methods/Techs to used
+- JSON bd file:
+	>links:
+		- https://www.c-sharpcorner.com/article/working-with-json-in-C-Sharp/
+		- https://www.c-sharpcorner.com/UploadFile/858292/parsing-a-json-file-with-C-Sharp/
+		- https://jsonutils.com/
+- n-ary tree:
+	>links:
+		- https://www.geeksforgeeks.org/depth-n-ary-tree/
+	>Pb:
+		- Comment je vais le dessiner ?
 - UML link: 
 	- edit => https://online.visual-paradigm.com/w/glcbxqwf/diagrams/#diagram:workspace=glcbxqwf&proj=0&id=1
 	- as image => 
@@ -10,7 +20,7 @@ Methods/Techs to used
 	=> View: gere les touches ici
 - WPF+ExpressBlend
 
-TODO !!!
+------------ TODO -------------
 
 Module Client
 	class
@@ -51,7 +61,9 @@ Module statistique
 
 My dev Steps
 	1) Model => Dev model juste Personne/clients + Dev partie software
-	2) MV & V
-	3) tester 
-	4) Faire le reste du Model
+	2) construire n-ary tree
+	3)
+	4) MV & V
+	5) tester 
+	6) Faire le reste du Model
 
