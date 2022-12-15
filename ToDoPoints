@@ -1,6 +1,7 @@
 Methods/Techs to used
 - JSON bd file:
 	>links:
+		- https://learn.microsoft.com/en-us/answers/questions/699941/read-and-process-json-file-with-c.html
 		- https://www.c-sharpcorner.com/article/working-with-json-in-C-Sharp/
 		- https://www.c-sharpcorner.com/UploadFile/858292/parsing-a-json-file-with-C-Sharp/
 		- https://jsonutils.com/
