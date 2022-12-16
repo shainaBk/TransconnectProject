@@ -1,0 +1,15 @@
+C:\Users\Shaïna\Esilv\TransconnectProject\TransconnectProject\obj\Debug\net6.0\TransconnectProject.csproj.AssemblyReference.cache
+C:\Users\Shaïna\Esilv\TransconnectProject\TransconnectProject\obj\Debug\net6.0\TransconnectProject.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Shaïna\Esilv\TransconnectProject\TransconnectProject\obj\Debug\net6.0\TransconnectProject.AssemblyInfoInputs.cache
+C:\Users\Shaïna\Esilv\TransconnectProject\TransconnectProject\obj\Debug\net6.0\TransconnectProject.AssemblyInfo.cs
+C:\Users\Shaïna\Esilv\TransconnectProject\TransconnectProject\obj\Debug\net6.0\TransconnectProject.csproj.CoreCompileInputs.cache
+C:\Users\Shaïna\Esilv\TransconnectProject\TransconnectProject\bin\Debug\net6.0\TransconnectProject.exe
+C:\Users\Shaïna\Esilv\TransconnectProject\TransconnectProject\bin\Debug\net6.0\TransconnectProject.deps.json
+C:\Users\Shaïna\Esilv\TransconnectProject\TransconnectProject\bin\Debug\net6.0\TransconnectProject.runtimeconfig.json
+C:\Users\Shaïna\Esilv\TransconnectProject\TransconnectProject\bin\Debug\net6.0\TransconnectProject.dll
+C:\Users\Shaïna\Esilv\TransconnectProject\TransconnectProject\bin\Debug\net6.0\TransconnectProject.pdb
+C:\Users\Shaïna\Esilv\TransconnectProject\TransconnectProject\obj\Debug\net6.0\TransconnectProject.dll
+C:\Users\Shaïna\Esilv\TransconnectProject\TransconnectProject\obj\Debug\net6.0\refint\TransconnectProject.dll
+C:\Users\Shaïna\Esilv\TransconnectProject\TransconnectProject\obj\Debug\net6.0\TransconnectProject.pdb
+C:\Users\Shaïna\Esilv\TransconnectProject\TransconnectProject\obj\Debug\net6.0\TransconnectProject.genruntimeconfig.cache
+C:\Users\Shaïna\Esilv\TransconnectProject\TransconnectProject\obj\Debug\net6.0\ref\TransconnectProject.dll

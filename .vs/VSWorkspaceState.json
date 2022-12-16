@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\TransconnectProject",
+    "\\TransconnectProject\\Model",
+    "\\TransconnectProject\\Model\\DepartementModel",
+    "\\TransconnectProject\\Model\\PersonneModel",
+    "\\TransconnectProject\\Model\\PosteModel",
+    "\\TransconnectProject\\Util"
+  ],
+  "SelectedNode": "\\TransconnectProject\\Program.cs",
+  "PreviewInSolutionExplorer": false
+}
