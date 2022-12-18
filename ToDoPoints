@@ -5,6 +5,8 @@ Methods/Techs to used
 		- https://www.c-sharpcorner.com/article/working-with-json-in-C-Sharp/
 		- https://www.c-sharpcorner.com/UploadFile/858292/parsing-a-json-file-with-C-Sharp/
 		- https://jsonutils.com/
+	>links For deserisazion:
+		- use les Units !! http://www.tomdupont.net/2014/04/deserialize-abstract-classes-with.html
 - n-ary tree:
 	>links:
 		- https://www.geeksforgeeks.org/depth-n-ary-tree/
