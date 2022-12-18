@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Runtime.Serialization;
+
 namespace TransconnectProject.Util
 {
-	public class Adresse
+    [DataContract]
+    public class Adresse
 	{
-		string ville;
-		string rue;
+        [DataMember]
+        private string ville;
+        [DataMember]
+        private string rue;
 		public Adresse(string ville, string rue)
 		{
 			this.ville = ville;

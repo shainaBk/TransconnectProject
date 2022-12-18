@@ -4,15 +4,15 @@ namespace TransconnectProject.Model.DepartementModel
 {
 	public abstract class Departement
 	{
-		string nom;
+		string nomDep;
 		Dictionary<String, int> hierarchie;
 
         public Departement(string nom, Dictionary<String, int> hierarchie)
         {
-            this.nom = nom;
+            this.nomDep = nom;
             this.hierarchie = hierarchie;
         }
-        public string Nom { get => this.nom; set { this.nom = value; } }
+        public string NomDep { get => this.nomDep; set { this.nomDep = value; } }
         public Dictionary<string, int> Hierarchie { get => this.hierarchie; set { this.hierarchie = value; } }
 
         public int getNumHierarchique(String poste)//Usefull for add salarié

@@ -1,0 +1,84 @@
+[
+  {
+    "numSS": 2,
+    "salaire": 2500.0,
+    "dateArrive": "2022-01-06T00:00:00",
+    "employés": [
+      {
+        "numSS": 1,
+        "salaire": 1600.0,
+        "dateArrive": "2022-01-06T00:00:00",
+        "employés": [],
+        "poste": {
+          "Departement": {
+            "NomDep": "Département des opérations",
+            "Hierarchie": {
+              "Directeur des opérations": 1,
+              "Chef d'équipe": 2,
+              "Chauffeur": 3
+            }
+          },
+          "NomPoste": "Chauffeur",
+          "Salaire": 1600.0
+        },
+        "nom": "Bakili",
+        "prenom": "Shaïna",
+        "dob": "2001-03-11T00:00:00",
+        "adressePostal": {
+          "ville": "Ermont",
+          "rue": "allée manon des sources"
+        },
+        "mail": "shaina3322@hotmail.com",
+        "telNum": "0768698493"
+      }
+    ],
+    "poste": {
+      "Departement": {
+        "NomDep": "Département des opérations",
+        "Hierarchie": {
+          "Directeur des opérations": 1,
+          "Chef d'équipe": 2,
+          "Chauffeur": 3
+        }
+      },
+      "NomPoste": "Chef d'équipe",
+      "Salaire": 2500.0
+    },
+    "nom": "Bakili",
+    "prenom": "Shaïna2",
+    "dob": "2001-03-11T00:00:00",
+    "adressePostal": {
+      "ville": "Ermont",
+      "rue": "allée manon des sources"
+    },
+    "mail": "shaina3322@hotmail.com",
+    "telNum": "0768698493"
+  },
+  {
+    "numSS": 1,
+    "salaire": 1600.0,
+    "dateArrive": "2022-01-06T00:00:00",
+    "employés": [],
+    "poste": {
+      "Departement": {
+        "NomDep": "Département des opérations",
+        "Hierarchie": {
+          "Directeur des opérations": 1,
+          "Chef d'équipe": 2,
+          "Chauffeur": 3
+        }
+      },
+      "NomPoste": "Chauffeur",
+      "Salaire": 1600.0
+    },
+    "nom": "Bakili",
+    "prenom": "Shaïna3",
+    "dob": "2001-03-11T00:00:00",
+    "adressePostal": {
+      "ville": "Ermont",
+      "rue": "allée manon des sources"
+    },
+    "mail": "shaina3322@hotmail.com",
+    "telNum": "0768698493"
+  }
+]

@@ -13,3 +13,5 @@ C:\Users\Shaïna\Esilv\TransconnectProject\TransconnectProject\obj\Debug\net6.0\
 C:\Users\Shaïna\Esilv\TransconnectProject\TransconnectProject\obj\Debug\net6.0\TransconnectProject.pdb
 C:\Users\Shaïna\Esilv\TransconnectProject\TransconnectProject\obj\Debug\net6.0\TransconnectProject.genruntimeconfig.cache
 C:\Users\Shaïna\Esilv\TransconnectProject\TransconnectProject\obj\Debug\net6.0\ref\TransconnectProject.dll
+C:\Users\Shaïna\Esilv\TransconnectProject\TransconnectProject\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\Shaïna\Esilv\TransconnectProject\TransconnectProject\obj\Debug\net6.0\TransconnectProject.csproj.CopyComplete

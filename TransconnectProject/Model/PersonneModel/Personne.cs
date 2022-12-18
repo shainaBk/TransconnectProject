@@ -1,15 +1,17 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using TransconnectProject.Util;
 namespace TransconnectProject.Model
 {
-	public abstract class Personne
+    [DataContract]
+    public abstract class Personne
 	{
-		private string nom;
-		private string prenom;
-		private DateTime dob;//Date de naissance
-		private Adresse adressePostal;
-		private string mail;//(otional) add validator method
-		private string telNum;//(optional) add validator method
+        [DataMember] private string nom;
+        [DataMember] private string prenom;
+        [DataMember] private DateTime dob;//Date de naissance
+        [DataMember] private Adresse adressePostal;
+        [DataMember] private string mail;//(otional) add validator method
+        [DataMember] private string telNum;//(optional) add validator method
 
         protected Personne(string nom, string prenom, DateTime dob, Adresse adressePostal, string mail, string telNum)
         {

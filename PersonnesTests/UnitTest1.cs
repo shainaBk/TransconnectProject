@@ -1,6 +1,9 @@
 using TransconnectProject.Model;
 using TransconnectProject.Model.PosteModel;
 using TransconnectProject.Util;
+using TransconnectProject.Controleur;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ProjectsTests
 {
@@ -11,6 +14,7 @@ namespace ProjectsTests
         private Salarie p3;
         private Salarie p4;
         private List<Salarie> listSalarie = new List<Salarie>();
+        private List<Salarie> listSalarieTest = new List<Salarie>();
         //Before
         [SetUp]
         public void setup()
@@ -32,10 +36,10 @@ namespace ProjectsTests
 
             //Salarie
             Assert.AreEqual(p1.Dob.ToString("d"), "11/03/2001");
-            Assert.AreEqual(p4.Poste.Nom, "Chauffeur");
+            Assert.AreEqual(p4.Poste.NomPoste, "Chauffeur");
 
+           
         }
-
         [Test]
         public void ControleurTest()
         {
@@ -47,6 +51,32 @@ namespace ProjectsTests
             listSalarie.Add(p4);
             Assert.AreEqual(listSalarie.Count(), 3);
             #endregion
+
+        }
+
+        [Test]
+        public void JsonUtilTest()
+        {
+            /**TO SORT AND SET CORECTLY +++ DON'T FORGET TO DO CONVERTISSEUR FOR OTHER POSTES!!!**/
+
+            //Pour récuperer au format JSON
+            /*var jsonTest = JsonConvert.SerializeObject(listSalarie);
+            Console.WriteLine("Test");
+            Console.WriteLine(jsonTest);*/
+
+            //Pour une liste de salariés 
+            var converter = new PosteConverter();
+            JsonUtil.getJsonSalarie(@"C:\Users\Shaïna\Esilv\TransconnectProject\TransconnectProject\serializationFiles\Salaries.json", ref listSalarieTest, converter);
+
+            //Pour Un salarié
+            //JsonUtil.getJsonSalarie(@"C:\Users\Shaïna\Esilv\TransconnectProject\TransconnectProject\serializationFiles\Salaries.json",ref listSalarieTest,converter);
+            /*Salarie s = JsonUtil.getJsonSalarie(@"C:\Users\Shaïna\Esilv\TransconnectProject\TransconnectProject\serializationFiles\Salaries.json",converter);
+            Console.WriteLine(s.Dob.ToString("d"));*/
+
+            foreach (var item in listSalarieTest)
+            {
+                Console.WriteLine(item.Prenom);
+            }
 
         }
     }

@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using TransconnectProject.Util;
 
 namespace TransconnectProject.Model
 {
+    [DataContract]
     public class Client : Personne
     {
         //private List<Commande> commandes //liste de commandes client
