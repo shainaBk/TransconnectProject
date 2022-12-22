@@ -25,19 +25,42 @@ namespace TransconnectProject.Model
             this.employés = employés;
             
         }
-
-        public List<Salarie> Employ { get => this.employés; set { this.employés = value; } }
-
-         public Poste Poste{
-            get=> this.poste;
-            set{this.poste=value;}
-        }
-         
         public double Salaire
         {
             get => this.salaire;
             set { this.salaire = value; }
         }
+        public List<Salarie> Employ { get => this.employés; set { this.employés = value; } }
+
+        public Poste Poste
+        {
+            get => this.poste;
+            set { this.poste = value; }
+        }
+
+        public override bool Equals(object obj)
+        {
+            return this.Equals(obj as Salarie);
+        }
+        public bool Equals(Salarie obj)
+        {
+            if (obj != null)
+            {
+                if (this.Nom == obj.Nom && this.Prenom == obj.Prenom && this.Dob.ToString("d") == obj.Dob.ToString("d"))
+                    return true;
+                return false;
+            }
+            return false;
+        }
+
+        public override string ToString()
+        {
+            return this.poste.NomPoste + ": " + this.Nom + " " + this.Prenom;
+        }
+
+
+
+
     }
 }
 

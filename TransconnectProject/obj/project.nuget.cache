@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "kAeERYFzgoaztfB3GUPrsJ2pOkahJ38eW0INCuVLAHIaWzAts46G3KKmritoxO0w1sD3wO3MHoEiSkYWBzCnCg==",
+  "dgSpecHash": "C9tUqt3rqLn5zOVE86v2yxikjnefFgqel9VB+8A0P/2CseEEJjVFbaYJ5udmYme8iAIsY5dNflY5A/vn36nTAw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Shaïna\\Esilv\\TransconnectProject\\TransconnectProject\\TransconnectProject.csproj",
+  "projectFilePath": "/Users/e25286/Documents/devPerso/TransconnectProject/TransconnectProject/TransconnectProject.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Shaïna\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512"
+    "/Users/e25286/.nuget/packages/newtonsoft.json/13.0.2/newtonsoft.json.13.0.2.nupkg.sha512"
   ],
   "logs": []
 }

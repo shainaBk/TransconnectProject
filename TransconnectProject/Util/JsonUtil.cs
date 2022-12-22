@@ -14,22 +14,26 @@ namespace TransconnectProject.Util
 {
     public class JsonUtil
     {
-        public static void getJsonSalarie(String FilePath, ref List<Salarie> list, PosteConverter converter)
+        //Get all salaries from Json files
+        public static void getJsonSalaries(ref List<Salarie> list, PosteConverter converter)
         {
-            StreamReader r = new StreamReader(FilePath);
+            StreamReader r = new StreamReader(@"../../../../TransconnectProject/serializationFiles/Salaries.json");
             string json = @r.ReadToEnd();
             list = JsonConvert.DeserializeObject<List<Salarie>>(json, converter);
         }
+        //Get salarie from Json file (when it's one object file)
         public static Salarie getJsonSalarie(String FilePath, PosteConverter converter)
         {
             StreamReader r = new StreamReader(FilePath);
-            string json =@r.ReadToEnd();
-            Salarie s = JsonConvert.DeserializeObject<Salarie>(json,converter);
+            string json = @r.ReadToEnd();
+            Salarie s = JsonConvert.DeserializeObject<Salarie>(json, converter);
             return s;
         }
 
-        public void parseJsonPersonnes(String FilePath, List<Personne> list)
+        public static void sendJsonSalaries(List<Salarie> list)
         {
+            var jsonTest = JsonConvert.SerializeObject(list);
+            File.WriteAllText(@"../../../../TransconnectProject/serializationFiles/Salaries.json", jsonTest);
         }
     }
 
@@ -85,10 +89,31 @@ namespace TransconnectProject.Util
         {
             if (FieldExists(jObject, "NomPoste", "Chauffeur"))
                 return new Chauffeur();
-            if (FieldExists(jObject, "NomPoste", "Chef d'équipe"))
+            //It's bullshit
+            else if (FieldExists(jObject, "NomPoste", "Chef d'équipe"))
                 return new ChefEquipe();
-            //Faire pour les 100000 autres !!!
-
+            else if (FieldExists(jObject, "NomPoste", "Directeur des opérations"))
+                return new DirecteurDesOps();
+            else if (FieldExists(jObject, "NomPoste", "Comptable"))
+                return new Comptable();
+            else if (FieldExists(jObject, "NomPoste", "Commercial"))
+                return new Commercial();
+            else if (FieldExists(jObject, "NomPoste", "Contrat"))
+                return new Contrat();
+            else if (FieldExists(jObject, "NomPoste", "Controleur de gestion"))
+                return new ControleurDeGestion();
+            else if (FieldExists(jObject, "NomPoste", "Directeur commercial"))
+                return new DirecteurCommercial();
+            else if (FieldExists(jObject, "NomPoste", "Directeur financier"))
+                return new DirecteurFinancier();
+            else if (FieldExists(jObject, "NomPoste", "Directeur general"))
+                return new DirecteurGeneral();
+            else if (FieldExists(jObject, "NomPoste", "Directeur RH"))
+                return new DirecteurRH();
+            else if (FieldExists(jObject, "NomPoste", "Direction comptable"))
+                return new DirectionComptable();
+            else if (FieldExists(jObject, "NomPoste", "Formation"))
+                return new Formation();
             throw new InvalidOperationException();
         }
     }

@@ -2,7 +2,7 @@
 using TransconnectProject.Model.DepartementModel;
 namespace TransconnectProject.Model.PosteModel
 {
-	public abstract class Poste
+	public class Poste
 	{
 		private string nomPoste;
 		private Departement departement;

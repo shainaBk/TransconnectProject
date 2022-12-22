@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TransconnectProject.Model;
+using TransconnectProject.Model.PosteModel;
+using TransconnectProject.Util;
 
 namespace TransconnectProject.Controleur
 {
@@ -12,30 +14,133 @@ namespace TransconnectProject.Controleur
     {
         private List<Salarie> salaries;
         private List<Client> clients;
+        private SalarieTree organigramme;
 
         public TransconnectControleur(List<Salarie> salaries)
         {
             this.salaries = salaries;
+            this.organigramme = new SalarieTree(new SalarieNode(null));
         }
+        public List<Salarie> Salaries { get => this.salaries; set => this.salaries = value; }
+        public SalarieTree Organigramme { get => this.organigramme; set => this.organigramme = value; }
 
-        public void addSalarie(Salarie s)
+        #region Salaries
+        public void deleteSalarie(string nom, string prenom)
         {
-            /**Get only members of the same Departement**/
-            List<Salarie> Dep = salaries.FindAll((x) => x.Poste.Departement.NomDep.Equals(s.Poste.Departement.NomDep));
-            /** ADD Condition si existe pas; Peut etre exception ?**/
-            //Temporary
-            if (Dep.Count == 0)
-                Console.WriteLine("none");
-            else
+            var toDelete = this.salaries.Find(x => x.Nom.Equals(nom) && x.Prenom.Equals(prenom));
+
+            //CEO PART;
+            List<string> listeDic = new List<string> { "Directeur commercial", "Directeur des opérations", "Directeur financier", "Directeur RH" };
+            //TODO TEST
+            if (listeDic.Contains(toDelete.Poste.NomPoste))
             {
-                foreach (Salarie item in Dep)
+                this.salaries.Find(x => x.Poste.NomPoste == "Directeur general").Employ.Remove(toDelete);
+            }
+
+            //NORMAL EMPLOYÉS PART
+            List<Salarie> lesColegues = this.salaries.FindAll(x => x.Poste.Departement.NomDep.Equals(toDelete.Poste.Departement.NomDep) && x.Poste.getNumHierarchique() < toDelete.Poste.getNumHierarchique());
+            foreach (var item in lesColegues)
+            {
+                item.Employ.Remove(toDelete);
+            }
+            this.salaries.Remove(toDelete);
+
+            //JSON PART
+            if(toDelete != null)
+            {
+                try
                 {
-                    if (item.Poste.getNumHierarchique() < s.Poste.getNumHierarchique())
-                        item.Employ.Add(s);
+                    JsonUtil.sendJsonSalaries(this.salaries);
+                    Console.WriteLine("Salarié supprimé de la base de donnée !");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error push into JSON file, message => " + e);
                 }
             }
-            salaries.Add(s);
-            //Log("Employé ajouté !!)
+            else
+                Console.WriteLine("Le salarie "+nom+" "+prenom+" n'est pas dans notre base de donnée");
+           
         }
+        public void addSalarie(Salarie s)
+        {
+            //CEO PART;
+            List<string> listeDic = new List<string> { "Directeur commercial", "Directeur des opérations", "Directeur financier", "Directeur RH" };
+            //TODO TEST
+            if (listeDic.Contains(s.Poste.NomPoste))
+            {
+                this.salaries.Find(x => x.Poste.NomPoste == "Directeur general").Employ.Add(s);
+            }
+
+            //NORMAL EMPLOYÉS PART
+            if (!this.salaries.Contains(s))
+            {
+                /**Get only members of the same Departement**/
+                List<Salarie> Dep = salaries.FindAll((x) => x.Poste.Departement.NomDep.Equals(s.Poste.Departement.NomDep));
+
+                /** ADD Condition si existe pas; Peut etre exception ?**/
+                //Temporary
+                if (Dep.Count == 0)
+                    Console.WriteLine("none");
+                else
+                {
+                    foreach (Salarie item in Dep)
+                    {
+                        if (item.Poste.getNumHierarchique() < s.Poste.getNumHierarchique())
+                            item.Employ.Add(s);
+                        else if (item.Poste.getNumHierarchique() > s.Poste.getNumHierarchique())
+                        {
+                            s.Employ.Add(item);
+                        }
+                    }
+                }
+                salaries.Add(s);
+
+                //JSON PART
+                try
+                {
+                    JsonUtil.sendJsonSalaries(this.salaries);
+                    Console.WriteLine("Salarié ajouté a la base de donnée !");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error push into JSON file, message => " + e);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Le salarié "+s.Nom+" "+s.Prenom+" est déja dans nos base de données");
+            }
+            
+        }
+        public String showOrgannigramme()
+        {
+            return this.organigramme.ToString();
+        }
+
+        /* 
+         * Cette methode construie un SalarieTree à partir de la liste de salariés 
+         */
+        public void BuildSalariesTree()
+        {
+            Salarie CEO = this.Salaries.Find(x => x.Poste.NomPoste == "Directeur general");
+            this.organigramme.Root.Key = CEO;
+            //List without CEO
+            List<Node<Salarie>> listeSalariesNode= new List<Node<Salarie>>();
+            foreach (Salarie item in CEO.Employ)
+            {
+                listeSalariesNode.Add(SalarieTree.getaNewNode(item));
+            }
+            this.organigramme.Root.Childs = listeSalariesNode;
+        }
+        #endregion
+
+        #region Clients
+        //TODO
+        public void showClients()
+        {
+
+        }//with or without critère
+        #endregion
     }
 }

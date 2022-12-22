@@ -1305,34 +1305,32 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Shaïna\\.nuget\\packages\\": {}
+    "/Users/e25286/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Shaïna\\Esilv\\TransconnectProject\\PersonnesTests\\ProjectTests.csproj",
+      "projectUniqueName": "/Users/e25286/Documents/devPerso/TransconnectProject/PersonnesTests/ProjectTests.csproj",
       "projectName": "ProjectTests",
-      "projectPath": "C:\\Users\\Shaïna\\Esilv\\TransconnectProject\\PersonnesTests\\ProjectTests.csproj",
-      "packagesPath": "C:\\Users\\Shaïna\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Shaïna\\Esilv\\TransconnectProject\\PersonnesTests\\obj\\",
+      "projectPath": "/Users/e25286/Documents/devPerso/TransconnectProject/PersonnesTests/ProjectTests.csproj",
+      "packagesPath": "/Users/e25286/.nuget/packages/",
+      "outputPath": "/Users/e25286/Documents/devPerso/TransconnectProject/PersonnesTests/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Shaïna\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/e25286/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\Shaïna\\Esilv\\TransconnectProject\\TransconnectProject\\TransconnectProject.csproj": {
-              "projectPath": "C:\\Users\\Shaïna\\Esilv\\TransconnectProject\\TransconnectProject\\TransconnectProject.csproj"
+            "/Users/e25286/Documents/devPerso/TransconnectProject/TransconnectProject/TransconnectProject.csproj": {
+              "projectPath": "/Users/e25286/Documents/devPerso/TransconnectProject/TransconnectProject/TransconnectProject.csproj"
             }
           }
         }
@@ -1388,7 +1386,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.101/RuntimeIdentifierGraph.json"
       }
     }
   }
