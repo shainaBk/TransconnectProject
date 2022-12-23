@@ -207,3 +207,4 @@ C:/Users/Shaïna/Esilv/TransconnectProject/PersonnesTests/obj/Debug/net6.0/ref/P
 /Users/e25286/Documents/devPerso/TransconnectProject/PersonnesTests/obj/Debug/net6.0/ProjectTests.pdb
 /Users/e25286/Documents/devPerso/TransconnectProject/PersonnesTests/obj/Debug/net6.0/ProjectTests.genruntimeconfig.cache
 /Users/e25286/Documents/devPerso/TransconnectProject/PersonnesTests/obj/Debug/net6.0/ref/ProjectTests.dll
+/Users/e25286/Documents/devPerso/TransconnectProject/PersonnesTests/bin/Debug/net6.0/CsvHelper.dll

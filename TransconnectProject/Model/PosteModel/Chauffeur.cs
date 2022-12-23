@@ -12,5 +12,8 @@ namespace TransconnectProject.Model.PosteModel
         public Chauffeur() : base("Chauffeur", new DepDesOps(),1600)
         {
         }
+
+        //TODO
+        public int getTarif() { return 0; }
     }
 }

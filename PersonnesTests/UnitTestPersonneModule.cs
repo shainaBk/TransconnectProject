@@ -41,7 +41,7 @@ namespace ProjectsTests
             controler = new TransconnectControleur(listSalarie);
 
 
-            //Specifique organigrame
+            //Specifique aux tests organigrame
             subEmp3 = new Salarie("Bakili", "Shaina", new DateTime(2001, 03, 11), new Adresse("Ermont", "all�e manon des sources"), "shaina3322@hotmail.com", "0768698493", new DateTime(2022, 01, 06), new Chauffeur(), new List<Salarie>());
             emp1 = new Salarie("Lapin", "Catarina", new DateTime(2001, 03, 11), new Adresse("Madrid", "la casa de papel"), "Cata@hotmail.com", "07536984025", new DateTime(2022, 01, 06), new ChefEquipe(), new List<Salarie> { subEmp3 });
             ceo = new Salarie("Messi", "Lionnel", new DateTime(2001, 03, 11), new Adresse("Buenas Aires", "Los pequenos y pequenas"), "messi@hotmail.com", "0658497123", new DateTime(2022, 01, 06),new DirecteurGeneral(), new List<Salarie> { emp1 });

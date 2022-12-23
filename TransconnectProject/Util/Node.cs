@@ -133,13 +133,15 @@ namespace TransconnectProject.Util
 				return m;
 			}
         }
+		//TODO
+		public void addaNode(Salarie s) { }
+		//TODO
+		public void deleteaNode(String nom,String prenom) { }
 
-		/**
-		 * 
-		 * Cette methode return n fois "\t"
-		 * 
-		 * */
-		public static string toolForTab(int n)
+        /// <summary>
+        /// Cette methode return n fois "\t"
+        /// </summary>
+        public static string toolForTab(int n)
 		{
 			string tab = null;
 			for (int i = 0; i < n; i++)

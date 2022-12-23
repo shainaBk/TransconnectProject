@@ -28,10 +28,9 @@ namespace TransconnectProject.Controleur
         public void deleteSalarie(string nom, string prenom)
         {
             var toDelete = this.salaries.Find(x => x.Nom.Equals(nom) && x.Prenom.Equals(prenom));
-
             //CEO PART;
             List<string> listeDic = new List<string> { "Directeur commercial", "Directeur des opérations", "Directeur financier", "Directeur RH" };
-            //TODO TEST
+            //TOTEST
             if (listeDic.Contains(toDelete.Poste.NomPoste))
             {
                 this.salaries.Find(x => x.Poste.NomPoste == "Directeur general").Employ.Remove(toDelete);
@@ -39,9 +38,12 @@ namespace TransconnectProject.Controleur
 
             //NORMAL EMPLOYÉS PART
             List<Salarie> lesColegues = this.salaries.FindAll(x => x.Poste.Departement.NomDep.Equals(toDelete.Poste.Departement.NomDep) && x.Poste.getNumHierarchique() < toDelete.Poste.getNumHierarchique());
-            foreach (var item in lesColegues)
+            if (lesColegues != null)
             {
-                item.Employ.Remove(toDelete);
+                foreach (var item in lesColegues)
+                {
+                    item.Employ.Remove(toDelete);
+                }
             }
             this.salaries.Remove(toDelete);
 
@@ -60,13 +62,12 @@ namespace TransconnectProject.Controleur
             }
             else
                 Console.WriteLine("Le salarie "+nom+" "+prenom+" n'est pas dans notre base de donnée");
-           
         }
         public void addSalarie(Salarie s)
         {
             //CEO PART;
             List<string> listeDic = new List<string> { "Directeur commercial", "Directeur des opérations", "Directeur financier", "Directeur RH" };
-            //TODO TEST
+            //TOTEST
             if (listeDic.Contains(s.Poste.NomPoste))
             {
                 this.salaries.Find(x => x.Poste.NomPoste == "Directeur general").Employ.Add(s);
@@ -75,10 +76,8 @@ namespace TransconnectProject.Controleur
             //NORMAL EMPLOYÉS PART
             if (!this.salaries.Contains(s))
             {
-                /**Get only members of the same Departement**/
+                /**to get only members of the same Departement**/
                 List<Salarie> Dep = salaries.FindAll((x) => x.Poste.Departement.NomDep.Equals(s.Poste.Departement.NomDep));
-
-                /** ADD Condition si existe pas; Peut etre exception ?**/
                 //Temporary
                 if (Dep.Count == 0)
                     Console.WriteLine("none");
@@ -96,7 +95,7 @@ namespace TransconnectProject.Controleur
                 }
                 salaries.Add(s);
 
-                //JSON PART
+            //JSON PART
                 try
                 {
                     JsonUtil.sendJsonSalaries(this.salaries);
@@ -110,17 +109,17 @@ namespace TransconnectProject.Controleur
             else
             {
                 Console.WriteLine("Le salarié "+s.Nom+" "+s.Prenom+" est déja dans nos base de données");
-            }
-            
+            } 
         }
+        //TODO: modification Le nom, l’adresse, le mail, le téléphone, Le poste, le salaire
+        public void updateSalarie(){}
         public String showOrgannigramme()
         {
             return this.organigramme.ToString();
         }
-
-        /* 
-         * Cette methode construie un SalarieTree à partir de la liste de salariés 
-         */
+        /// <summary>
+        /// Cette methode construie/update l'organigramme à partir de la liste de salariés 
+        /// </summary>
         public void BuildSalariesTree()
         {
             Salarie CEO = this.Salaries.Find(x => x.Poste.NomPoste == "Directeur general");
@@ -137,10 +136,22 @@ namespace TransconnectProject.Controleur
 
         #region Clients
         //TODO
+        /// <summary>
+        /// this method show clients with or without "critère"
+        /// </summary>
         public void showClients()
         {
+        }
+        //TODO
+        public void addClient() { }
+        //TODO
+        public void deleteClient() { }
+        #endregion
 
-        }//with or without critère
+        #region Commandes
+        #endregion
+
+        #region Statistique
         #endregion
     }
 }

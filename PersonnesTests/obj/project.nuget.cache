@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "IHjvwi+EjIOy0UdSuya7GZsXiDzAmDCV4bnXDY/WCiz6+NJveCPVX7i4IWem0BPV8R+WJQH8CQLG9CNLQ//LfQ==",
+  "dgSpecHash": "qqrt2etrtZu6rBOqkvvQXscPvhwBFxsrTC/boaXM4trpgfBKZvSKtxxbBp/7EX7L5bDL5YjB6Bpgv1IeuN++NA==",
   "success": true,
   "projectFilePath": "/Users/e25286/Documents/devPerso/TransconnectProject/PersonnesTests/ProjectTests.csproj",
   "expectedPackageFiles": [
     "/Users/e25286/.nuget/packages/coverlet.collector/3.1.2/coverlet.collector.3.1.2.nupkg.sha512",
+    "/Users/e25286/.nuget/packages/csvhelper/30.0.1/csvhelper.30.0.1.nupkg.sha512",
     "/Users/e25286/.nuget/packages/microsoft.codecoverage/17.3.2/microsoft.codecoverage.17.3.2.nupkg.sha512",
     "/Users/e25286/.nuget/packages/microsoft.net.test.sdk/17.3.2/microsoft.net.test.sdk.17.3.2.nupkg.sha512",
     "/Users/e25286/.nuget/packages/microsoft.netcore.platforms/1.1.0/microsoft.netcore.platforms.1.1.0.nupkg.sha512",

@@ -42,6 +42,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[30.0.1, )"
+            },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[17.3.2, )"
@@ -121,6 +125,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[30.0.1, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.2, )"

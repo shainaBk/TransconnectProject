@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "C9tUqt3rqLn5zOVE86v2yxikjnefFgqel9VB+8A0P/2CseEEJjVFbaYJ5udmYme8iAIsY5dNflY5A/vn36nTAw==",
+  "dgSpecHash": "2wGZ8gWFjZF4+CM9B7oQYhiHEsDhKR5qqnlIhMjvCT6bq+OLqVo7L1mCUS4eWY7WSYc1Ic/ZD6Mu0hECPmuy8Q==",
   "success": true,
   "projectFilePath": "/Users/e25286/Documents/devPerso/TransconnectProject/TransconnectProject/TransconnectProject.csproj",
   "expectedPackageFiles": [
+    "/Users/e25286/.nuget/packages/csvhelper/30.0.1/csvhelper.30.0.1.nupkg.sha512",
     "/Users/e25286/.nuget/packages/newtonsoft.json/13.0.2/newtonsoft.json.13.0.2.nupkg.sha512"
   ],
   "logs": []
