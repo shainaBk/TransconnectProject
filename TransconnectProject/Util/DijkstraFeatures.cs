@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Drawing;
+using System.Globalization;
+using CsvHelper;
+
 namespace TransconnectProject.Util
 {
 	/*STEP
@@ -9,10 +13,6 @@ namespace TransconnectProject.Util
 	 * */
 	public class DijkstraFeatures
 	{
-		public DijkstraFeatures()
-		{
-		}
-
         /// <summary>
         /// This methode return the city with the lightweight node
         /// </summary>
@@ -33,17 +33,20 @@ namespace TransconnectProject.Util
             }
             return index;
         }
-		//TOTEST: ABSOLUMENT
+
+
 		/// <summary>
 		/// Dijkra algo
+        /// (showmode quand il faut afficher le chemin)
 		/// </summary>
 		/// <param name="arcs"></param>
 		/// <param name="villeDepart"></param>
 		/// <param name="listeVille"></param>
 		/// <param name="nombreVille"></param>
-		public static void Dijkstra(int[,]arcs ,string villeDepart, string[]listeVille, int nombreVille)
+		public static int Dijkstra(int[,]arcs ,string villeDepart,string villeArrive, HashSet<string> listeVille,bool PathMode)
 		{
 			//Distance depuis villeDepart
+			int nombreVille = listeVille.Count();
 			Dictionary<string, string> cityParent = new Dictionary<string, string>(nombreVille); ;
 			Dictionary<string, int> Distance = new Dictionary<string, int>(nombreVille);
             Dictionary<string, bool> ShortestPathProcessed = new Dictionary<string, bool>(nombreVille);
@@ -57,35 +60,103 @@ namespace TransconnectProject.Util
 
 			Distance[villeDepart] = 0;
 
-			for(int u=0;u<nombreVille;u++)//peut-être nombreville-1
+			for(int count=0;count<nombreVille-1;count++)//peut-être nombreville-1
 			{
-				string lightweightCity = getMinDistanceInd(Distance, ShortestPathProcessed);
-				ShortestPathProcessed[lightweightCity] = true;
+				string lightweightCity = getMinDistanceInd(Distance, ShortestPathProcessed);//c'est sensé etre u ! //TODO: getMinDistanceInd return u
+                ShortestPathProcessed[lightweightCity] = true;
 
-                for(int v=0;v<nombreVille;v++)
-                {
-					if (!ShortestPathProcessed.ElementAt(v).Value && Convert.ToBoolean(arcs[u,v]) && Distance.ElementAt(u).Value != int.MaxValue && Distance.ElementAt(u).Value+ arcs[u, v] < Distance.ElementAt(u).Value)//Convert.ToBoolean(arcs[u,v]) false si 0
+                int u = Array.IndexOf(Distance.Keys.ToArray(), lightweightCity);
+
+                for (int v = 0; v < nombreVille; v++) { 
+
+                    if (!ShortestPathProcessed.ElementAt(v).Value && Convert.ToBoolean(arcs[u,v]) && (Distance.ElementAt(u).Value != int.MaxValue)&&(arcs[u, v]!=int.MaxValue) && (Distance.ElementAt(u).Value+ arcs[u, v] < Distance.ElementAt(v).Value))//Convert.ToBoolean(arcs[u,v]) false si 0
                     {
-						Distance[Distance.ElementAt(u).Key] = Distance.ElementAt(u).Value + arcs[u, v];
-						cityParent[Distance.ElementAt(u).Key] = Distance.ElementAt(v).Key;
+						Distance[Distance.ElementAt(v).Key] = Distance.ElementAt(u).Value + arcs[u, v];
+						cityParent[Distance.ElementAt(v).Key] = Distance.ElementAt(u).Key;
                     }
 
                 }
             }
-        }
-	}
+			if (PathMode)
+			{
+                Console.WriteLine("\n" + Distance[villeArrive] + "Km entre " + villeDepart + " et " + villeArrive + " !!");
+                Console.WriteLine();
+                string currentDad = villeArrive;
+                Console.Write("Chemin: " + villeArrive + " <-- ");
 
-	public class PathCityWriter
+                do
+                {
+                    currentDad = cityParent[currentDad];
+                    if (currentDad == null) break;
+                    if (currentDad == villeDepart)
+                        Console.Write(currentDad);
+                    else
+                        Console.Write(currentDad + " <-- ");
+                } while (currentDad != null);
+
+            }
+            return Distance[villeArrive];
+        }
+		//ordered dictionnary
+		
+    }
+	/// <summary>
+	/// This class build a "path" object 
+	/// </summary>
+	public class PathCity
 	{
-		private string cityA;
-        private string cityB;
-        private int distance;
+		private string cityA;//From
+        private string cityB;//To
+        private int distance;//KM
 
 		public string CityA { get => this.cityA; set => cityA = value; }
 		public string CityB { get => this.cityB; set => cityB = value; }
 		public int Distance { get => this.distance; set => distance = value; }
-
-
 	}
+	public class PathCityWritter
+	{
+		private List<PathCity> pathList;
+		private HashSet<string> citiesList;
+		private int [,] pathMatrice;
+		private StreamReader reader = new StreamReader("../../../../TransconnectProject/serializationFiles/Distances.csv");
+		private CsvReader csv;
+
+        public PathCityWritter()
+        {
+			csv = new CsvReader(this.reader, CultureInfo.InvariantCulture);
+
+            #region BUILD PATH LIST
+            this.pathList = csv.GetRecords<PathCity>().ToList();
+            #endregion
+
+            #region BUILD CITIES LIST
+            this.citiesList = new HashSet<string>();
+            foreach (var item in pathList)
+            {
+                citiesList.Add(item.CityA);
+                citiesList.Add(item.CityB);
+            }
+            #endregion
+
+            #region BUILD MATRICE
+            this.pathMatrice = new int[citiesList.Count(), citiesList.Count()];
+            for (int i = 0; i < citiesList.Count(); i++)
+            {
+                for (int j = 0; j < citiesList.Count(); j++)
+                {
+                    if (citiesList.ElementAt(i) == citiesList.ElementAt(j))
+                        pathMatrice[i, j] = 0;
+                    else
+                    {
+                        var finder = pathList.Find(x => x.CityA.Equals(citiesList.ElementAt(i)) && x.CityB.Equals(citiesList.ElementAt(j)));
+
+                        pathMatrice[i, j] = finder != null ? finder.Distance : int.MaxValue;
+                    }
+                }
+            }
+            #endregion
+
+        }
+    }
 }
 

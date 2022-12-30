@@ -15,11 +15,14 @@ namespace TransconnectProject.Controleur
         private List<Salarie> salaries;
         private List<Client> clients;
         private SalarieTree organigramme;
+        //TODO: Implanter methode Dijskra
+        private PathCityWritter ptw;//dijskra tools
 
         public TransconnectControleur(List<Salarie> salaries)
         {
             this.salaries = salaries;
             this.organigramme = new SalarieTree(new SalarieNode(null));
+            ptw = new PathCityWritter();
         }
         public List<Salarie> Salaries { get => this.salaries; set => this.salaries = value; }
         public SalarieTree Organigramme { get => this.organigramme; set => this.organigramme = value; }
