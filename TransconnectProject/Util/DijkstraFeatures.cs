@@ -45,7 +45,8 @@ namespace TransconnectProject.Util
 		/// <param name="nombreVille"></param>
 		public static int Dijkstra(int[,]arcs ,string villeDepart,string villeArrive, HashSet<string> listeVille,bool PathMode)
 		{
-			//Distance depuis villeDepart
+            //Distance depuis villeDepart
+            bool noWay = false;
 			int nombreVille = listeVille.Count();
 			Dictionary<string, string> cityParent = new Dictionary<string, string>(nombreVille); ;
 			Dictionary<string, int> Distance = new Dictionary<string, int>(nombreVille);
@@ -77,9 +78,12 @@ namespace TransconnectProject.Util
 
                 }
             }
-			if (PathMode)
+
+            noWay = Distance[villeArrive] == int.MaxValue?true:false;//Si aucun chemin n'existe
+
+			if (PathMode && !noWay)
 			{
-                Console.WriteLine("\n" + Distance[villeArrive] + "Km entre " + villeDepart + " et " + villeArrive + " !!");
+                Console.WriteLine("\n"+Distance[villeArrive] + "Km entre " + villeDepart + " et " + villeArrive + " !!");
                 Console.WriteLine();
                 string currentDad = villeArrive;
                 Console.Write("Chemin: " + villeArrive + " <-- ");
@@ -89,11 +93,16 @@ namespace TransconnectProject.Util
                     currentDad = cityParent[currentDad];
                     if (currentDad == null) break;
                     if (currentDad == villeDepart)
-                        Console.Write(currentDad);
+                        Console.Write(currentDad+"\n");
                     else
                         Console.Write(currentDad + " <-- ");
                 } while (currentDad != null);
 
+            }
+            else if (noWay)
+            {
+                Console.WriteLine("Aucun chemin !");
+                return -1;
             }
             return Distance[villeArrive];
         }
@@ -109,24 +118,40 @@ namespace TransconnectProject.Util
         private string cityB;//To
         private int distance;//KM
 
-		public string CityA { get => this.cityA; set => cityA = value; }
+        public string CityA { get => this.cityA; set => cityA = value; }
 		public string CityB { get => this.cityB; set => cityB = value; }
 		public int Distance { get => this.distance; set => distance = value; }
-	}
-	public class PathCityWritter
-	{
-		private List<PathCity> pathList;
-		private HashSet<string> citiesList;
-		private int [,] pathMatrice;
-		private StreamReader reader = new StreamReader("../../../../TransconnectProject/serializationFiles/Distances.csv");
-		private CsvReader csv;
+
+        public override string ToString()
+        {
+            return cityA+" => "+Distance+" => "+cityB; 
+        }
+    }
+    public class PathCityWritter
+    {
+        private List<PathCity> pathList;
+        private HashSet<string> citiesList;
+        private int[,] pathMatrice;
+        private StreamReader reader = new StreamReader("../../../../TransconnectProject/serializationFiles/Distances.csv");
+        private CsvReader csv;
 
         public PathCityWritter()
         {
-			csv = new CsvReader(this.reader, CultureInfo.InvariantCulture);
+            csv = new CsvReader(this.reader, CultureInfo.InvariantCulture);
 
             #region BUILD PATH LIST
-            this.pathList = csv.GetRecords<PathCity>().ToList();
+            this.pathList = new List<PathCity>();
+            var temp = csv.GetRecords<PathCity>().ToList();
+            //Permet d'avoir des allers-retours
+            foreach (var item in temp)
+            {
+                PathCity p = new PathCity();
+                p.CityA = item.CityB;
+                p.CityB = item.CityA;
+                p.Distance = item.Distance;
+                pathList.Add(item);
+                pathList.Add(p);
+            }
             #endregion
 
             #region BUILD CITIES LIST
@@ -149,7 +174,6 @@ namespace TransconnectProject.Util
                     else
                     {
                         var finder = pathList.Find(x => x.CityA.Equals(citiesList.ElementAt(i)) && x.CityB.Equals(citiesList.ElementAt(j)));
-
                         pathMatrice[i, j] = finder != null ? finder.Distance : int.MaxValue;
                     }
                 }
@@ -157,6 +181,10 @@ namespace TransconnectProject.Util
             #endregion
 
         }
+        public int[,] PathMatrice { get => this.pathMatrice; }
+        public List<PathCity> PathList { get => this.pathList; }
+        public HashSet<string> CitiesList { get => this.citiesList; }
+
     }
 }
 

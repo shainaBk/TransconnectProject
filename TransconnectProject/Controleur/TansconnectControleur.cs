@@ -26,6 +26,7 @@ namespace TransconnectProject.Controleur
         }
         public List<Salarie> Salaries { get => this.salaries; set => this.salaries = value; }
         public SalarieTree Organigramme { get => this.organigramme; set => this.organigramme = value; }
+        public PathCityWritter Ptw { get => this.ptw;}
 
         #region Salaries
         public void deleteSalarie(string nom, string prenom)
@@ -152,6 +153,8 @@ namespace TransconnectProject.Controleur
         #endregion
 
         #region Commandes
+        //TODO
+        public void addCommande() { }
         #endregion
 
         #region Statistique

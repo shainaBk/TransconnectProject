@@ -2,78 +2,46 @@
 using CsvHelper;
 using System.Globalization;
 using TransconnectProject.Util;
+using TransconnectProject.Controleur;
 namespace ProjectTests
 {
     public class UnitsTestCommandesModule
     {
+        private TransconnectControleur controleur;
         [SetUp]
         public void setup()
         {
+            controleur = new TransconnectControleur(null);
         }
 
         //TODO: continue
         [Test]
-        public void Dijstrafeaturetest()
+        public void DijstrafeatureTest()
         {
-            using (var reader = new StreamReader("../../../../TransconnectProject/serializationFiles/Distances.csv"))
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-            {
-                //RECUPERATION TOUT LES CHEMINS
-                var records = csv.GetRecords<PathCity>();
-                //Console.WriteLine("there " + records.ElementAt(0).CityA);
-                var recordsList = records.ToList();
-                /*Console.WriteLine(recordsList.Count());
-                Console.WriteLine("there2 " + recordsList[0].CityA);
-                Console.WriteLine("there3 " + recordsList[recordsList.Count()-1].CityA);*/
+            //Direct
+            var km = DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Paris", "Marseille", controleur.Ptw.CitiesList, true);
+            Assert.AreEqual(777, km);
+            km = DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Marseille", "Paris", controleur.Ptw.CitiesList, true);
+            Assert.AreEqual(777, km);
 
-                //ADD TOUTES LES VILLES
-                HashSet<string> hashListePtsA = new HashSet<string>();
-                List<string> listePtsA = new List<string>();
-                foreach(var item in recordsList)
-                {
-                    hashListePtsA.Add(item.CityA);
-                    hashListePtsA.Add(item.CityB);
-                }
-                //A
-                //Console.WriteLine(listePtsA.Count());
-                foreach (var item in hashListePtsA)
-                {
-                  //  Console.WriteLine(item);
-                }
-                int size = hashListePtsA.Count();
-                //Console.WriteLine(hashListePtsA.Count());
+            km = DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Paris", "Pau", controleur.Ptw.CitiesList, true);
+            Assert.AreEqual(791, km);
+            km = DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Pau", "Paris", controleur.Ptw.CitiesList, true);
+            Assert.AreEqual(791, km);
 
-                //CREATE MATRICE
-                int[,] matrice = new int[size,size];
-                for (int i = 0; i < size; i++)
-                {
-                    for (int j = 0; j < size; j++)
-                    {
-                        if (hashListePtsA.ElementAt(i) == hashListePtsA.ElementAt(j))
-                            matrice[i, j] = 0;
-                        else
-                        {
-                            var finder = recordsList.Find(x => x.CityA.Equals(hashListePtsA.ElementAt(i)) && x.CityB.Equals(hashListePtsA.ElementAt(j)));
+            km = DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Toulon", "Monaco", controleur.Ptw.CitiesList, true);
+            Assert.AreEqual(169, km);
+            km = DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Monaco", "Toulon", controleur.Ptw.CitiesList, true);
+            Assert.AreEqual(169, km);
 
-                            matrice[i, j] = finder != null ? finder.Distance : int.MaxValue;
-                        }
-                    }
-                }
+            km = DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Biarritz", "Toulouse", controleur.Ptw.CitiesList, true);
+            Assert.AreEqual(309, km);
+            km = DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Biarritz", "Toulouse", controleur.Ptw.CitiesList, true);
+            Assert.AreEqual(309, km);
 
-                /* for (int i = 0; i < size; i++)
-                 {
-                     for (int j = 0; j < size; j++)
-                     {
-                         Console.Write(hashListePtsA.ElementAt(i)+" => " + matrice[i,j] +" => "+hashListePtsA.ElementAt(j)+" -- ");
-                     }
-                     Console.WriteLine();
-                 }*/
-
-                //TEST DISKRA
-
-                DijkstraFeatures.Dijkstra(matrice, "Paris", "Bordeaux", hashListePtsA,true);
-            }
-
+            //Indirect
+            DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Paris", "Toulon", controleur.Ptw.CitiesList, true);
+            DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Paris", "La Rochelle", controleur.Ptw.CitiesList, true);
         }
     }
 }

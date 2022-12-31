@@ -1,20 +1,18 @@
 ﻿<Properties StartupConfiguration="{D1B5F1A2-4A02-4FB7-A1C3-A82F8D91968A}|Default">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="PersonnesTests/UnitsTestCommandesModule.cs">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workbench ActiveDocument="TransconnectProject/Util/DijkstraFeatures.cs">
     <Files>
-      <File FileName="TransconnectProject/Util/DijkstraFeatures.cs" />
-      <File FileName="PersonnesTests/UnitTestPersonneModule.cs" />
-      <File FileName="PersonnesTests/UnitsTestCommandesModule.cs" Line="14" Column="17" />
+      <File FileName="TransconnectProject/Util/DijkstraFeatures.cs" Line="89" Column="48" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="TransconnectProject" expanded="True">
-            <Node name="ProjectTests" expanded="True" />
+            <Node name="ProjectTests" expanded="True">
+              <Node name="UnitsTestCommandesModule.cs" selected="True" />
+            </Node>
             <Node name="TransconnectProject" expanded="True">
+              <Node name="Controleur" expanded="True" />
               <Node name="serializationFiles" expanded="True" />
               <Node name="Util" expanded="True" />
             </Node>
@@ -28,7 +26,10 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.ItemProperties.TransconnectProject PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
