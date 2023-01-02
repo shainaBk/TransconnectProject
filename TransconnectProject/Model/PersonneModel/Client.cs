@@ -2,6 +2,8 @@
 using System.Runtime.Serialization;
 using TransconnectProject.Util;
 using TransconnectProject.Model.CommandeModel;
+using TransconnectProject.Model.ProduitModel;
+using TransconnectProject.Model.VehiculeModel;
 
 namespace TransconnectProject.Model
 {
@@ -16,13 +18,17 @@ namespace TransconnectProject.Model
             this.commandes = new List<Commande>();
             this.achatCumulle = 0;
         }
+        public string Ville { get => this.adressePostal.Ville; }
         public double AchatCumulle { get => this.achatCumulle;}
-        public List<Commande> CommandesClient { get => this.CommandesClient; set => this.commandes = value;}
+        public List<Commande> CommandesClient { get => this.commandes; set => this.commandes = value;}
 
         /// <summary>
         /// Effectuer une commande
         /// </summary>
-        public void doOrder() { }
+        //TOTEST
+        public void doOrder(string from,Produit produit, int quantite,Salarie chauffeur,Vehicule vehicule,DateTime?dateLiv=null) {
+            this.commandes.Add(new Commande(this,chauffeur,vehicule,produit,quantite, from,dateDeLivraison:dateLiv));
+        }
     }
 }
 

@@ -43,10 +43,16 @@ namespace TransconnectProject.Model
             }
             return false;
         }
+        //TOTEST
+        public int getEncienneteEnjours()
+        {
+            var today = DateTime.Now;
+            return (today - this.dateArrive).Days;
+        }
 
         public override string ToString()
         {
-            return this.poste.NomPoste + ": " + this.Nom + " " + this.Prenom;
+            return "["+this.poste.NomPoste + "] " + this.Nom + " " + this.Prenom;
         }
 
 

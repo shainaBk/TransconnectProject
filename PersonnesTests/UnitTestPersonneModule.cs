@@ -63,6 +63,13 @@ namespace ProjectsTests
            
         }
         [Test]
+        public void SalarieTest()
+        {
+            //Salarie getEncienneteEnjours
+            Assert.AreEqual(361,ceo.getEncienneteEnjours());
+            //Console.WriteLine(ceo.getEncienneteEnjours()*0.015);
+        }
+        [Test]
         public void ControleurTest()
         {
             #region addSalarie()

@@ -43,7 +43,7 @@ namespace TransconnectProject.Util
 		/// <param name="villeDepart"></param>
 		/// <param name="listeVille"></param>
 		/// <param name="nombreVille"></param>
-		public static int Dijkstra(int[,]arcs ,string villeDepart,string villeArrive, HashSet<string> listeVille,bool PathMode)
+		public static int Dijkstra(int[,]arcs ,string villeDepart,string villeArrive, HashSet<string> listeVille,bool PathMode,PathCityWritter ptw = null)
 		{
             //Distance depuis villeDepart
             bool noWay = false;
@@ -78,32 +78,45 @@ namespace TransconnectProject.Util
 
                 }
             }
-
+            string outString = "";
             noWay = Distance[villeArrive] == int.MaxValue?true:false;//Si aucun chemin n'existe
-
 			if (PathMode && !noWay)
 			{
-                Console.WriteLine("\n"+Distance[villeArrive] + "Km entre " + villeDepart + " et " + villeArrive + " !!");
-                Console.WriteLine();
+                /*Console.WriteLine("\n"+Distance[villeArrive] + "Km entre " + villeDepart + " et " + villeArrive + " !!");
+                Console.WriteLine();*/
                 string currentDad = villeArrive;
-                Console.Write("Chemin: " + villeArrive + " <-- ");
-
+                //Console.Write("Chemin: " + villeArrive + " <-- ");
+                //output part
+                outString = "\n" + Distance[villeArrive] + "Km entre " + villeDepart + " et " + villeArrive + " !!\n Chemin: " + villeArrive + " <-- ";
                 do
                 {
                     currentDad = cityParent[currentDad];
                     if (currentDad == null) break;
                     if (currentDad == villeDepart)
-                        Console.Write(currentDad+"\n");
+                    {
+                        //Console.Write(currentDad + "\n");
+                        //output part
+                        outString += currentDad;
+                    }
                     else
-                        Console.Write(currentDad + " <-- ");
+                    {
+                        //Console.Write(currentDad + " <-- ");
+                        //output part
+                        outString += currentDad + " <-- ";
+                    }
+                       
                 } while (currentDad != null);
-
             }
             else if (noWay)
             {
                 Console.WriteLine("Aucun chemin !");
+                outString = "Aucun chemin !";
                 return -1;
             }
+
+            if (ptw != null)
+                ptw.CurrentPath = outString;
+
             return Distance[villeArrive];
         }
 		//ordered dictionnary
@@ -134,9 +147,11 @@ namespace TransconnectProject.Util
         private int[,] pathMatrice;
         private StreamReader reader = new StreamReader("../../../../TransconnectProject/serializationFiles/Distances.csv");
         private CsvReader csv;
+        private string currentPath;//dernier chemin generé
 
         public PathCityWritter()
         {
+            currentPath = "Vide, veuillez generer le chemin";
             csv = new CsvReader(this.reader, CultureInfo.InvariantCulture);
 
             #region BUILD PATH LIST
@@ -181,6 +196,7 @@ namespace TransconnectProject.Util
             #endregion
 
         }
+        public string CurrentPath { get => this.currentPath; set => this.currentPath = value; }
         public int[,] PathMatrice { get => this.pathMatrice; }
         public List<PathCity> PathList { get => this.pathList; }
         public HashSet<string> CitiesList { get => this.citiesList; }

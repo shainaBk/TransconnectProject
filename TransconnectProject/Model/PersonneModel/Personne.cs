@@ -9,7 +9,7 @@ namespace TransconnectProject.Model
         [DataMember] private string nom;
         [DataMember] private string prenom;
         [DataMember] private DateTime dob;//Date de naissance
-        [DataMember] private Adresse adressePostal;
+        [DataMember] protected Adresse adressePostal;
         [DataMember] private string mail;//(otional) add validator method
         [DataMember] private string telNum;//(optional) add validator method
 
