@@ -9,7 +9,7 @@ namespace TransconnectProject.Model.PosteModel
 {
     public class DirecteurDesOps : Poste
     {
-        public DirecteurDesOps() : base("Directeur des opérations", new DepDesOps(), 7000)
+        public DirecteurDesOps() : base("Directeur des operations", new DepDesOps(), 7000)
         {
         }
     }

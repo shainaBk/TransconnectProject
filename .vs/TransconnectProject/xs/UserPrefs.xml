@@ -1,10 +1,21 @@
 ﻿<Properties StartupConfiguration="{D1B5F1A2-4A02-4FB7-A1C3-A82F8D91968A}|Default">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.Workbench ActiveDocument="TransconnectProject/serializationFiles/Distances.csv">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TransconnectProject/Model/DepartementModel/DepDesOps.cs">
     <Files>
-      <File FileName="TransconnectProject/Util/DijkstraFeatures.cs" Line="102" Column="18" />
-      <File FileName="PersonnesTests/UnitsTestCommandesModule.cs" Line="27" Column="77" />
-      <File FileName="TransconnectProject/serializationFiles/Distances.csv" Line="10" Column="22" />
+      <File FileName="TransconnectProject/Util/DijkstraFeatures.cs" />
+      <File FileName="TransconnectProject/Program.cs" />
+      <File FileName="TransconnectProject/Controleur/TansconnectControleur.cs" Line="74" Column="40" />
+      <File FileName="TransconnectProject/Model/PersonneModel/Salarie.cs" />
+      <File FileName="TransconnectProject/Model/PersonneModel/Client.cs" />
+      <File FileName="TransconnectProject/Util/JsonUtil.cs" />
+      <File FileName="PersonnesTests/UnitsTestCommandesModule.cs" />
+      <File FileName="TransconnectProject/serializationFiles/initMano.txt" />
+      <File FileName="TransconnectProject/Model/PosteModel/Chauffeur.cs" />
+      <File FileName="TransconnectProject/Model/DepartementModel/DepDesOps.cs" Line="7" Column="10" />
+      <File FileName="TransconnectProject/serializationFiles/Salaries.json" Line="1800" Column="1" />
+      <File FileName="TransconnectProject/Model/PosteModel/DirecteurDesOps.cs" />
+      <File FileName="TransconnectProject/Util/Node.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -12,12 +23,23 @@
           <Node name="TransconnectProject" expanded="True">
             <Node name="ProjectTests" expanded="True" />
             <Node name="TransconnectProject" expanded="True">
-              <Node name="Controleur" expanded="True" />
+              <Node name="Controleur" expanded="True">
+                <Node name="CritereClients" expanded="True" />
+              </Node>
+              <Node name="Model" expanded="True">
+                <Node name="CommandeModel" expanded="True" />
+                <Node name="DepartementModel" expanded="True" />
+                <Node name="PersonneModel" expanded="True" />
+                <Node name="PosteModel" expanded="True" />
+              </Node>
               <Node name="serializationFiles" expanded="True" />
               <Node name="Util" expanded="True" />
             </Node>
           </Node>
         </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
       </Pad>
       <Pad Id="MonoDevelop.UnitTesting.TestPad">
         <State name="__root__">
@@ -26,10 +48,9 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.ItemProperties.TransconnectProject PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

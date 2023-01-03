@@ -52,7 +52,7 @@ namespace TransconnectProject.Model
 
         public override string ToString()
         {
-            return "["+this.poste.NomPoste + "] " + this.Nom + " " + this.Prenom;
+            return "["+this.poste.NomPoste + "] " + base.ToString();
         }
 
 

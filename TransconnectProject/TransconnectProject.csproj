@@ -17,10 +17,12 @@
     <None Remove="Model\VehiculeModel\" />
     <None Remove="CsvHelper" />
     <None Remove="Model\ProduitModel\" />
+    <None Remove="Controleur\CritereClients\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\CommandeModel\" />
     <Folder Include="Model\VehiculeModel\" />
     <Folder Include="Model\ProduitModel\" />
+    <Folder Include="Controleur\CritereClients\" />
   </ItemGroup>
 </Project>

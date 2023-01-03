@@ -35,6 +35,14 @@ namespace TransconnectProject.Util
             var jsonTest = JsonConvert.SerializeObject(list);
             File.WriteAllText(@"../../../../TransconnectProject/serializationFiles/Salaries.json", jsonTest);
         }
+
+
+
+        public static void sendJsonClients(List<Client> list)
+        {
+            var jsonTest = JsonConvert.SerializeObject(list);
+            File.WriteAllText(@"../../../../TransconnectProject/serializationFiles/Clients.json", jsonTest);
+        }
     }
 
     #region Convertisseur Obj
@@ -90,8 +98,30 @@ namespace TransconnectProject.Util
             if (FieldExists(jObject, "NomPoste", "Chauffeur"))
                 return new Chauffeur();
             //It's bullshit
-            else
-                return new Poste();
+            else if (FieldExists(jObject, "NomPoste", "Chef d'équipe"))
+                return new ChefEquipe();
+            else if (FieldExists(jObject, "NomPoste", "Directeur des operations"))
+                return new DirecteurDesOps();
+            else if (FieldExists(jObject, "NomPoste", "Comptable"))
+                return new Comptable();
+            else if (FieldExists(jObject, "NomPoste", "Commercial"))
+                return new Commercial();
+            else if (FieldExists(jObject, "NomPoste", "Contrat"))
+                return new Contrat();
+            else if (FieldExists(jObject, "NomPoste", "Controleur de gestion"))
+                return new ControleurDeGestion();
+            else if (FieldExists(jObject, "NomPoste", "Directeur commercial"))
+                return new DirecteurCommercial();
+            else if (FieldExists(jObject, "NomPoste", "Directeur financier"))
+                return new DirecteurFinancier();
+            else if (FieldExists(jObject, "NomPoste", "Directeur general"))
+                return new DirecteurGeneral();
+            else if (FieldExists(jObject, "NomPoste", "Directeur RH"))
+                return new DirecteurRH();
+            else if (FieldExists(jObject, "NomPoste", "Direction comptable"))
+                return new DirectionComptable();
+            else if (FieldExists(jObject, "NomPoste", "Formation"))
+                return new Formation();
             throw new InvalidOperationException();
         }
     }

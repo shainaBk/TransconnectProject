@@ -4,12 +4,16 @@ using TransconnectProject.Util;
 using TransconnectProject.Controleur;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using TransconnectProject.Controleur.CritereClients;
+using TransconnectProject.Model.ProduitModel;
+using TransconnectProject.Model.VehiculeModel;
 
 namespace ProjectsTests
 {
     public class PersonnesTests
     {
         private Personne p1;
+        
         private Salarie p2;
         private Salarie p3;
         private Salarie p4;
@@ -26,6 +30,12 @@ namespace ProjectsTests
         private Salarie emp2;
         private Salarie subEmp3;
 
+        private TransconnectControleur controler3;
+        private Client client1;
+        private Client client2;
+        private Client client3;
+        private Client client4;
+
 
 
         [SetUp]
@@ -36,7 +46,15 @@ namespace ProjectsTests
             p2 = new Salarie("Lapin", "Catarina", new DateTime(2001, 03, 11), new Adresse("Madrid", "la casa de papel"), "Cata@hotmail.com", "07536984025", new DateTime(2022, 01, 06), new ChefEquipe(), new List<Salarie> { p3 });
             p4 = new Salarie("LePain", "Jean Pierre", new DateTime(2001, 03, 11), new Adresse("Paris", "6 rue jean bouins"), "JP@hotmail.com", "0765629493", new DateTime(2022, 01, 06), new Chauffeur(), new List<Salarie>());
             p6 = new Salarie("LePain2", "Jean Pierre2", new DateTime(2001, 03, 11), new Adresse("Paris", "6 rue jean bouins"), "JP@hotmail.com", "0765629493", new DateTime(2022, 01, 06), new Chauffeur(), new List<Salarie>());
+
             p5 = new Salarie("Vanackor", "Coco", new DateTime(2001, 03, 11), new Adresse("Paris", "6 rue jean bouins"), "JP@hotmail.com", "0765629493", new DateTime(2022, 01, 06), new Chauffeur(), new List<Salarie>());
+
+            client1 = new Client("Ronaldo", "Cristiano", new DateTime(2001, 03, 11), new Adresse("Paris", "Los pequenos y pequenas"), "messi@hotmail.com", "0658497123");
+            client3 = new Client("ABS", "ab", new DateTime(2001, 03, 11), new Adresse("Marseille", "Los pequenos y pequenas"), "messi@hotmail.com", "0658497123");
+            client2 = new Client("CL2", "c2", new DateTime(2001, 03, 11), new Adresse("Bordeaux", "Los pequenos y pequenas"), "messi@hotmail.com", "0658497123");
+            client4 = new Client("CL3", "c1", new DateTime(2001, 03, 11), new Adresse("Bordeaux", "Los pequenos y pequenas"), "messi@hotmail.com", "0658497123");
+
+
             listSalarie.Add(p2); listSalarie.Add(p3);
             controler = new TransconnectControleur(listSalarie);
 
@@ -47,6 +65,13 @@ namespace ProjectsTests
             ceo = new Salarie("Messi", "Lionnel", new DateTime(2001, 03, 11), new Adresse("Buenas Aires", "Los pequenos y pequenas"), "messi@hotmail.com", "0658497123", new DateTime(2022, 01, 06),new DirecteurGeneral(), new List<Salarie> { emp1 });
             listSalarie2.Add(ceo);listSalarie2.Add(emp1);listSalarie2.Add(subEmp3);
             controler2 = new TransconnectControleur(listSalarie2);
+
+
+
+            List<Client> clients = new List<Client> { client1, client2, client3 };
+            List<Salarie> salaries = new List<Salarie> { p5};
+            controler3 = new TransconnectControleur(null, clients);
+
         }
 
         [Test]
@@ -126,6 +151,32 @@ namespace ProjectsTests
             //Console.WriteLine("\n"+tree.ToString());
 
             
+        }
+        [Test]
+        public void clientMODULEtest()
+        {
+            Produit choco = new Produit("chocolat", 3);
+            List<ICritere> listCriteres = new List<ICritere> { new OrdreAlphaCritere(), new OrdreVilleCritere(), new OrdreMontantCumule() };
+            client1.doOrder("Paris", choco, 39, p4, new Voiture(5), dateLiv: new DateTime(2024, 03, 20));
+            client2.doOrder("Paris", choco, 39, p4, new Voiture(5), dateLiv: new DateTime(2024, 04, 20));
+            client2.doOrder("Paris", choco, 39, p4, new Voiture(5), dateLiv: new DateTime(2024, 05, 20));
+
+            //showorder PART
+            //WORK
+            Console.WriteLine("First\n");
+            controler3.showClients();
+            Console.WriteLine("\nSecond\n");
+            controler3.showClients(false, listCriteres);
+            Console.WriteLine("\nThrird\n");
+            controler3.showClients(true, listCriteres);
+
+            //addclient PART
+            //WORK
+            controler3.addClient(client4);
+
+            //deleteclient PART
+            //WORK
+            controler3.deleteClient("Ronaldo", "Cristiano");
         }
     }
 }

@@ -27,7 +27,24 @@ namespace TransconnectProject.Model
         /// </summary>
         //TOTEST
         public void doOrder(string from,Produit produit, int quantite,Salarie chauffeur,Vehicule vehicule,DateTime?dateLiv=null) {
-            this.commandes.Add(new Commande(this,chauffeur,vehicule,produit,quantite, from,dateDeLivraison:dateLiv));
+            Commande c = new Commande(this, chauffeur, vehicule, produit, quantite, from, dateDeLivraison: dateLiv);
+            this.commandes.Add(c);
+            this.achatCumulle += c.Prix;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return this.Equals(obj as Client);
+        }
+        public bool Equals(Client obj)
+        {
+            if (obj != null)
+            {
+                if (this.Nom == obj.Nom && this.Prenom == obj.Prenom && this.Dob.ToString("d") == obj.Dob.ToString("d"))
+                    return true;
+                return false;
+            }
+            return false;
         }
     }
 }
