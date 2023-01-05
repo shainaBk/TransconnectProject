@@ -19,6 +19,7 @@ namespace TransconnectProject.Model
             this.achatCumulle = 0;
         }
         public string Ville { get => this.adressePostal.Ville; }
+        public Adresse Adresse { get => this.adressePostal; set => this.adressePostal = value; }
         public double AchatCumulle { get => this.achatCumulle;}
         public List<Commande> CommandesClient { get => this.commandes; set => this.commandes = value;}
 

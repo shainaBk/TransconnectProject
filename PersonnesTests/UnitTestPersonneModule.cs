@@ -177,6 +177,15 @@ namespace ProjectsTests
             //deleteclient PART
             //WORK
             controler3.deleteClient("Ronaldo", "Cristiano");
+
+            //UpdateClient PART
+            Console.WriteLine("Update\n");
+            controler3.showClients();
+            controler3.updateClient("ABS", "ab");
+            Console.WriteLine("\nUpdate2\n");
+            controler3.showClients();
+
+
         }
     }
 }

@@ -1344,19 +1344,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/e25286/.nuget/packages/": {}
+    "/Users/shainaBk/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/e25286/Documents/devPerso/TransconnectProject/PersonnesTests/ProjectTests.csproj",
+      "projectUniqueName": "/Users/shainaBk/Projects/TransconnectProject/PersonnesTests/ProjectTests.csproj",
       "projectName": "ProjectTests",
-      "projectPath": "/Users/e25286/Documents/devPerso/TransconnectProject/PersonnesTests/ProjectTests.csproj",
-      "packagesPath": "/Users/e25286/.nuget/packages/",
-      "outputPath": "/Users/e25286/Documents/devPerso/TransconnectProject/PersonnesTests/obj/",
+      "projectPath": "/Users/shainaBk/Projects/TransconnectProject/PersonnesTests/ProjectTests.csproj",
+      "packagesPath": "/Users/shainaBk/.nuget/packages/",
+      "outputPath": "/Users/shainaBk/Projects/TransconnectProject/PersonnesTests/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/e25286/.nuget/NuGet/NuGet.Config"
+        "/Users/shainaBk/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -1368,8 +1368,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "/Users/e25286/Documents/devPerso/TransconnectProject/TransconnectProject/TransconnectProject.csproj": {
-              "projectPath": "/Users/e25286/Documents/devPerso/TransconnectProject/TransconnectProject/TransconnectProject.csproj"
+            "/Users/shainaBk/Projects/TransconnectProject/TransconnectProject/TransconnectProject.csproj": {
+              "projectPath": "/Users/shainaBk/Projects/TransconnectProject/TransconnectProject/TransconnectProject.csproj"
             }
           }
         }

@@ -28,7 +28,7 @@ namespace TransconnectProject.Controleur
             this.salaries = salaries;
             this.organigramme = new SalarieTree(new SalarieNode(null));
             ptw = new PathCityWritter();
-            BuildSalariesTree();//ATENTION POUR LE BIEN DE CERTAINS TESTS UNITS RETIRER
+            //BuildSalariesTree();//ATENTION POUR LE BIEN DE CERTAINS TESTS UNITS RETIRER
         }
         public List<Salarie> Salaries { get => this.salaries; set => this.salaries = value; }
         public List<Client> Clients { get => this.clients; set => this.clients = value; }
@@ -349,6 +349,40 @@ namespace TransconnectProject.Controleur
                 Console.WriteLine("\nLe client " + nom + " " + prenom + " n'est pas dans notre base de donnée");
 
 
+        }
+        public void updateClient(string nom, string prenom)
+        {
+            Client toUpdate = this.clients.Find(x => x.Nom.Equals(nom) && x.Prenom.Equals(prenom));
+            if (toUpdate != null)
+            {
+                Console.WriteLine("1.Modifier Nom et prénom\n2.Modifier adresse\n3.Exit");
+                int choose = int.Parse(Console.ReadLine());
+                while (choose > 0 && choose < 3)
+                {
+                    switch (choose)
+                    {
+                        case 1:
+                            Console.WriteLine("\nVeuillez entrer le prenom du client: ");
+                            String firstname = Console.ReadLine();
+                            Console.WriteLine("\nVeuillez entrer le nom du client: ");
+                            String lastname = Console.ReadLine();
+                            toUpdate.Prenom = firstname;
+                            toUpdate.Nom = lastname;
+                            Console.WriteLine("\nNom et prénom modifiés !");
+                            break;
+                        case 2:
+                            Console.WriteLine("\nVeuillez saisir le nom de la ville:");
+                            string ville = Console.ReadLine();
+                            Console.WriteLine("\nVeuillez saisir le nom de la rue");
+                            string rue = Console.ReadLine();
+                            Adresse newAd = new Adresse(ville,rue);
+                            Console.WriteLine("\nAdresse modifié !");
+                            break;
+                    }
+                }
+            }
+            else
+                Console.WriteLine("\nLe client que vous voulez modifier n'est pas dans notre BD");
         }
         #endregion
 
