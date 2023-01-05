@@ -28,7 +28,7 @@ namespace TransconnectProject.Controleur
             this.salaries = salaries;
             this.organigramme = new SalarieTree(new SalarieNode(null));
             ptw = new PathCityWritter();
-            BuildSalariesTree();
+            BuildSalariesTree();//ATENTION POUR LE BIEN DE CERTAINS TESTS UNITS RETIRER
         }
         public List<Salarie> Salaries { get => this.salaries; set => this.salaries = value; }
         public List<Client> Clients { get => this.clients; set => this.clients = value; }
@@ -46,22 +46,36 @@ namespace TransconnectProject.Controleur
             var toDelete = this.salaries.Find(x => x.Nom.Equals(nom) && x.Prenom.Equals(prenom));
             if (toDelete != null)
             {
+                //Pour liste controleur
+                List<Salarie> Dep = this.salaries.FindAll(x => x.Poste.NomPoste != "Directeur general" && x.Poste.Departement.NomDep.Equals(toDelete.Poste.Departement.NomDep) && x.Poste.getNumHierarchique() < toDelete.Poste.getNumHierarchique());
+                //pour organigramme
+                List<Salarie> DepViaCeo = this.salaries.Find((x) => x.Poste.NomPoste == "Directeur general").Employ.Find(x => x.Poste.Departement.NomDep.Equals(toDelete.Poste.Departement.NomDep)).Employ;
                 //CEO PART;
                 List<string> listeDic = new List<string> { "Directeur commercial", "Directeur des opérations", "Directeur financier", "Directeur RH" };
-
                 if (listeDic.Contains(toDelete.Poste.NomPoste))
                 {
                     this.salaries.Find(x => x.Poste.NomPoste == "Directeur general").Employ.Remove(toDelete);
                 }
-
-                //NORMAL EMPLOYÉS PART
-                List<Salarie> lesColegues = this.salaries.FindAll(x => x.Poste.NomPoste != "Directeur general" && x.Poste.Departement.NomDep.Equals(toDelete.Poste.Departement.NomDep) && x.Poste.getNumHierarchique() < toDelete.Poste.getNumHierarchique());
-                if (lesColegues != null)
+                else
                 {
-                    foreach (var item in lesColegues)
+                    //NORMAL EMPLOYÉS PART
+
+                    if (Dep != null)
                     {
-                        item.Employ.Remove(toDelete);
+                        foreach (var item in Dep)
+                        {
+                            item.Employ.Remove(toDelete);
+                        }
                     }
+                    if (DepViaCeo != null)
+                    {
+                        foreach (var item in DepViaCeo)
+                        {
+                            if (item.Employ.Contains(toDelete))
+                                item.Employ.Remove(toDelete);
+                        }
+                    }
+
                 }
                 this.salaries.Remove(toDelete);
 
@@ -87,45 +101,57 @@ namespace TransconnectProject.Controleur
         /// 
         /// </summary>
         /// <param name="s"></param>
-        //TODO: add conditoon chauffeurs
-
         public void addSalarie(Salarie s,string nomSuperieur, string prenomSuperieur)
         {
             if (!this.salaries.Contains(s))
             {
                 List<string> listeDic = new List<string> { "Directeur commercial", "Directeur des operations", "Directeur financier", "Directeur RH" };
+                //pour organigramme
+                List<Salarie> DepViaCeo = this.salaries.Find((x) => x.Poste.NomPoste == "Directeur general").Employ.Find(x=>x.Poste.Departement.NomDep.Equals(s.Poste.Departement.NomDep)).Employ;
+                //Pour liste controleur
                 List<Salarie> Dep = this.salaries.FindAll((x) => x.Poste.NomPoste!= "Directeur general"&&x.Poste.Departement.NomDep.Equals(s.Poste.Departement.NomDep));
                 //TOTEST
                 if (listeDic.Contains(s.Poste.NomPoste))
                 {
                     //Big boss
-                    this.salaries.Find(x => x.Poste.NomPoste == "Directeur general").Employ.Add(s);
+                    if (listeDic.Contains(s.Poste.NomPoste))
+                    {
+                        this.salaries.Find(x => x.Poste.NomPoste == "Directeur general").Employ.Add(s);
+                    }
+                   
 
                     //reste
                     if (Dep.Count == 0)
                         Console.WriteLine("none");
                     else
                     {
+                        //listControleur
                         foreach (Salarie item in Dep)
                         {
-                            if (item.Poste.getNumHierarchique() > s.Poste.getNumHierarchique())
+                            if (item.Poste.getNumHierarchique() - s.Poste.getNumHierarchique()==1)//N-1
                                 s.Employ.Add(item);
                         }
+
+                        //orga
+                        foreach (Salarie item in DepViaCeo)
+                        {
+                            if (item.Poste.getNumHierarchique() - s.Poste.getNumHierarchique()==1)
+                                s.Employ.Add(item);
+                        }
+
                     }
                     salaries.Add(s);
                 }
                 else
                 {
                     Salarie chef = Dep.Find(x => x.Nom == nomSuperieur && x.Prenom == prenomSuperieur);
+                    Salarie chefViaCeo = DepViaCeo.Find(x => x.Nom == nomSuperieur && x.Prenom == prenomSuperieur);
                     if (chef != null)
                     {
+                        //list
                         chef.Employ.Add(s);
-                        Console.WriteLine("there!!");
-                        foreach (var item in chef.Employ)
-                        {
-                            Console.WriteLine(item.ToString());
-                        }
-                        Console.WriteLine("end there");
+                        //orga
+                        chefViaCeo.Employ.Add(s);
                         salaries.Add(s);
                     }
                     else
@@ -155,35 +181,42 @@ namespace TransconnectProject.Controleur
         {
             //CEO PART;
             List<string> listeDic = new List<string> { "Directeur commercial", "Directeur des opérations", "Directeur financier", "Directeur RH" };
+            //pour organigramme
+            List<Salarie> DepViaCeo = this.salaries.Find((x) => x.Poste.NomPoste == "Directeur general").Employ.Find(x => x.Poste.Departement.NomDep.Equals(s.Poste.Departement.NomDep)).Employ;
             //TOTEST
-            if (listeDic.Contains(s.Poste.NomPoste))
-            {
-                this.salaries.Find(x => x.Poste.NomPoste == "Directeur general").Employ.Add(s);
-            }
+           
 
             //NORMAL EMPLOYÉS PART
             if (!this.salaries.Contains(s))
             {
-                /**to get only members of the same Departement**/
-                List<Salarie> Dep = salaries.FindAll((x) => x.Poste.Departement.NomDep.Equals(s.Poste.Departement.NomDep));
-                //Temporary
-                if (Dep.Count == 0)
-                    Console.WriteLine("none");
+                if (listeDic.Contains(s.Poste.NomPoste))
+                {
+                    this.salaries.Find(x => x.Poste.NomPoste == "Directeur general").Employ.Add(s);
+                }
                 else
                 {
-                    foreach (Salarie item in Dep)
+                    /**to get only members of the same Departement**/
+                    List<Salarie> Dep = salaries.FindAll((x) => x.Poste.Departement.NomDep.Equals(s.Poste.Departement.NomDep));
+                    //Temporary
+                    if (Dep.Count == 0)
+                        Console.WriteLine("none");
+                    else
                     {
-                        if (item.Poste.getNumHierarchique() < s.Poste.getNumHierarchique())
-                            item.Employ.Add(s);
-                        else if (item.Poste.getNumHierarchique() > s.Poste.getNumHierarchique())
+                        foreach (Salarie item in Dep)
                         {
-                            s.Employ.Add(item);
+                            if (item.Poste.getNumHierarchique() < s.Poste.getNumHierarchique())
+                                item.Employ.Add(s);
+                            else if (item.Poste.getNumHierarchique() > s.Poste.getNumHierarchique())
+                            {
+                                s.Employ.Add(item);
+                            }
                         }
                     }
                 }
+              
                 salaries.Add(s);
 
-            //JSON PART
+                //JSON PART
                 try
                 {
                     JsonUtil.sendJsonSalaries(this.salaries);
@@ -196,8 +229,8 @@ namespace TransconnectProject.Controleur
             }
             else
             {
-                Console.WriteLine("Le salarié "+s.Nom+" "+s.Prenom+" est déja dans nos base de données");
-            } 
+                Console.WriteLine("Le salarié " + s.Nom + " " + s.Prenom + " est déja dans nos base de données");
+            }
         }
 
         //TODO: modification Le nom, l’adresse, le mail, le téléphone, Le poste, le salaire
