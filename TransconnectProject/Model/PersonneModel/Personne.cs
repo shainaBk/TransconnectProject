@@ -28,6 +28,7 @@ namespace TransconnectProject.Model
         public string TelNum{ get=> this.telNum; set { this.telNum = value; } }
         public DateTime Dob { get=>this.dob.Date; set { this.dob = value; } }
 
+
         public override string ToString()
         {
             return this.nom+" "+this.prenom;

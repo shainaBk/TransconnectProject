@@ -1,1 +1,41 @@
-[{"commandes":[],"achatCumulle":0.0,"adressePostal":{"ville":"Marseille","rue":"Los pequenos y pequenas"},"nom":"ABS","prenom":"ab","dob":"2001-03-11T00:00:00","mail":"messi@hotmail.com","telNum":"0658497123"},{"commandes":[{"DateDeLivraison":"2024-04-20T00:00:00","Prix":523.96},{"DateDeLivraison":"2024-05-20T00:00:00","Prix":523.96}],"achatCumulle":1047.92,"adressePostal":{"ville":"Bordeaux","rue":"Los pequenos y pequenas"},"nom":"CL2","prenom":"c2","dob":"2001-03-11T00:00:00","mail":"messi@hotmail.com","telNum":"0658497123"},{"commandes":[],"achatCumulle":0.0,"adressePostal":{"ville":"Bordeaux","rue":"Los pequenos y pequenas"},"nom":"CL3","prenom":"c1","dob":"2001-03-11T00:00:00","mail":"messi@hotmail.com","telNum":"0658497123"}]
+[
+  {
+    "commandes": [],
+    "achatCumulle": 300.0,
+    "adressePostal": {
+      "ville": "Paris",
+      "rue": "4 allee manon des sources"
+    },
+    "nom": "Shaina",
+    "prenom": "Bakili",
+    "dob": "2001-03-11T00:00:00",
+    "mail": "shaina3322@hotmail.com",
+    "telNum": "0768698493"
+  },
+  {
+    "commandes": [],
+    "achatCumulle": 150.0,
+    "adressePostal": {
+      "ville": "Bordeaux",
+      "rue": "Los pequenos y pequenas"
+    },
+    "nom": "Albert",
+    "prenom": "Camus",
+    "dob": "2000-01-11T00:00:00",
+    "mail": "Camus@hotmail.com",
+    "telNum": "0658497123"
+  },
+  {
+    "commandes": [],
+    "achatCumulle": 100.0,
+    "adressePostal": {
+      "ville": "Bordeaux",
+      "rue": "Los pequenos y pequenas"
+    },
+    "nom": "Valentina",
+    "prenom": "Balerinna",
+    "dob": "1998-03-11T00:00:00",
+    "mail": "VB@hotmail.com",
+    "telNum": "0658497123"
+  }
+]

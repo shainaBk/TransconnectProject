@@ -7,6 +7,9 @@ using TransconnectProject.Model;
 using TransconnectProject.Model.PosteModel;
 using TransconnectProject.Util;
 using TransconnectProject.Controleur.CritereClients;
+using TransconnectProject.Model.ProduitModel;
+using TransconnectProject.Model.VehiculeModel;
+using TransconnectProject.Model.CommandeModel;
 
 namespace TransconnectProject.Controleur
 {
@@ -15,6 +18,7 @@ namespace TransconnectProject.Controleur
     {
         private List<Salarie> salaries;
         private List<Client> clients;
+        private List<Commande> commandes;
         private SalarieTree organigramme;
         //TODO: Implanter methode Dijskra
         private PathCityWritter ptw;//dijskra tools
@@ -25,6 +29,7 @@ namespace TransconnectProject.Controleur
                 this.clients = clients;
             else
                 this.clients = new List<Client>();
+            this.commandes = new List<Commande>();
             this.salaries = salaries;
             this.organigramme = new SalarieTree(new SalarieNode(null));
             ptw = new PathCityWritter();
@@ -236,11 +241,14 @@ namespace TransconnectProject.Controleur
         //TODO: modification Le nom, l’adresse, le mail, le téléphone, Le poste, le salaire
         public void updateSalarie(){}
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public String showOrgannigramme()
         {
             return this.organigramme.ToString();
         }
-
         /// <summary>
         /// Cette methode construie/update l'organigramme à partir de la liste de salariés 
         /// </summary>
@@ -272,9 +280,9 @@ namespace TransconnectProject.Controleur
                 {
                     foreach (var item in critères)
                     {
-                        Console.WriteLine("Votre critère num " + ind);
+                        Console.WriteLine("Votre critere numero " + ind+"\n");
                         this.clients.Sort((x, y) => item.operetaionTrie(x, y));
-                        Console.WriteLine("Liste des clients: ");
+                        Console.WriteLine("Liste des clients: \n");
                         foreach (var item2 in this.clients)
                         {
                             Console.WriteLine(item2.ToString());
@@ -286,11 +294,11 @@ namespace TransconnectProject.Controleur
                 {
                     foreach (var item in critères)
                     {
-                        Console.WriteLine("Chargement critère num " + ind);
+                        Console.WriteLine("Chargement critere numero " + ind+"\n");
                         this.clients.Sort((x, y) => item.operetaionTrie(x, y));
                         ind++;
                     }
-                    Console.WriteLine("Liste des clients final: ");
+                    Console.WriteLine("Liste des clients final: \n");
                     foreach (var item2 in this.clients)
                     {
                         Console.WriteLine(item2.ToString());
@@ -299,6 +307,7 @@ namespace TransconnectProject.Controleur
             }
             else
             {
+                Console.WriteLine("Liste de clients:\n");
                 foreach (var item in this.clients)
                 {
                     Console.WriteLine(item.ToString());
@@ -338,7 +347,7 @@ namespace TransconnectProject.Controleur
                 try
                 {
                     JsonUtil.sendJsonClients(this.Clients);
-                    Console.WriteLine("\nClient supprimé de la base de donnée !");
+                    Console.WriteLine("\nClient supprime de la base de donnee !");
                 }
                 catch (Exception e)
                 {
@@ -346,7 +355,7 @@ namespace TransconnectProject.Controleur
                 }
             }
             else
-                Console.WriteLine("\nLe client " + nom + " " + prenom + " n'est pas dans notre base de donnée");
+                Console.WriteLine("\nLe client " + nom + " " + prenom + " n'est pas dans notre base de donnee");
 
 
         }
@@ -356,7 +365,7 @@ namespace TransconnectProject.Controleur
             if (toUpdate != null)
             {
                 Console.WriteLine("1.Modifier Nom et prénom\n2.Modifier adresse\n3.Exit");
-                int choose = int.Parse(Console.ReadLine());
+                int choose = 1;
                 while (choose > 0 && choose < 3)
                 {
                     switch (choose)
@@ -379,6 +388,7 @@ namespace TransconnectProject.Controleur
                             Console.WriteLine("\nAdresse modifié !");
                             break;
                     }
+                    choose = 3;
                 }
             }
             else
@@ -387,11 +397,103 @@ namespace TransconnectProject.Controleur
         #endregion
 
         #region Commandes
-        //TODO
-        public void addCommande() { }
+        //TOTEST:addCommande
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="from"></param>
+        /// <param name="produit"></param>
+        /// <param name="quantite"></param>
+        /// <param name="chauffeur"></param>
+        /// <param name="vehicule"></param>
+        /// <param name="dateLiv"></param>
+        public void addCommande(string nom,string prenom,string from, Produit produit, int quantite, Salarie chauffeur, Vehicule vehicule, DateTime? dateLiv = null) {
+            Commande c = null;
+            Client clt = this.clients.Find(x => x.Nom == nom && x.Prenom == prenom);
+            if (clt == null)
+            {
+                clt = Client.createClient();
+            }
+            c = new Commande(clt, chauffeur, vehicule, produit, quantite, from, dateDeLivraison: dateLiv);
+            this.commandes.Add(c);
+            clt.doOrder(c);
+            if (!this.clients.Contains(clt))
+                this.clients.Add(clt);
+
+            Console.WriteLine("Confirmation de: \n"+c.ToString());
+        }
+        public void updateCommande(string nomClient, string nomChauffeur, DateTime date)
+        {
+            Commande c = this.commandes.Find(x => x.ClientCom.Nom == nomClient && x.ChauffeurCom.Nom == nomChauffeur && x.DateDeLivraison.ToString("d") == date.ToString("d"));
+            if (c != null)
+            {
+                //TODO:Faire condition changement
+            }
+            else
+                Console.WriteLine("\nil n'existe aucune livraison pour la date donné.");
+
+        }
         #endregion
 
         #region Statistique
+        //TOTEST:showChauffeurCommandesNumber
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="De"></param>
+        /// <param name="A"></param>
+        public void showChauffeurCommandesNumber(DateTime?De=null,DateTime?A=null)
+        {
+            List<Salarie> listeChauffeur = this.salaries.FindAll(x => x.Poste.NomPoste.Equals("Chauffeur"));
+            if (De.HasValue && A.HasValue) {
+                Console.WriteLine("\nDe "+((DateTime)De).ToString("d") + " À "+ ((DateTime)A).ToString("d")+": ");
+                foreach (var item in listeChauffeur)
+                {
+                    List<Commande> commandeWithConstraint = ((Chauffeur)item.Poste).ListeDeCommandes.FindAll(x => x.DateDeLivraison >= De && x.DateDeLivraison <= A);
+                    Console.WriteLine("\nNombre de commandes à/ou effectué par " + item.ToString() + ": " + commandeWithConstraint.Count());
+                }
+            }
+            else
+            {
+                foreach (var item in listeChauffeur)
+                {
+                    Console.WriteLine("\nNombre de commandes à/ou effectué par "+item.ToString()+": "+((Chauffeur)item.Poste).ListeDeCommandes.Count());
+                }
+            }
+        }
+        //TOTEST:showAverageCommande
+        /// <summary>
+        /// 
+        /// </summary>
+        public void showAverageCommande()
+        {
+            double Average = this.commandes.Sum(x => x.Prix) / this.commandes.Count();
+            Console.WriteLine("\n Le prix moyen des commandes est de: " + Average + " Euros");
+        }
+        //TOTEST:showAverageAchatCompteClient
+        /// <summary>
+        /// 
+        /// </summary>
+        public void showAverageAchatCompteClient()
+        {
+           foreach(var item in this.clients)
+            {
+                Console.WriteLine("\nMoyenne Achat pour "+item.ToString()+"Moyenne achat = "+item.getAverageCommande()+" Euros");
+            }
+            Console.WriteLine();
+        }
+        //TOTEST:showClientsListCommandes
+        /// <summary>
+        /// 
+        /// </summary>
+        public void showClientsListCommandes() {
+            foreach (var item in this.clients)
+            {
+                Console.WriteLine("\nListe de commandes de "+item.ToString()+"Liste :\n"+item.getListCommande());
+            }
+            Console.WriteLine();
+        }
         #endregion
     }
 }

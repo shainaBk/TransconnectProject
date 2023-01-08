@@ -43,7 +43,6 @@ namespace TransconnectProject.Model
             }
             return false;
         }
-        //TOTEST
         public int getEncienneteEnjours()
         {
             var today = DateTime.Now;
@@ -55,9 +54,11 @@ namespace TransconnectProject.Model
             return "["+this.poste.NomPoste + "] " + base.ToString();
         }
 
-
-
-
+        //TODO: créer un salarié
+        public static Salarie createSalarie()
+        {
+            return null;
+        }
     }
 }
 

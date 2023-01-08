@@ -7,7 +7,7 @@ namespace TransconnectProject.Controleur.CritereClients
     {
         public int operetaionTrie(Client s1, Client s2)
         {
-            return s1.AchatCumulle.CompareTo(s2.AchatCumulle);
+            return s2.AchatCumulle.CompareTo(s1.AchatCumulle);
         }
     }
 }

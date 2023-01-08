@@ -8,8 +8,6 @@ using TransconnectProject.Model.CommandeModel;
 
 namespace TransconnectProject.Model.PosteModel
 {
-
-    //TOTEST
     public class Chauffeur : Poste
     {
         private List<Commande> listeDeCommandes;
@@ -18,7 +16,6 @@ namespace TransconnectProject.Model.PosteModel
             this.listeDeCommandes = new List<Commande>();
         }
         public List<Commande> ListeDeCommandes { get => this.listeDeCommandes; }
-        //TOTEST
         public void addCommande(Commande c)
         {
             var exist = this.listeDeCommandes.Find(x => x.DateDeLivraison.Day == c.DateDeLivraison.Day && x.DateDeLivraison.Year==c.DateDeLivraison.Year && x.DateDeLivraison.Month == c.DateDeLivraison.Month);

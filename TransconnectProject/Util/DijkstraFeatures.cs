@@ -43,7 +43,7 @@ namespace TransconnectProject.Util
 		/// <param name="villeDepart"></param>
 		/// <param name="listeVille"></param>
 		/// <param name="nombreVille"></param>
-		public static int Dijkstra(int[,]arcs ,string villeDepart,string villeArrive, HashSet<string> listeVille,bool PathMode,PathCityWritter ptw = null)
+		public static int Dijkstra(int[,]arcs ,string villeDepart,string villeArrive, HashSet<string> listeVille,PathCityWritter? ptw = null)
 		{
             //Distance depuis villeDepart
             bool noWay = false;
@@ -80,7 +80,7 @@ namespace TransconnectProject.Util
             }
             string outString = "";
             noWay = Distance[villeArrive] == int.MaxValue?true:false;//Si aucun chemin n'existe
-			if (PathMode && !noWay)
+			if (!noWay)
 			{
                 /*Console.WriteLine("\n"+Distance[villeArrive] + "Km entre " + villeDepart + " et " + villeArrive + " !!");
                 Console.WriteLine();*/

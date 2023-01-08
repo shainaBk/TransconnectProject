@@ -22,6 +22,10 @@ namespace TransconnectProject.Util
 				this.ville = value;
 			}
 		}
-	}
+        public override string ToString()
+        {
+            return this.ville+","+this.rue;
+        }
+    }
 }
 

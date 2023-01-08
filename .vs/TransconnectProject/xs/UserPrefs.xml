@@ -1,9 +1,13 @@
 ﻿<Properties StartupConfiguration="{D1B5F1A2-4A02-4FB7-A1C3-A82F8D91968A}|Default">
+  <MonoDevelop.Ide.ItemProperties.TransconnectProject PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="TransconnectProject/Program.cs">
     <Files>
-      <File FileName="TransconnectProject/Util/DijkstraFeatures.cs" />
-      <File FileName="TransconnectProject/Program.cs" Line="55" Column="28" />
-      <File FileName="TransconnectProject/Controleur/TansconnectControleur.cs" />
+      <File FileName="TransconnectProject/Util/DijkstraFeatures.cs" Line="46" Column="124" />
+      <File FileName="TransconnectProject/Program.cs" Line="30" Column="1" />
+      <File FileName="TransconnectProject/Util/JsonUtil.cs" Line="39" Column="28" />
+      <File FileName="TransconnectProject/Controleur/CritereClients/OrdreMontantCumule.cs" Line="4" Column="19" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -20,7 +24,9 @@
                 <Node name="PersonneModel" expanded="True" />
                 <Node name="PosteModel" expanded="True" />
               </Node>
-              <Node name="serializationFiles" expanded="True" />
+              <Node name="serializationFiles" expanded="True">
+                <Node name="Clients.json" selected="True" />
+              </Node>
               <Node name="Util" expanded="True" />
             </Node>
           </Node>
@@ -28,11 +34,8 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.TransconnectProject PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
 </Properties>

@@ -29,15 +29,20 @@ namespace TransconnectProject.Util
             Salarie s = JsonConvert.DeserializeObject<Salarie>(json, converter);
             return s;
         }
-
+        //Salaries parser
         public static void sendJsonSalaries(List<Salarie> list)
         {
             var jsonTest = JsonConvert.SerializeObject(list);
             File.WriteAllText(@"../../../../TransconnectProject/serializationFiles/Salaries.json", jsonTest);
         }
-
-
-
+        //Get all Clients from Json files
+        public static void getJsonClients(ref List<Client> list)
+        {
+            StreamReader r = new StreamReader(@"../../../../TransconnectProject/serializationFiles/Clients.json");
+            string json = @r.ReadToEnd();
+            list = JsonConvert.DeserializeObject<List<Client>>(json);
+        }
+        //Client parser
         public static void sendJsonClients(List<Client> list)
         {
             var jsonTest = JsonConvert.SerializeObject(list);

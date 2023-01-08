@@ -26,7 +26,10 @@ namespace TransconnectProject.Model.CommandeModel
 		{
 			try
 			{
-				if (!dateDeLivraison.HasValue)
+                this.ptw = new PathCityWritter();
+				if (!ptw.CitiesList.Contains(villeA) || !ptw.CitiesList.Contains(villeB))
+					throw new Exception("Erreur, l'une des villes saisie n'existe pas");
+                if (!dateDeLivraison.HasValue)
 					this.dateDeLivraison = DateTime.Now;
 				else
 				{
@@ -39,20 +42,20 @@ namespace TransconnectProject.Model.CommandeModel
 				this.quantite = quantity;
 				this.villeA = villeA;
 				this.ClientProprietaire = client;
-				//usefull for test, or specific delevery city
-				if (villeB != null)
+                this.vehiculeAffile = vehicule;
+                //usefull for test, or specific delevery city
+                if (villeB != null)
 					this.villeB = villeB;
 				else
 					this.villeB = ClientProprietaire.Ville;
-				this.vehiculeAffile = vehicule;
+
                 if (chauffeur.Poste is Chauffeur)
                     this.chauffeurAffile = chauffeur;
-                else throw new Exception("ERROR: le salarie choisis n'est pas un chauffeur ! Bye !");
+                else throw new Exception("Erreur, le salarie choisis n'est pas un chauffeur ! Bye !");
                 
-				this.ptw = new PathCityWritter();
-				//TODO:AddException si ville client existe pas!
-				//TODO: Mettre en place liste de ville accessible
-				this.distance = DijkstraFeatures.Dijkstra(ptw.PathMatrice, this.villeA, this.villeB, ptw.CitiesList, false);
+				this.distance = DijkstraFeatures.Dijkstra(ptw.PathMatrice, this.villeA, this.villeB, ptw.CitiesList);
+				if (this.distance == -1) throw new Exception("Erreur, nous ne pouvons effectuer de course entre ces deux villes");
+
 				this.prix = (this.produit.PrixKg * quantite) + this.vehiculeAffile.PrixLocation + (distance * 0.5) + (Chauffeur.getTarif() + chauffeurAffile.getEncienneteEnjours() * 0.015);//0,5 euro par km                                                                                                                                                                   //TOTEST
                 ((Chauffeur)this.chauffeurAffile.Poste).addCommande(this);
 			}catch(Exception e)
@@ -60,18 +63,19 @@ namespace TransconnectProject.Model.CommandeModel
 				Console.WriteLine("Objet non créé car: "+e);
 			}
         }
-		public DateTime DateDeLivraison { get => this.dateDeLivraison; set => this.dateDeLivraison = value; }
+		public Client ClientCom { get => this.ClientProprietaire; set => this.ClientProprietaire = value; }
+        public Salarie ChauffeurCom { get => this.chauffeurAffile; set => this.chauffeurAffile = value; }
+        public DateTime DateDeLivraison { get => this.dateDeLivraison; set => this.dateDeLivraison = value; }
 		public double Prix { get => this.prix; }
 		//Show path for the order
-		public void getTrajetLivraison(bool testMode)
+		public void getTrajetLivraison()
 		{
-            DijkstraFeatures.Dijkstra(ptw.PathMatrice, this.villeA, this.villeB, ptw.CitiesList, testMode,this.ptw);
+			Console.WriteLine(this.ptw.CurrentPath);
         }
-		//TOTEST
         public override string ToString()
         {
-			getTrajetLivraison(true);
-            return "Commande de "+this.produit.NomProduit+", quantité: "+this.quantite+"Kg\n- À livré le "+this.dateDeLivraison.ToString("d")+"\n- Info Points livraison: "+ptw.CurrentPath+"\n- Livreur: "+chauffeurAffile.ToString()+"\n- Prix total = "+this.Prix+" euro\n\n";
+			getTrajetLivraison();
+            return "\nCommande de "+this.produit.NomProduit+", quantité: "+this.quantite+"Kg\n- À livré le "+this.dateDeLivraison.ToString("d")+"\n- Info Points livraison: "+ptw.CurrentPath+"\n- Livreur: "+chauffeurAffile.ToString()+"\n- Prix total = "+this.Prix+" euro\n\n";
         }
     }
 }

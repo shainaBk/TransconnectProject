@@ -2,10 +2,12 @@
   <TaskListEntry file="" description="TODO: refactorisé PosteModel  =&gt; supprimer toutes les classes inutiles" completed="True" />
   <TaskListEntry file="" description="TODO: Modifier Salarie" />
   <TaskListEntry file="" description="TODO: Init les reels salarie" completed="True" />
-  <TaskListEntry file="" description="TOTHINKABOUT: add &amp; supp directement throught orga ??" priority="Low" />
+  <TaskListEntry file="" description="TOTHINKABOUT: add &amp; supp directement throught orga ??" priority="Low" completed="True" />
   <TaskListEntry file="" description="TODO: Read CSV file &amp; buils busjra arbre" priority="High" completed="True" />
   <TaskListEntry file="" description="TODO:FINIR MODULE CLIENT" priority="High" completed="True" />
   <TaskListEntry file="" description="TODO: FINIR MODULE SLARIE" priority="High" />
   <TaskListEntry file="" description="TODO: FINIR MODULE COMMANDE" priority="High" />
-  <TaskListEntry file="" description="TODO: FINIR MODULE STAT" priority="High" />
+  <TaskListEntry file="" description="TODO: FINIR MODULE STAT" priority="High" completed="True" />
+  <TaskListEntry file="" description="TODO: VERIFICATION CHEMIN VALIDE COMMANDE" />
+  <TaskListEntry file="" />
 </ListOfTaskListEntry>
