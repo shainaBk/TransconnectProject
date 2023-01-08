@@ -8,6 +8,8 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using TransconnectProject.Model;
 using TransconnectProject.Model.PosteModel;
+using TransconnectProject.Model.VehiculeModel;
+using TransconnectProject.Model.DepartementModel;
 using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace TransconnectProject.Util
@@ -40,12 +42,15 @@ namespace TransconnectProject.Util
         {
             StreamReader r = new StreamReader(@"../../../../TransconnectProject/serializationFiles/Clients.json");
             string json = @r.ReadToEnd();
-            list = JsonConvert.DeserializeObject<List<Client>>(json);
+            list = JsonConvert.DeserializeObject<List<Client>>(json, new VehiculeConverter(),new DepConverter());
         }
         //Client parser
         public static void sendJsonClients(List<Client> list)
         {
-            var jsonTest = JsonConvert.SerializeObject(list);
+            var jsonTest = JsonConvert.SerializeObject(list,Formatting.Indented,new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
             File.WriteAllText(@"../../../../TransconnectProject/serializationFiles/Clients.json", jsonTest);
         }
     }
@@ -130,5 +135,39 @@ namespace TransconnectProject.Util
             throw new InvalidOperationException();
         }
     }
+    public class VehiculeConverter : AbstractJsonConverter<Vehicule>
+    {
+        protected override Vehicule Create(Type objectType, JObject jObject)
+        {
+            if (FieldExists(jObject, "nom", "Voiture"))
+                return new Voiture(0);
+            //It's bullshit
+            else if (FieldExists(jObject, "nom", "Camion benne"))
+                return new Camion(0,null,null);
+            else if (FieldExists(jObject, "nom", "camion-citerne"))
+                return new Camion(0, null, null);
+            else if (FieldExists(jObject, "nom", "Camionette"))
+                return new Camionette(null);
+            else if (FieldExists(jObject, "nom", "camion frigorifique"))
+                return new Camionette(null);
+            throw new InvalidOperationException();
+        }
+    }
+    public class DepConverter : AbstractJsonConverter<Departement>
+    {
+        protected override Departement Create(Type objectType, JObject jObject)
+        {
+            if (FieldExists(jObject, "NomDep", "Département commercial"))
+                return new DepCommercial();
+            else if (FieldExists(jObject, "NomDep", "Département des operations"))
+                return new DepDesOps();
+            else if (FieldExists(jObject, "NomDep", "Département Ressources Humaines"))
+                return new DepRH();
+            else if (FieldExists(jObject, "NomDep", "Département des Finances"))
+                return new DepFinance();
+            throw new InvalidOperationException();
+        }
+    }
+
     #endregion
 }

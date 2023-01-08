@@ -16,6 +16,9 @@ namespace TransconnectProject.Controleur
 
     public class TransconnectControleur
     {
+        private List<Produit> listeDesProduits;
+        //TOKNOW:MAY HAVE PB DE SERIALISTATION
+        private List<Vehicule> ListeVehiculeDisponible; 
         private List<Salarie> salaries;
         private List<Client> clients;
         private List<Commande> commandes;
@@ -23,8 +26,16 @@ namespace TransconnectProject.Controleur
         //TODO: Implanter methode Dijskra
         private PathCityWritter ptw;//dijskra tools
 
-        public TransconnectControleur(List<Salarie> salaries,List<Client>?clients=null)
+        public TransconnectControleur(List<Salarie> salaries,List<Client>?clients=null, List<Produit>? Produits = null, List<Vehicule>? vehicules= null)
         {
+            if (vehicules != null)
+                this.ListeVehiculeDisponible= vehicules;
+            else
+                this.ListeVehiculeDisponible = new List<Vehicule>();
+            if (Produits != null)
+                this.listeDesProduits = Produits;
+            else
+                this.listeDesProduits = new List<Produit>();
             if (clients != null)
                 this.clients = clients;
             else
@@ -39,7 +50,8 @@ namespace TransconnectProject.Controleur
         public List<Client> Clients { get => this.clients; set => this.clients = value; }
         public SalarieTree Organigramme { get => this.organigramme; set => this.organigramme = value; }
         public PathCityWritter Ptw { get => this.ptw;}
-
+        public List<Produit> ListeDesProduits { get => this.listeDesProduits; set => this.listeDesProduits = value; }
+        public List<Vehicule> ListeDesVehicules { get => this.ListeVehiculeDisponible; set => this.ListeVehiculeDisponible= value; }
         #region Salaries
         /// <summary>
         /// 
@@ -413,15 +425,16 @@ namespace TransconnectProject.Controleur
             Client clt = this.clients.Find(x => x.Nom == nom && x.Prenom == prenom);
             if (clt == null)
             {
+                Console.WriteLine("\nLe client n'est pas dans nos bases de donnees\n");
                 clt = Client.createClient();
             }
             c = new Commande(clt, chauffeur, vehicule, produit, quantite, from, dateDeLivraison: dateLiv);
             this.commandes.Add(c);
             clt.doOrder(c);
             if (!this.clients.Contains(clt))
-                this.clients.Add(clt);
-
+                this.addClient(clt);
             Console.WriteLine("Confirmation de: \n"+c.ToString());
+            JsonUtil.sendJsonClients(this.Clients);
         }
         public void updateCommande(string nomClient, string nomChauffeur, DateTime date)
         {
@@ -434,7 +447,57 @@ namespace TransconnectProject.Controleur
                 Console.WriteLine("\nil n'existe aucune livraison pour la date donné.");
 
         }
+        public void showCommandes()
+        {
+            Console.WriteLine("Liste des commandes:\n");
+            foreach (var item in this.commandes)
+            {
+                Console.WriteLine(item.ToString());
+            }
+        }
         #endregion
+
+        #region Produit
+        public void showProduitsAvailable()
+        {
+            Console.WriteLine("\n Liste de nos produits disponible:\n");
+            foreach (var item in this.listeDesProduits)
+            {
+                Console.WriteLine(item.ToString());
+            }
+        }
+        //TODO
+        public void addNewProduict()
+        {
+
+        }
+        //TODO
+        public void deleteProduict(string nomProduit)
+        {
+
+        }
+        #endregion
+        #region Vehicule
+        public void showVehiculeAvailable()
+        {
+            Console.WriteLine("\n Liste de nos vehicule disponible:\n");
+            foreach (var item in this.ListeVehiculeDisponible)
+            {
+                Console.WriteLine(item.ToString());
+            }
+        }
+        //TODO
+        public void addNewVehicule()
+        {
+
+        }
+        //TODO
+        public void deleteVehicule(string nomProduit)
+        {
+
+        }
+        #endregion
+
 
         #region Statistique
         //TOTEST:showChauffeurCommandesNumber

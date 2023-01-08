@@ -3,6 +3,8 @@ using TransconnectProject.Util;
 using TransconnectProject.Model.PosteModel;
 using TransconnectProject.Controleur;
 using TransconnectProject.Controleur.CritereClients;
+using TransconnectProject.Model.ProduitModel;
+using TransconnectProject.Model.VehiculeModel;
 
 public class main
 {
@@ -13,9 +15,11 @@ public class main
         var converter = new PosteConverter();
         List<Salarie> lesSalaries = new List<Salarie>();
         List<Client> lesClients = new List<Client>();
+        List<Produit> lesProduits = new List<Produit> { new Produit("Chocolat", 5.5), new Produit("Huile", 2.5), new Produit("Vin", 10.6), new Produit("Cuire", 5.0), new Produit("Metal", 25.0), new Produit("Argent", 22.41), new Produit("Platine", 1024.0), new Produit("Or", 1754.1) };
+        List<Vehicule> lesVehicules = new List<Vehicule> { new Voiture(6),new Camionette("Transport chocolat"), new Camion(1500, "Metal", "Camion benne"), new Camion(1500, "Cuire", "Camion benne"), new Camion(1500, "Platine", "Camion benne"), new Camion(2000, "or", "Camion benne"), new Camion(1000, "Huile", "camion-citerne"), new Camion(1000, "Vin", "camion-citerne") };
         JsonUtil.getJsonSalaries(ref lesSalaries, converter);
         JsonUtil.getJsonClients(ref lesClients);
-        TransconnectControleur controleur = new TransconnectControleur(lesSalaries,lesClients);
+        TransconnectControleur controleur = new TransconnectControleur(lesSalaries,lesClients,lesProduits,lesVehicules);
         #endregion
 
         //TODO: !!!!!!!!!!!IL FAUT AJOUTER DANS TOUT LES EMPLOYÉ QUI ON L'EMPLOYÉ ET PAREILLE POUR SUPRIMER
@@ -251,12 +255,14 @@ public class main
                     {
                         Console.WriteLine("-------------------------- GESTIONNAIRE DE COMMANDES --------------------------");
                         Console.WriteLine("Que voulez vous faire ?\n\n1. Effectuer une commande \n2. Modifier une commande \n3. Afficher moyenne des prix des commandes\n4. Afficher les commandes\nTOUT AUTRE CHIFFRE => Menu principal \n");
+                        Console.Write("Votre saisie: ");
                         String CommandeINPUT = Console.ReadLine();
                         Console.Clear();
                         while (!int.TryParse(CommandeINPUT, out INPUT))
                         {
                             Console.WriteLine("Sorry, nous n'avons pas compris votre saisie...\n");
-                            Console.WriteLine("Que voulez vous faire ?\n\n1. Effectuer une commande \n2. Modifier une commande \n3. Afficher moyenne des prix des commandes\n4. Afficher les commandes\nTOUT AUTRE CHIFFRE => Menu principal \n");
+                            Console.WriteLine("Que voulez vous faire ?\n\n1. Effectuer une commande \n2. Modifier une commande \n3. Afficher moyenne des prix des commandes\n4. Afficher toutes les commandes\nTOUT AUTRE CHIFFRE => Menu principal \n");
+                            Console.Write("Votre saisie: ");
                             CommandeINPUT = Console.ReadLine();
                             Console.Clear();
                         }
@@ -264,6 +270,139 @@ public class main
                         #region COMMANDE SWITCH
                         switch (INPUT)
                         {
+                            case 1:
+                                int INPUTproduit;
+                                int INPUTchauffeur;
+                                Console.WriteLine("- Fonctionnalite Effectuer une commande -\n");
+                                #region  PART CHOIX PRODUIT
+                                Console.WriteLine("Veuillez entrer le numero de votre produit: \n");
+                                for (int i = 0; i < controleur.ListeDesProduits.Count(); i++)
+                                {
+                                    Console.WriteLine((i+1)+". "+ controleur.ListeDesProduits[i].ToString());
+                                }
+                                Console.Write("Votre saisie: ");
+                                string numProduitINPUT = Console.ReadLine();
+                                do
+                                {
+                                    while (!int.TryParse(numProduitINPUT, out INPUTproduit))
+                                    {
+                                        Console.WriteLine("Sorry, nous n'avons pas compris votre saisie...\n");
+                                        Console.WriteLine("Veuillez entrer le numero de votre produit: \n");
+                                        for (int i = 0; i < controleur.ListeDesProduits.Count(); i++)
+                                        {
+                                            Console.WriteLine((i+1) + ". " + controleur.ListeDesProduits[i].ToString());
+                                        }
+                                        numProduitINPUT = Console.ReadLine();
+                                        Console.Clear();
+                                    }
+                                } while (INPUTproduit < 1 || INPUTproduit > controleur.ListeDesProduits.Count());
+                                Produit p = controleur.ListeDesProduits[INPUTproduit - 1];
+                                #endregion
+                                #region trivial info PART
+                                Console.Clear();
+                                Console.Write("\nVeuillez saisir la quantite demander pour le produit (en Kg): ");
+                                int quantité = int.Parse(Console.ReadLine());
+                                Console.Write("\nVeuillez saisir le nom du client: ");
+                                string nom = Console.ReadLine();
+                                Console.Write("\nVeuillez saisir le Prenom du client: ");
+                                string prenom = Console.ReadLine();
+                                Console.Write("\nVeuillez saisir la ville de depart: ");
+                                string villeFrom = Console.ReadLine();
+                                Console.Write("\nVeuillez saisir la date de livraison (yyyy/mm/dd): ");
+                                string date = Console.ReadLine();
+                                #endregion
+                                #region PART CHOIX CHAUFFEUR
+                                Console.Clear();
+                                Console.WriteLine("Veuillez entrer le numero du chauffeur a affiler: \n");
+                                List<Salarie> listeCh = controleur.Salaries.FindAll(x => x.Poste.NomPoste == "Chauffeur");
+                                for (int i = 0; i < listeCh.Count(); i++)
+                                {
+                                    Console.WriteLine((i+1) + ". " +listeCh[i].ToString());
+                                }
+                                Console.Write("\nVotre saisie: ");
+                                string numChauffeurINPUT = Console.ReadLine();
+                                do
+                                {
+                                    while (!int.TryParse(numChauffeurINPUT, out INPUTchauffeur))
+                                    {
+                                        Console.WriteLine("Sorry, nous n'avons pas compris votre saisie...\n");
+                                        Console.WriteLine("Veuillez entrer le numero du chauffeur a affiler: \n");
+                                        for (int i = 0; i < listeCh.Count(); i++)
+                                        {
+                                            Console.WriteLine((i+1) + ". " + listeCh[i].ToString());
+                                        }
+                                        Console.Write("\nVotre saisie: ");
+                                        numChauffeurINPUT = Console.ReadLine();
+                                        Console.Clear();
+                                    }
+
+                                } while (INPUTchauffeur < 1 || INPUTchauffeur > listeCh.Count());
+                                Salarie chauffeur = listeCh[INPUTchauffeur - 1];
+                                Console.Clear();
+                                #endregion
+                                #region PART CHOIX VOITURE
+                                string numVehiculeINPUT;
+                                int INPUTvehicule;
+                                bool isOk = true;
+                                Vehicule vehiculeT=null;
+                                do
+                                {
+                                    do
+                                    {
+                                        Console.WriteLine("\nVeuillez entrer (CORECTEMENT) le numero du Vehicule choisi: \n");
+                                        for (int i = 0; i < listeCh.Count(); i++)
+                                        {
+                                            Console.WriteLine((i + 1) + ". " + controleur.ListeDesVehicules[i].ToString());
+                                        }
+                                        Console.Write("\nVotre saisie: ");
+                                        numVehiculeINPUT = Console.ReadLine();
+                                        Console.Clear();
+
+                                        while (!int.TryParse(numVehiculeINPUT, out INPUTvehicule))
+                                        {
+                                            Console.WriteLine("\nErreur. Veuillez entrer (CORECTEMENT) le numero du Vehicule choissi: \n");
+                                            for (int i = 0; i < controleur.ListeDesVehicules.Count(); i++)
+                                            {
+                                                Console.WriteLine((i + 1) + ". " + controleur.ListeDesVehicules[i].ToString());
+                                            }
+                                            Console.Write("\nVotre saisie: ");
+                                            numVehiculeINPUT = Console.ReadLine();
+                                            Console.Clear();
+                                        }
+
+                                    } while (INPUTvehicule < 1 || INPUTvehicule > listeCh.Count());
+
+                                    vehiculeT = controleur.ListeDesVehicules[INPUTchauffeur - 1];
+                                    if (vehiculeT is Camion)
+                                    {
+                                        if (!((Camion)vehiculeT).MatiereTransport.Equals(p.NomProduit) || ((Camion)vehiculeT).VolumeTransportMax < quantité)
+                                        {
+                                            Console.WriteLine("\nErreur de conformité entre le produit à livrer et le vehicule, ou le vehicule et la quantie à transporter.\nVeuillez choisir un vehicule conforme.\n");
+                                        }
+                                        else
+                                            isOk = false;
+                                    }
+                                    else
+                                        isOk = false;
+
+                                } while (isOk);
+                                controleur.addCommande(nom, prenom, villeFrom, p, quantité, chauffeur, vehiculeT, new DateTime(int.Parse(date.Split("/")[0]), int.Parse(date.Split("/")[1]), int.Parse(date.Split("/")[2])));
+                                #endregion
+                                Console.WriteLine("Appuyer entrer pour continuer...");
+                                Console.ReadLine();
+                                Console.Clear();
+                                continue;
+                            case 2:
+                                continue;
+                            case 3:
+                                continue;
+                            case 4:
+                                Console.WriteLine("- Fonctionnalite Affichage des commandes -\n");
+                                controleur.showCommandes();
+                                Console.WriteLine("Appuyer entrer pour continuer...");
+                                Console.ReadLine();
+                                Console.Clear();
+                                continue;
                             default:
                                 COMMANDEMENU = false;
                                 break;

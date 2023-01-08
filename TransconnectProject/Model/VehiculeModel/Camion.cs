@@ -2,18 +2,22 @@
 namespace TransconnectProject.Model.VehiculeModel
 {
 	//TOTEST
-	//TODO: link with des produit à dispositions
+	//TODO: GERER DEPENDANCE TRANSPORT PRODUIT ET QUANTITÉ MAX
 	public class Camion:Vehicule
 	{
 		private int volumeTransportMax;//VolumeMax
 		private string matiereTransport;//matières transportés
-		private string nomCamion;
-        public Camion(int volTransport,string matiere,string nomCam):base(250)
+        public Camion(int volTransport,string matiere,string nomCam):base(250,nomCam)
 		{
 			this.matiereTransport = matiere;
 			this.volumeTransportMax = volTransport;
-			this.nomCamion = nomCam;
 		}
-	}
+		public int VolumeTransportMax { get => this.volumeTransportMax; set => this.volumeTransportMax=value; }
+		public string MatiereTransport { get => this.matiereTransport; set => this.matiereTransport = value; }
+        public override string ToString()
+        {
+            return base.ToString()+", matiere transport: "+matiereTransport+", volume de transport Max: "+volumeTransportMax+" Kg\n";
+        }
+    }
 }
 

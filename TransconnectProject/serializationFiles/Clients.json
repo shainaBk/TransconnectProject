@@ -1,7 +1,40 @@
 [
   {
-    "commandes": [],
-    "achatCumulle": 300.0,
+    "commandes": [
+      {
+        "ChauffeurCom": {
+          "numSS": 5,
+          "salaire": 1600.0,
+          "dateArrive": "2000-01-07T00:00:00",
+          "employés": [],
+          "poste": {
+            "ListeDeCommandes": [],
+            "Departement": {
+              "NomDep": "Département des operations",
+              "Hierarchie": {
+                "Directeur des operations": 1,
+                "Chef d'équipe": 2,
+                "Chauffeur": 3
+              }
+            },
+            "NomPoste": "Chauffeur",
+            "Salaire": 1600.0
+          },
+          "adressePostal": {
+            "ville": "Paris",
+            "rue": "Rue de calouil"
+          },
+          "nom": "Rome",
+          "prenom": "Vanille",
+          "dob": "1975-07-21T00:00:00",
+          "mail": "RomeVan@transco.fr",
+          "telNum": "0706055689"
+        },
+        "DateDeLivraison": "2025-08-08T00:00:00",
+        "Prix": 1396.53
+      }
+    ],
+    "achatCumulle": 1696.53,
     "adressePostal": {
       "ville": "Paris",
       "rue": "4 allee manon des sources"
@@ -37,5 +70,31 @@
     "dob": "1998-03-11T00:00:00",
     "mail": "VB@hotmail.com",
     "telNum": "0658497123"
+  },
+  {
+    "commandes": [],
+    "achatCumulle": 0.0,
+    "adressePostal": {
+      "ville": "Marseille",
+      "rue": "laposo"
+    },
+    "nom": "Patcom",
+    "prenom": "Vanille",
+    "dob": "1955-06-06T00:00:00",
+    "mail": "shah@hotdfe.fr",
+    "telNum": "07686954523"
+  },
+  {
+    "commandes": [],
+    "achatCumulle": 0.0,
+    "adressePostal": {
+      "ville": "Paris",
+      "rue": "lols"
+    },
+    "nom": "Basiol",
+    "prenom": "Louis",
+    "dob": "1955-06-09T00:00:00",
+    "mail": "suhou@homt.De",
+    "telNum": "0768698485"
   }
 ]

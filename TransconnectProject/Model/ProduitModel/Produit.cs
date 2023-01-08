@@ -13,6 +13,10 @@ namespace TransconnectProject.Model.ProduitModel
 		}
 		public double PrixKg { get => this.prixKg; }
 		public string NomProduit { get => this.nomProduit; }
-	}
+        public override string ToString()
+        {
+            return "Nom du produit: "+this.nomProduit+", Prix au Kg: "+this.prixKg+" Euros\n";	
+        }
+    }
 }
 
