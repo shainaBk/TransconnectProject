@@ -21,20 +21,23 @@ namespace TransconnectProject.Util
         {
             StreamReader r = new StreamReader(@"../../../../TransconnectProject/serializationFiles/Salaries.json");
             string json = @r.ReadToEnd();
-            list = JsonConvert.DeserializeObject<List<Salarie>>(json, converter);
+            list = JsonConvert.DeserializeObject<List<Salarie>>(json, new PosteConverter(), new VehiculeConverter(), new DepConverter());
         }
         //Get salarie from Json file (when it's one object file)
         public static Salarie getJsonSalarie(String FilePath, PosteConverter converter)
         {
             StreamReader r = new StreamReader(FilePath);
             string json = @r.ReadToEnd();
-            Salarie s = JsonConvert.DeserializeObject<Salarie>(json, converter);
+            Salarie s = JsonConvert.DeserializeObject<Salarie>(json, new PosteConverter(), new VehiculeConverter(), new DepConverter());
             return s;
         }
         //Salaries parser
         public static void sendJsonSalaries(List<Salarie> list)
         {
-            var jsonTest = JsonConvert.SerializeObject(list);
+            var jsonTest = JsonConvert.SerializeObject(list, Formatting.Indented, new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
             File.WriteAllText(@"../../../../TransconnectProject/serializationFiles/Salaries.json", jsonTest);
         }
         //Get all Clients from Json files

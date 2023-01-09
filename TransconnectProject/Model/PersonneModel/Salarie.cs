@@ -57,7 +57,41 @@ namespace TransconnectProject.Model
         //TODO: créer un salarié
         public static Salarie createSalarie()
         {
-            return null;
+            Console.WriteLine("\n- Fonctionnalite de creation de salarie -\n");
+            Console.Write("veuillez saisir le nom du salarie: ");
+            string nom = Console.ReadLine();
+            Console.WriteLine();
+            Console.Write("veuillez saisir le Prenom du salarie: ");
+            string prenom = Console.ReadLine();
+            Console.WriteLine();
+            Console.Write("veuillez saisir la date de naissance du salarie (yyyy/mm/dd): ");
+            string dob = Console.ReadLine();
+            Console.WriteLine();
+            Console.Write("veuillez saisir la ville du salarie: ");
+            //TODO:ADD VILLE CHECKER
+            string ville = Console.ReadLine();
+            Console.WriteLine();
+            Console.Write("veuillez saisir la rue du salarie: ");
+            string rue = Console.ReadLine();
+            Console.WriteLine();
+            Console.Write("veuillez saisir l'email du salarie: ");
+            string email = Console.ReadLine();
+            Console.WriteLine();
+            Console.Write("veuillez saisir le numero de telephone du salarie: ");
+            string numTel = Console.ReadLine();
+            Poste pst =null;
+            Console.Clear();
+            do
+            {
+                Console.Write("\nveuillez saisir le nom du poste: ");
+                string saisie = Console.ReadLine();
+                pst = Poste.getPoste(saisie);
+                if(pst==null)
+                    Console.WriteLine("Erreur, saisie incorrect...\n");
+
+            } while (pst == null);
+            
+            return new Salarie(nom, prenom, new DateTime(int.Parse(dob.Split("/")[0]), int.Parse(dob.Split("/")[1]), int.Parse(dob.Split("/")[2])), new Adresse(ville, rue), email, numTel,DateTime.Today,pst,new List<Salarie>());
         }
     }
 }

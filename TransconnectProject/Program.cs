@@ -6,6 +6,7 @@ using TransconnectProject.Controleur.CritereClients;
 using TransconnectProject.Model.ProduitModel;
 using TransconnectProject.Model.VehiculeModel;
 using TransconnectProject.Model.CommandeModel;
+using TransconnectProject.Model.DepartementModel;
 
 public class main
 {
@@ -30,7 +31,22 @@ public class main
         {
             foreach (var item2 in item.CommandesClient)
             {
-                lesCommandes.Add(item2);
+                if(item.CommandesClient.Count()>0)
+                    lesCommandes.Add(item2);
+            }
+        }
+        /**********************************************/
+        /********** Chargement des commandes chauffeurs ************/
+        List<Salarie> chauf = lesSalaries.FindAll(x => x.Poste.NomPoste == "Chauffeur");
+        if (lesCommandes.Count() > 0)
+        {
+            foreach (var item in chauf)
+            {
+                foreach (var item2 in lesCommandes)
+                {
+                    if (item.Nom.Equals(item2.ChauffeurCom.Nom) && item.Prenom.Equals(item2.ChauffeurCom.Prenom))
+                        ((Chauffeur)item.Poste).ListeDeCommandes.Add(item2);
+                }
             }
         }
         /**********************************************/
@@ -167,23 +183,47 @@ public class main
                                         pressToContinue();
                                         break;
                                 }
-                                Console.Clear();
-                                break;
+                                pressToContinue();
+                                continue;
                             #endregion
                             #region Ajout client
                             case 2:
-                                //TODO: MENU ADD CLIENT
                                 Console.WriteLine("Ajout d'un client\n");
                                 Client newClient = Client.createClient();
                                 controleur.addClient(newClient);
                                 pressToContinue();
-                                break;
+                                continue;
                             #endregion
                             #region Update client
                             case 3:
-                                //TODO: MENU ADD CLIENT
-                                Console.WriteLine("Modification d'un client\n");
-                                break;
+                                int INPUTclient;
+                                Console.WriteLine("- Modification d'un client -\n");
+                                Console.WriteLine("Veuillez entrer le numero du client a modifier: \n");
+                                for (int i = 0; i < controleur.Clients.Count(); i++)
+                                {
+                                    Console.WriteLine((i + 1) + ". " + controleur.Clients[i].ToString());
+                                }
+                                Console.Write("Votre saisie: ");
+                                string numClientINPUT = Console.ReadLine();
+                                do
+                                {
+                                    while (!int.TryParse(numClientINPUT, out INPUTclient))
+                                    {
+                                        Console.WriteLine("Sorry, nous n'avons pas compris votre saisie...\n");
+                                        Console.WriteLine("Veuillez entrer le numero du client a modifier: \n");
+                                        for (int i = 0; i < controleur.ListeDesProduits.Count(); i++)
+                                        {
+                                            Console.WriteLine((i + 1) + ". " + controleur.ListeDesProduits[i].ToString());
+                                        }
+                                        Console.Write("Votre saisie: ");
+                                        numClientINPUT = Console.ReadLine();
+                                        Console.Clear();
+                                    }
+                                } while (INPUTclient < 1 || INPUTclient > controleur.ListeDesProduits.Count());
+                                Client p = controleur.Clients[INPUTclient - 1];
+                                controleur.updateClient(p);
+                                pressToContinue();
+                                continue;
                             #endregion
                             #region Supprimation client
                             case 4:
@@ -194,7 +234,7 @@ public class main
                                 string prenom = Console.ReadLine();
                                 controleur.deleteClient(nom, prenom);
                                 pressToContinue();
-                                break;
+                                continue;
                             #endregion
                             //MODULE STATISTIQUE
                             #region Average commande client
@@ -248,16 +288,56 @@ public class main
                                 pressToContinue();
                                 continue;
                             case 2:
-                                Console.WriteLine("- Fonctionnalite ajout de salarie -\n");
-                                //TODO
                                 Salarie s = Salarie.createSalarie();
-                                controleur.addSalarie(s);
+                                string name = null;
+                                string lastname = null;
+                                if (s.Poste.NomPoste == "Chauffeur")
+                                {
+                                    List<Salarie> lt = controleur.Salaries.FindAll(x =>x.Poste.NomPoste!= "Directeur general" && x.Poste.Departement.NomDep == "Département des operations" && x.Poste.Departement.getNumHierarchique(x.Poste.NomPoste) == 2);
+                                    bool ok = false;
+                                    int saisie;
+                                    do
+                                    {
+                                        int index = 1;
+                                        Console.WriteLine("\nVeuillez saisir le numero du responsable: ");
+                                        foreach (var item in lt)
+                                        {
+                                            Console.WriteLine(index + ". " + item.Nom + " " + item.Prenom);
+                                            index++;
+                                        }
+                                        Console.Write("\nVotre saisie: ");
+                                        ok = int.TryParse(Console.ReadLine(),out saisie);
+
+                                    } while (ok==false || saisie <0 || saisie > lt.Count());
+                                    lastname = lt[saisie - 1].Nom;
+                                    name = lt[saisie - 1].Prenom;
+                                }
+                                else if (s.Poste.NomPoste == "Comptable")
+                                {
+                                   Salarie lt = controleur.Salaries.Find(x => x.Poste.NomPoste == "Direction comptable");
+                                    lastname = lt.Nom;
+                                    name = lt.Prenom;
+                                }
+                                controleur.addSalarie(s,lastname,name);
                                 pressToContinue();
                                 continue;
                             case 3:
                                 Console.WriteLine("- Fonctionnalite suppression de salarie -\n");
-                                //TODO
-                                //controleur.deleteSalarie();
+                                Console.Write("\nVeuillez saisir le nom: ");
+                                string nom = Console.ReadLine();
+                                Console.Write("\nVeuillez saisir le prenom: ");
+                                string prenom = Console.ReadLine();
+                                while(controleur.Salaries.Find(x=>x.Nom == nom && x.Prenom == prenom) == null)
+                                {
+                                    Console.Clear();
+                                    Console.WriteLine("Erreur, impossible de trouver le salarie.....");
+                                    Console.Write("\nVeuillez saisir le nom: ");
+                                    nom = Console.ReadLine();
+                                    Console.Write("\nVeuillez saisir le prenom: ");
+                                    prenom = Console.ReadLine();
+                                }
+                                Console.Clear();
+                                controleur.deleteSalarie(nom, prenom);
                                 pressToContinue();
                                 continue;
                             case 4:
@@ -275,7 +355,6 @@ public class main
                     #endregion
                 case 3:
                     #region GESTIONNAIRE COMMANDES
-                    //TOKNOW: PROBLEME SERIALIZATION
                     bool COMMANDEMENU = true;
                     while (COMMANDEMENU)
                     {
@@ -417,6 +496,7 @@ public class main
                                 pressToContinue();
                                 continue;
                             case 2:
+                                //TODO
                                 Console.WriteLine("- Fonctionnalite Modification de commande -\n");
                                 pressToContinue();
                                 continue;

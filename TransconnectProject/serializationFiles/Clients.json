@@ -46,8 +46,7 @@
           "mail": "RomeVan@transco.fr",
           "telNum": "0706055689"
         },
-        "DateDeLivraison": "2025-06-08T00:00:00",
-        "Prix": 1577.545
+        "DateDeLivraison": "2025-06-08T00:00:00"
       }
     ],
     "achatCumulle": 1577.545,
@@ -65,8 +64,8 @@
     "commandes": [],
     "achatCumulle": 0.0,
     "adressePostal": {
-      "ville": "Paris",
-      "rue": "Los pequenos y pequenas"
+      "ville": "Marseille",
+      "rue": "Rue leon bourge"
     },
     "nom": "Albert",
     "prenom": "Camus",

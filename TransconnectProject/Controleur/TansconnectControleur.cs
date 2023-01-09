@@ -74,7 +74,11 @@ namespace TransconnectProject.Controleur
                 List<string> listeDic = new List<string> { "Directeur commercial", "Directeur des opérations", "Directeur financier", "Directeur RH" };
                 if (listeDic.Contains(toDelete.Poste.NomPoste))
                 {
+                    Salarie vacant = new Salarie("Vacant", "Vacant", new DateTime(), null, null, null, new DateTime(), toDelete.Poste, toDelete.Employ);
                     this.salaries.Find(x => x.Poste.NomPoste == "Directeur general").Employ.Remove(toDelete);
+                    this.salaries.Find(x => x.Poste.NomPoste == "Directeur general").Employ.Add(vacant);
+                    this.salaries.Remove(toDelete);
+                    this.salaries.Add(vacant);
                 }
                 else
                 {
@@ -82,10 +86,18 @@ namespace TransconnectProject.Controleur
 
                     if (Dep != null)
                     {
-                        foreach (var item in Dep)
+                        if (toDelete.Poste.getNumHierarchique() == 2)
                         {
-                            item.Employ.Remove(toDelete);
+
                         }
+                        else
+                        {
+                            foreach (var item in Dep)
+                            {
+                                item.Employ.Remove(toDelete);
+                            }
+                        }
+                        
                     }
                     if (DepViaCeo != null)
                     {
@@ -121,10 +133,11 @@ namespace TransconnectProject.Controleur
         /// 
         /// </summary>
         /// <param name="s"></param>
-        public void addSalarie(Salarie s,string nomSuperieur, string prenomSuperieur)
+        public void addSalarie(Salarie s,string nomSuperieur =null, string prenomSuperieur=null)
         {
             if (!this.salaries.Contains(s))
             {
+                bool ok = false;
                 List<string> listeDic = new List<string> { "Directeur commercial", "Directeur des operations", "Directeur financier", "Directeur RH" };
                 //pour organigramme
                 List<Salarie> DepViaCeo = this.salaries.Find((x) => x.Poste.NomPoste == "Directeur general").Employ.Find(x=>x.Poste.Departement.NomDep.Equals(s.Poste.Departement.NomDep)).Employ;
@@ -133,57 +146,56 @@ namespace TransconnectProject.Controleur
                 //TOTEST
                 if (listeDic.Contains(s.Poste.NomPoste))
                 {
-                    //Big boss
-                    if (listeDic.Contains(s.Poste.NomPoste))
-                    {
-                        this.salaries.Find(x => x.Poste.NomPoste == "Directeur general").Employ.Add(s);
-                    }
-                   
-
-                    //reste
-                    if (Dep.Count == 0)
-                        Console.WriteLine("none");
-                    else
-                    {
-                        //listControleur
-                        foreach (Salarie item in Dep)
-                        {
-                            if (item.Poste.getNumHierarchique() - s.Poste.getNumHierarchique()==1)//N-1
-                                s.Employ.Add(item);
-                        }
-
-                        //orga
-                        foreach (Salarie item in DepViaCeo)
-                        {
-                            if (item.Poste.getNumHierarchique() - s.Poste.getNumHierarchique()==1)
-                                s.Employ.Add(item);
-                        }
-
-                    }
-                    salaries.Add(s);
+                    Salarie old = this.salaries.Find(x => x.Poste.NomPoste == s.Poste.NomPoste);
+                    Salarie oldViaBoss = this.salaries.Find(x => x.Poste.NomPoste == "Directeur general").Employ.Find(x => x.Poste.NomPoste == s.Poste.NomPoste);
+                    s.Employ = oldViaBoss.Employ;
+                    this.salaries.Find(x => x.Poste.NomPoste == "Directeur general").Employ.Remove(oldViaBoss);
+                    this.salaries.Find(x => x.Poste.NomPoste == "Directeur general").Employ.Add(s);
+                    this.salaries.Remove(old);
+                    this.salaries.Add(s);
+                    ok = true;
                 }
                 else
                 {
-                    Salarie chef = Dep.Find(x => x.Nom == nomSuperieur && x.Prenom == prenomSuperieur);
-                    Salarie chefViaCeo = DepViaCeo.Find(x => x.Nom == nomSuperieur && x.Prenom == prenomSuperieur);
-                    if (chef != null)
+                    if (nomSuperieur != null)
                     {
-                        //list
-                        chef.Employ.Add(s);
-                        //orga
-                        chefViaCeo.Employ.Add(s);
-                        salaries.Add(s);
+                        Salarie chef = Dep.Find(x => x.Nom == nomSuperieur && x.Prenom == prenomSuperieur);
+                        Salarie chefViaCeo = DepViaCeo.Find(x => x.Nom == nomSuperieur && x.Prenom == prenomSuperieur);
+                        if (chef != null)
+                        {
+                            //list
+                            chef.Employ.Add(s);
+                            //orga
+                            chefViaCeo.Employ.Add(s);
+                            salaries.Add(s);
+                            ok = true;
+                        }
                     }
                     else
                     {
-                        Console.WriteLine("\nNous n'avons pas le responsable de l'employé, operation impossible.");
+                        /**to get only members of the same Departement**/
+                        List<Salarie> Dep2 = salaries.FindAll((x) => x.Poste.NomPoste != "Directeur general" && x.Poste.Departement.NomDep.Equals(s.Poste.Departement.NomDep));
+                        //Temporary
+                        if (Dep2.Count == 0)
+                            Console.WriteLine("none");
+                        else
+                        {
+                            this.salaries.Find((x) => x.Poste.NomPoste == "Directeur general").Employ.Find(x => x.Poste.Departement.NomDep.Equals(s.Poste.Departement.NomDep)).Employ.Add(s);
+                            this.salaries.Add(s);
+                            ok = true;
+                        }
                     }
                 }
                 //JSON PART
                 try
                 {
-                    JsonUtil.sendJsonSalaries(this.salaries);
-                    Console.WriteLine("Salarié ajouté a la base de donnée !");
+                    if (ok)
+                    {
+                        JsonUtil.sendJsonSalaries(this.salaries);
+                        Console.WriteLine("Salarie ajoute a la base de donnee !");
+                    }
+                    else throw new Exception("Impossible de push !");
+                    
                 }
                 catch (Exception e)
                 {
@@ -192,7 +204,7 @@ namespace TransconnectProject.Controleur
             }
             else
             {
-                Console.WriteLine("Le salarié " + s.Nom + " " + s.Prenom + " est déja dans nos base de données");
+                Console.WriteLine("Le salarie " + s.Nom + " " + s.Prenom + " est deja dans nos base de donnees");
             }
             //refresh organnigramme
             BuildSalariesTree();
@@ -374,40 +386,54 @@ namespace TransconnectProject.Controleur
 
 
         }
-        public void updateClient(string nom, string prenom)
+        public void updateClient(Client toUpdate)
         {
-            Client toUpdate = this.clients.Find(x => x.Nom.Equals(nom) && x.Prenom.Equals(prenom));
-            if (toUpdate != null)
+            int choose;
+            do
             {
-                Console.WriteLine("1.Modifier Nom et prénom\n2.Modifier adresse\n3.Exit");
-                int choose = 1;
-                while (choose > 0 && choose < 3)
+                Console.WriteLine("\nVeuillez saisir ce que vous voulez modifier: \n");
+                Console.WriteLine("1. Modifier Nom et prénom\n2. Modifier adresse\n3. Exit");
+                Console.Write("\nvotre saisie: ");
+                string input = Console.ReadLine();
+                
+                while (!int.TryParse(input, out choose))
                 {
-                    switch (choose)
-                    {
-                        case 1:
-                            Console.WriteLine("\nVeuillez entrer le prenom du client: ");
-                            String firstname = Console.ReadLine();
-                            Console.WriteLine("\nVeuillez entrer le nom du client: ");
-                            String lastname = Console.ReadLine();
-                            toUpdate.Prenom = firstname;
-                            toUpdate.Nom = lastname;
-                            Console.WriteLine("\nNom et prénom modifiés !");
-                            break;
-                        case 2:
-                            Console.WriteLine("\nVeuillez saisir le nom de la ville:");
-                            string ville = Console.ReadLine();
-                            Console.WriteLine("\nVeuillez saisir le nom de la rue");
-                            string rue = Console.ReadLine();
-                            Adresse newAd = new Adresse(ville,rue);
-                            Console.WriteLine("\nAdresse modifié !");
-                            break;
-                    }
-                    choose = 3;
+                    Console.WriteLine("\nSorry, nous n'avons pas compris votre saisie...\n");
+                    Console.WriteLine("\nVeuillez saisir ce que vous voulez modifier\n: ");
+                    Console.WriteLine("1. Modifier Nom et prenom\n2. Modifier adresse\n3. Exit");
+                    Console.Write("\nvotre saisie: ");
+                    input = Console.ReadLine();
+                    Console.Clear();
                 }
+                if(choose < 0 || choose > 3)
+                    Console.WriteLine("\nErreur, la saisie est hors borne...");
+            } while (choose < 0 || choose > 3);
+
+            switch (choose)
+             {
+                case 1:
+                    Console.WriteLine("\nVeuillez entrer le prenom du client: ");
+                    String firstname = Console.ReadLine();
+                    Console.WriteLine("\nVeuillez entrer le nom du client: ");
+                    String lastname = Console.ReadLine();
+                    toUpdate.Prenom = firstname;
+                    toUpdate.Nom = lastname;
+                    Console.WriteLine("\nNom et prénom modifiés !\n");
+                    break;
+                case 2:
+                    Console.WriteLine("\nVeuillez saisir le nom de la ville:");
+                    string ville = Console.ReadLine();
+                    Console.WriteLine("\nVeuillez saisir le nom de la rue");
+                    string rue = Console.ReadLine();
+                    Adresse newAd = new Adresse(ville,rue);
+                    toUpdate.Adresse = newAd;
+                    Console.WriteLine("\nAdresse modifié !\n");
+                    break;
+                default:
+                    Console.WriteLine("\nExit ! Bye");
+                    break;
             }
-            else
-                Console.WriteLine("\nLe client que vous voulez modifier n'est pas dans notre BD");
+            JsonUtil.sendJsonClients(this.clients);
         }
         #endregion
 
@@ -556,7 +582,7 @@ namespace TransconnectProject.Controleur
         public void showClientsListCommandes() {
             foreach (var item in this.clients)
             {
-                Console.WriteLine("\nListe de commandes de "+item.ToString()+"Liste :\n"+item.getListCommande());
+                Console.WriteLine("\nListe de commandes de "+item.ToString()+"\nListe : "+item.getListCommande());
             }
             Console.WriteLine();
         }
