@@ -30,12 +30,12 @@ namespace TransconnectProject.Model
         public void doOrder(string from,Produit produit, int quantite,Salarie chauffeur,Vehicule vehicule,DateTime?dateLiv=null) {
             Commande c = new Commande(this.Nom,this.Prenom, chauffeur, vehicule, produit, quantite, from,this.Ville, dateDeLivraison: dateLiv);
             this.commandes.Add(c);
-            this.achatCumulle += c.Prix;
+            this.achatCumulle += c.getPrice();
         }
         public void doOrder(Commande c)
         {
             this.commandes.Add(c);
-            this.achatCumulle += c.Prix;
+            this.achatCumulle += c.getPrice();
         }
         //avarege commande
         public double getAverageCommande()

@@ -534,7 +534,7 @@ namespace TransconnectProject.Controleur
         /// </summary>
         public void showAveragePriceCommandes()
         {
-            double price = this.commandes.Count() > 0 ? this.commandes.Average(x => x.Prix) : 0.0;
+            double price = this.commandes.Count() > 0 ? this.commandes.Average(x => x.getPrice()) : 0.0;
             Console.WriteLine("\nPrix moyen des commandes = " + price + "\n");
         }
         //TOTEST:showAverageAchatCompteClient

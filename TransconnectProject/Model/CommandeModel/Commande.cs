@@ -23,7 +23,6 @@ namespace TransconnectProject.Model.CommandeModel
 		private Vehicule vehiculeAffile;
 		private PathCityWritter ptw;
 		private int distance;
-		private double prix;
 		private string villeA;
 		private string villeB;
 		private DateTime dateDeLivraison;
@@ -57,7 +56,7 @@ namespace TransconnectProject.Model.CommandeModel
 				this.chauffeurAffile = chauffeur;
 				this.distance = DijkstraFeatures.Dijkstra(ptw.PathMatrice, this.villeA, this.villeB, ptw.CitiesList);
 				if (this.distance == -1) throw new Exception("Erreur, nous ne pouvons effectuer de course entre ces deux villes");
-				this.prix = (this.produit.PrixKg * quantite) + (this.distance * 0.5) + (Chauffeur.getTarif() + chauffeurAffile.getEncienneteEnjours() * 0.015); //+ this.vehiculeAffile.PrixLocation; //+ (distance * 0.5) + (Chauffeur.getTarif() + chauffeurAffile.getEncienneteEnjours() * 0.015);//0,5 euro par km
+				//this.prix = (this.produit.PrixKg * quantite) + (this.distance * 0.5) + (Chauffeur.getTarif() + chauffeurAffile.getEncienneteEnjours() * 0.015) + this.vehiculeAffile.PrixLocation;// + (distance * 0.5) + (Chauffeur.getTarif() + chauffeurAffile.getEncienneteEnjours() * 0.015);//0,5 euro par km
 
             }
             catch(Exception e)
@@ -75,15 +74,20 @@ namespace TransconnectProject.Model.CommandeModel
         public string ProprietairePrenom { get => this.proprietairePrenom; set => this.proprietairePrenom = value; }
         public Salarie ChauffeurCom { get => this.chauffeurAffile; set => this.chauffeurAffile = value; }
         public DateTime DateDeLivraison { get => this.dateDeLivraison; set => this.dateDeLivraison = value; }
-		public double Prix { get => this.prix; }
+		//public double Prix { get => this.prix; set => this.prix = value; }
 		//Show path for the order
+		public double getPrice()
+		{
+			return (this.produit.PrixKg * quantite) + (this.distance * 0.5) + (Chauffeur.getTarif() + chauffeurAffile.getEncienneteEnjours() * 0.015);
+
+        }
 		public void getTrajetLivraison()
 		{
 			Console.WriteLine(this.ptw.CurrentPath);
         }
         public override string ToString()
         {
-            return "\nCommande de "+this.produit.NomProduit+""+"\n- quantité: "+this.quantite+"Kg\n"+"- Propriétaire: "+this.proprietairePrenom+" "+this.proprietaireNom+"\n- À livré le "+this.dateDeLivraison.ToString("d")+"\n- Info Points livraison: "+ptw.CurrentPath+"\n- Livreur: "+chauffeurAffile.ToString()+"\n- Vehicule info: "+this.vehiculeAffile.ToString()+"\nPrix total = "+this.Prix+" euro\n\n";
+            return "\nCommande de "+this.produit.NomProduit+""+"\n- quantité: "+this.quantite+"Kg\n"+"- Propriétaire: "+this.proprietairePrenom+" "+this.proprietaireNom+"\n- À livré le "+this.dateDeLivraison.ToString("d")+"\n- Info Points livraison: "+ptw.CurrentPath+"\n- Livreur: "+chauffeurAffile.ToString()+"\n- Vehicule info: "+this.vehiculeAffile.ToString()+"\nPrix total = "+getPrice()+" euro\n\n";
         }
     }
 }

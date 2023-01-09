@@ -2,10 +2,11 @@
   {
     "commandes": [
       {
-        "VilleA": "Pau",
+        "VilleA": "Bordeaux",
         "VilleB": "Paris",
-        "Distance": 791,
+        "Distance": 583,
         "VehiculeAffile": {
+          "prixLocation": 50,
           "NombrePersonne": 6,
           "PrixLocation": 50,
           "Nom": "Voiture"
@@ -45,11 +46,11 @@
           "mail": "RomeVan@transco.fr",
           "telNum": "0706055689"
         },
-        "DateDeLivraison": "2026-05-05T00:00:00",
-        "Prix": 1545.5
+        "DateDeLivraison": "2025-06-08T00:00:00",
+        "Prix": 1577.545
       }
     ],
-    "achatCumulle": 1545.5,
+    "achatCumulle": 1577.545,
     "adressePostal": {
       "ville": "Paris",
       "rue": "4 allee manon des sources"
