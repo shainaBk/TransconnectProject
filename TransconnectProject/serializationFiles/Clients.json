@@ -2,6 +2,21 @@
   {
     "commandes": [
       {
+        "VilleA": "Pau",
+        "VilleB": "Paris",
+        "Distance": 791,
+        "VehiculeAffile": {
+          "NombrePersonne": 6,
+          "PrixLocation": 50,
+          "Nom": "Voiture"
+        },
+        "Quantite": 200,
+        "Produit": {
+          "PrixKg": 5.5,
+          "NomProduit": "Chocolat"
+        },
+        "ProprietaireNom": "Bakili",
+        "ProprietairePrenom": "Shaina",
         "ChauffeurCom": {
           "numSS": 5,
           "salaire": 1600.0,
@@ -30,26 +45,26 @@
           "mail": "RomeVan@transco.fr",
           "telNum": "0706055689"
         },
-        "DateDeLivraison": "2025-08-08T00:00:00",
-        "Prix": 1396.53
+        "DateDeLivraison": "2026-05-05T00:00:00",
+        "Prix": 1545.5
       }
     ],
-    "achatCumulle": 1696.53,
+    "achatCumulle": 1545.5,
     "adressePostal": {
       "ville": "Paris",
       "rue": "4 allee manon des sources"
     },
-    "nom": "Shaina",
-    "prenom": "Bakili",
+    "nom": "Bakili",
+    "prenom": "Shaina",
     "dob": "2001-03-11T00:00:00",
     "mail": "shaina3322@hotmail.com",
     "telNum": "0768698493"
   },
   {
     "commandes": [],
-    "achatCumulle": 150.0,
+    "achatCumulle": 0.0,
     "adressePostal": {
-      "ville": "Bordeaux",
+      "ville": "Paris",
       "rue": "Los pequenos y pequenas"
     },
     "nom": "Albert",
@@ -60,9 +75,9 @@
   },
   {
     "commandes": [],
-    "achatCumulle": 100.0,
+    "achatCumulle": 0.0,
     "adressePostal": {
-      "ville": "Bordeaux",
+      "ville": "Paris",
       "rue": "Los pequenos y pequenas"
     },
     "nom": "Valentina",
@@ -75,7 +90,7 @@
     "commandes": [],
     "achatCumulle": 0.0,
     "adressePostal": {
-      "ville": "Marseille",
+      "ville": "Paris",
       "rue": "laposo"
     },
     "nom": "Patcom",

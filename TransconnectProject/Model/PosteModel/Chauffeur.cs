@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TransconnectProject.Model.CommandeModel;
+using System.Runtime.Serialization;
 
 namespace TransconnectProject.Model.PosteModel
 {
@@ -19,8 +20,12 @@ namespace TransconnectProject.Model.PosteModel
         public void addCommande(Commande c)
         {
             var exist = this.listeDeCommandes.Find(x => x.DateDeLivraison.Day == c.DateDeLivraison.Day && x.DateDeLivraison.Year==c.DateDeLivraison.Year && x.DateDeLivraison.Month == c.DateDeLivraison.Month);
-            if (exist == null) this.listeDeCommandes.Add(c);
-            else throw new Exception("Erreur, le chauffeur ne peux effectuer cette livraison à ce jour: "+c.DateDeLivraison.ToString("d"));
+            if (exist == null)
+            {
+                this.listeDeCommandes.Add(c);
+                Console.WriteLine("\nCommande ajouté à la liste des commandes du chauffeur !\n");
+            }
+            else throw new Exception("Erreur, le chauffeur ne peux effectuer cette livraison à ce jour: " + c.DateDeLivraison.ToString("d"));
         }
         public static int getTarif() { return 60; }//pour une livraison
     }

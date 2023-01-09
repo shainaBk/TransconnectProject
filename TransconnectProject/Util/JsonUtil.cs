@@ -42,7 +42,7 @@ namespace TransconnectProject.Util
         {
             StreamReader r = new StreamReader(@"../../../../TransconnectProject/serializationFiles/Clients.json");
             string json = @r.ReadToEnd();
-            list = JsonConvert.DeserializeObject<List<Client>>(json, new VehiculeConverter(),new DepConverter());
+            list = JsonConvert.DeserializeObject<List<Client>>(json,new PosteConverter(),new VehiculeConverter(),new DepConverter());
         }
         //Client parser
         public static void sendJsonClients(List<Client> list)
@@ -139,16 +139,16 @@ namespace TransconnectProject.Util
     {
         protected override Vehicule Create(Type objectType, JObject jObject)
         {
-            if (FieldExists(jObject, "nom", "Voiture"))
+            if (FieldExists(jObject, "Nom", "Voiture"))
                 return new Voiture(0);
             //It's bullshit
-            else if (FieldExists(jObject, "nom", "Camion benne"))
+            else if (FieldExists(jObject, "Nom", "Camion benne"))
                 return new Camion(0,null,null);
-            else if (FieldExists(jObject, "nom", "camion-citerne"))
+            else if (FieldExists(jObject, "Nom", "camion-citerne"))
                 return new Camion(0, null, null);
-            else if (FieldExists(jObject, "nom", "Camionette"))
+            else if (FieldExists(jObject, "Nom", "Camionette"))
                 return new Camionette(null);
-            else if (FieldExists(jObject, "nom", "camion frigorifique"))
+            else if (FieldExists(jObject, "Nom", "camion frigorifique"))
                 return new Camionette(null);
             throw new InvalidOperationException();
         }

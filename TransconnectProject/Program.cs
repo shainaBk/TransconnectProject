@@ -5,21 +5,37 @@ using TransconnectProject.Controleur;
 using TransconnectProject.Controleur.CritereClients;
 using TransconnectProject.Model.ProduitModel;
 using TransconnectProject.Model.VehiculeModel;
+using TransconnectProject.Model.CommandeModel;
 
 public class main
 {
-    public static void Menu() { }
+    public static void pressToContinue() {
+        Console.WriteLine("\nAppuyer entrer pour continuer...");
+        Console.ReadLine();
+        Console.Clear();
+    }
     public static void Main()
     {
         #region InitZone
         var converter = new PosteConverter();
         List<Salarie> lesSalaries = new List<Salarie>();
         List<Client> lesClients = new List<Client>();
+        List<Commande> lesCommandes = new List<Commande>();
         List<Produit> lesProduits = new List<Produit> { new Produit("Chocolat", 5.5), new Produit("Huile", 2.5), new Produit("Vin", 10.6), new Produit("Cuire", 5.0), new Produit("Metal", 25.0), new Produit("Argent", 22.41), new Produit("Platine", 1024.0), new Produit("Or", 1754.1) };
         List<Vehicule> lesVehicules = new List<Vehicule> { new Voiture(6),new Camionette("Transport chocolat"), new Camion(1500, "Metal", "Camion benne"), new Camion(1500, "Cuire", "Camion benne"), new Camion(1500, "Platine", "Camion benne"), new Camion(2000, "or", "Camion benne"), new Camion(1000, "Huile", "camion-citerne"), new Camion(1000, "Vin", "camion-citerne") };
         JsonUtil.getJsonSalaries(ref lesSalaries, converter);
         JsonUtil.getJsonClients(ref lesClients);
-        TransconnectControleur controleur = new TransconnectControleur(lesSalaries,lesClients,lesProduits,lesVehicules);
+        /********** Chargement des commandes ************/
+        foreach (var item in lesClients)
+        {
+            foreach (var item2 in item.CommandesClient)
+            {
+                lesCommandes.Add(item2);
+            }
+        }
+        /**********************************************/
+        TransconnectControleur controleur = new TransconnectControleur(lesSalaries,lesClients,lesProduits,lesVehicules,lesCommandes);
+        controleur.BuildSalariesTree();
         #endregion
 
         //TODO: !!!!!!!!!!!IL FAUT AJOUTER DANS TOUT LES EMPLOYÉ QUI ON L'EMPLOYÉ ET PAREILLE POUR SUPRIMER
@@ -40,7 +56,7 @@ public class main
         while (FIRSTMENU)
         {
             Console.WriteLine("----------------------------- BIENVENUE SUR TRANSCONNECT SOFTWARE ----------------------------- \n");
-            Console.WriteLine("Choisissez un numero pour parcourir:\n\n1. Gestionnaite de clients\n2. Gestionnaire de salaries\n3. Gestionnaire de commandes\nTOUT AUTRE CHIFFRE => Exit\n");
+            Console.WriteLine("Choisissez un numero pour parcourir:\n\n1. Gestionnaite de clients\n2. Gestionnaire de salaries\n3. Gestionnaire de commandes\n4. Gestionnaire de produits\n5. Gestionnaire de vehicules\nTOUT AUTRE CHIFFRE => Exit\n");
             Console.Write("Votre entrez: ");
             SFirstINPUT = Console.ReadLine();
 
@@ -49,7 +65,7 @@ public class main
             while (!int.TryParse(SFirstINPUT, out INPUT))
             {
                 Console.WriteLine("Sorry, nous n'avons pas compris votre saisie...\n");
-                Console.WriteLine("Choisissez un numero pour parcourir:\n\n1. Gestionnaite de clients\n2. Gestionnaire de salaries\n3. Gestionnaire de commandes\nTOUT AUTRE CHIFFRE => Exit\n");
+                Console.WriteLine("Choisissez un numero pour parcourir:\n\n1. Gestionnaite de clients\n2. Gestionnaire de salaries\n3. Gestionnaire de commandes\n4. Gestionnaire de produits\n5. Gestionnaire de vehicules\nTOUT AUTRE CHIFFRE => Exit\n");
                 Console.Write("Votre entrez: ");
                 SFirstINPUT = Console.ReadLine();
                 Console.Clear();
@@ -97,8 +113,7 @@ public class main
                                     {
                                         Console.WriteLine("\nVotre saisie est incorrecte, nous allons donc afficher les client en mode \"Normal\"");
                                         critere = null;
-                                        Console.WriteLine("\nAppuyer entrer pour continuer...");
-                                        Console.ReadLine();
+                                        pressToContinue();
                                         break;
                                     }
                                     else
@@ -113,36 +128,30 @@ public class main
                                 {
                                     case "a":
                                         controleur.showClients(false, new List<TransconnectProject.Controleur.CritereClients.ICritere> { new OrdreAlphaCritere() });
-                                        Console.WriteLine("\nAppuyer entrer pour continuer...");
-                                        Console.ReadLine();
+                                        pressToContinue();
                                         break;
                                     case "b":
                                         controleur.showClients(false, new List<TransconnectProject.Controleur.CritereClients.ICritere> { new OrdreVilleCritere() });
-                                        Console.WriteLine("\nAppuyer entrer pour continuer...");
-                                        Console.ReadLine();
+                                        pressToContinue();
                                         break;
                                     case "c":
                                         controleur.showClients(false, new List<TransconnectProject.Controleur.CritereClients.ICritere> { new OrdreMontantCumule() });
-                                        Console.WriteLine("\nAppuyer entrer pour continuer...");
-                                        Console.ReadLine();
+                                        pressToContinue();
                                         break;
                                     case "ab":
                                     case "ba":
                                         controleur.showClients(false, new List<TransconnectProject.Controleur.CritereClients.ICritere> { new OrdreAlphaCritere(), new OrdreVilleCritere() });
-                                        Console.WriteLine("\nAppuyer entrer pour continuer...");
-                                        Console.ReadLine();
+                                        pressToContinue();
                                         break;
                                     case "ac":
                                     case "ca":
                                         controleur.showClients(false, new List<TransconnectProject.Controleur.CritereClients.ICritere> { new OrdreAlphaCritere(), new OrdreMontantCumule() });
-                                        Console.WriteLine("\nAppuyer entrer pour continuer...");
-                                        Console.ReadLine();
+                                        pressToContinue();
                                         break;
                                     case "bc":
                                     case "cb":
                                         controleur.showClients(false, new List<TransconnectProject.Controleur.CritereClients.ICritere> { new OrdreMontantCumule(), new OrdreVilleCritere() });
-                                        Console.WriteLine("\nAppuyer entrer pour continuer...");
-                                        Console.ReadLine();
+                                        pressToContinue();
                                         break;
                                     case "abc":
                                     case "acb":
@@ -151,13 +160,11 @@ public class main
                                     case "cab":
                                     case "cba":
                                         controleur.showClients(false, new List<TransconnectProject.Controleur.CritereClients.ICritere> { new OrdreAlphaCritere(), new OrdreVilleCritere(), new OrdreMontantCumule() });
-                                        Console.WriteLine("\nAppuyer entrer pour continuer...");
-                                        Console.ReadLine();
+                                        pressToContinue();
                                         break;
                                     default:
                                         controleur.showClients();
-                                        Console.WriteLine("\nAppuyer entrer pour continuer...");
-                                        Console.ReadLine();
+                                        pressToContinue();
                                         break;
                                 }
                                 Console.Clear();
@@ -169,9 +176,7 @@ public class main
                                 Console.WriteLine("Ajout d'un client\n");
                                 Client newClient = Client.createClient();
                                 controleur.addClient(newClient);
-                                Console.WriteLine("\nAppuyer entrer pour continuer...");
-                                Console.ReadLine();
-                                Console.Clear();
+                                pressToContinue();
                                 break;
                             #endregion
                             #region Update client
@@ -188,9 +193,7 @@ public class main
                                 Console.Write("\nveuillez saisir le prenom du client: ");
                                 string prenom = Console.ReadLine();
                                 controleur.deleteClient(nom, prenom);
-                                Console.WriteLine("\nAppuyer entrer pour continuer...");
-                                Console.ReadLine();
-                                Console.Clear();
+                                pressToContinue();
                                 break;
                             #endregion
                             //MODULE STATISTIQUE
@@ -198,9 +201,7 @@ public class main
                             case 5:
                                 Console.WriteLine("- Fonctionnalioté Moyenne achat par client -\n");
                                 controleur.showAverageAchatCompteClient();
-                                Console.WriteLine("\nAppuyer entrer pour continuer...");
-                                Console.ReadLine();
-                                Console.Clear();
+                                pressToContinue();
                                 break;
                             #endregion
                             //MODULE STATISTIQUE
@@ -208,9 +209,7 @@ public class main
                             case 6:
                                 Console.WriteLine("- Fonctionnalioté liste commandes client -\n");
                                 controleur.showClientsListCommandes();
-                                Console.WriteLine("\nAppuyer entrer pour continuer...");
-                                Console.ReadLine();
-                                Console.Clear();
+                                pressToContinue();
                                 break;
                             #endregion
                             default:
@@ -223,11 +222,13 @@ public class main
                 #endregion
                 case 2:
                     #region GESTIONNAIRE SALARIES
+                    //TOKNOW: PROBLEME AJOUT SALARIE WITH SOUS BOSS
                     bool SALARIESMENU = true;
                     while (SALARIESMENU)
                     {
                         Console.WriteLine("-------------------------- GESTIONNAIRE DE SALARIES --------------------------");
                         Console.WriteLine("Que voulez vous faire ?\n\n1. Afficher l'organigramme \n2. Embaucher un salarie \n3. Licencier un salarie\n4. Afficher nombre de livraison par chauffeur\nTOUT AUTRE CHIFFRE => Menu principal \n");
+                        Console.Write("\nVotre saisie: ");
                         String SalarieINPUT = Console.ReadLine();
                         Console.Clear();
                         while (!int.TryParse(SalarieINPUT, out INPUT))
@@ -240,6 +241,30 @@ public class main
                         //Switch part
                         switch (INPUT)
                         {
+                            case 1:
+                                Console.WriteLine("- Affichage de l'organigramme -\n");
+                                controleur.BuildSalariesTree();
+                                Console.WriteLine(controleur.showOrgannigramme());
+                                pressToContinue();
+                                continue;
+                            case 2:
+                                Console.WriteLine("- Fonctionnalite ajout de salarie -\n");
+                                //TODO
+                                Salarie s = Salarie.createSalarie();
+                                controleur.addSalarie(s);
+                                pressToContinue();
+                                continue;
+                            case 3:
+                                Console.WriteLine("- Fonctionnalite suppression de salarie -\n");
+                                //TODO
+                                //controleur.deleteSalarie();
+                                pressToContinue();
+                                continue;
+                            case 4:
+                                Console.WriteLine("- Affichage nombre livraison par chauffeur -\n");
+                                controleur.showChauffeurCommandesNumber();
+                                pressToContinue();
+                                continue;
                             default:
                                 SALARIESMENU = false;
                                 break;
@@ -250,6 +275,7 @@ public class main
                     #endregion
                 case 3:
                     #region GESTIONNAIRE COMMANDES
+                    //TOKNOW: PROBLEME SERIALIZATION
                     bool COMMANDEMENU = true;
                     while (COMMANDEMENU)
                     {
@@ -388,20 +414,21 @@ public class main
                                 } while (isOk);
                                 controleur.addCommande(nom, prenom, villeFrom, p, quantité, chauffeur, vehiculeT, new DateTime(int.Parse(date.Split("/")[0]), int.Parse(date.Split("/")[1]), int.Parse(date.Split("/")[2])));
                                 #endregion
-                                Console.WriteLine("Appuyer entrer pour continuer...");
-                                Console.ReadLine();
-                                Console.Clear();
+                                pressToContinue();
                                 continue;
                             case 2:
+                                Console.WriteLine("- Fonctionnalite Modification de commande -\n");
+                                pressToContinue();
                                 continue;
                             case 3:
+                                Console.WriteLine("- Affichage moyenne des prix des commandes -\n");
+                                controleur.showAveragePriceCommandes();
+                                pressToContinue();
                                 continue;
                             case 4:
                                 Console.WriteLine("- Fonctionnalite Affichage des commandes -\n");
                                 controleur.showCommandes();
-                                Console.WriteLine("Appuyer entrer pour continuer...");
-                                Console.ReadLine();
-                                Console.Clear();
+                                pressToContinue();
                                 continue;
                             default:
                                 COMMANDEMENU = false;
@@ -412,6 +439,74 @@ public class main
                     }
                     continue;
                 #endregion
+                case 4:
+                    #region GESTIONNAIRE CLIENT 
+                    bool PRODUITSMENU = true;
+                    while (PRODUITSMENU)
+                    {
+                        Console.WriteLine("-------------------------- GESTIONNAIRE DE CLIENTS --------------------------\n");
+                        Console.WriteLine("Que voulez vous faire ?\n\n1. Afficher produits disponible \n2. Ajouter un nouveau produit \n3. supprimer un produit\nTOUT AUTRE CHIFFRE => Menu principal");
+                        Console.Write("\nVotre saisie: ");
+                        String ProduitINPUT = Console.ReadLine();
+
+                        Console.Clear();
+                        while (!int.TryParse(ProduitINPUT, out INPUT))
+                        {
+                            Console.WriteLine("Sorry, nous n'avons pas compris votre saisie...\n");
+                            Console.WriteLine("Que voulez vous faire ?\n\n1. Afficher produits disponible \n2. Ajouter un nouveau produit \n3. supprimer un produit\nTOUT AUTRE CHIFFRE => Menu principal");
+                            Console.Write("\nVotre saisie: ");
+                            ProduitINPUT = Console.ReadLine();
+                            Console.Clear();
+                        }
+                        switch (INPUT)
+                        {
+                            case 1:
+                                continue;
+                            case 2:
+                                continue;
+                            case 3:
+                                continue;
+                            default:
+                                PRODUITSMENU = false;
+                                break;
+                        }
+                    }
+                        continue;
+                    #endregion
+                case 5:
+                    #region GESTIONNAIRE VEHICULES
+                    bool VEHICULESMENU = true;
+                    while (VEHICULESMENU)
+                    {
+                        Console.WriteLine("-------------------------- GESTIONNAIRE DE CLIENTS --------------------------\n");
+                        Console.WriteLine("Que voulez vous faire ?\n\n1. Afficher produits disponible \n2. Ajouter un nouveau produit \n3. supprimer un produit\nTOUT AUTRE CHIFFRE => Menu principal");
+                        Console.Write("\nVotre saisie: ");
+                        String ProduitINPUT = Console.ReadLine();
+
+                        Console.Clear();
+                        while (!int.TryParse(ProduitINPUT, out INPUT))
+                        {
+                            Console.WriteLine("Sorry, nous n'avons pas compris votre saisie...\n");
+                            Console.WriteLine("Que voulez vous faire ?\n\n1. Afficher listes des vehicules disponible \n2. Ajouter un nouveau vehicule\n3. supprimer un vehicule\nTOUT AUTRE CHIFFRE => Menu principal");
+                            Console.Write("\nVotre saisie: ");
+                            ProduitINPUT = Console.ReadLine();
+                            Console.Clear();
+                        }
+                        switch (INPUT)
+                        {
+                            case 1:
+                                continue;
+                            case 2:
+                                continue;
+                            case 3:
+                                continue;
+                            default:
+                                VEHICULESMENU = false;
+                                break;
+                        }
+                    }
+                    continue;
+                    #endregion
                 default:
                     Console.WriteLine("AU REVOIR !");
                     FIRSTMENU = false;

@@ -4,15 +4,22 @@ using TransconnectProject.Model;
 using TransconnectProject.Util;
 using TransconnectProject.Model.ProduitModel;
 using TransconnectProject.Model.VehiculeModel;
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
+using JsonIgnoreAttribute = Newtonsoft.Json.JsonIgnoreAttribute;
+using Microsoft.VisualBasic;
+
 namespace TransconnectProject.Model.CommandeModel
 {
-	public class Commande
+    public class Commande
 	{
-		//TODO: lier cette commande des produits
+        //TODO: lier cette commande des produits
 		private Produit produit;
 		private int quantite;//en Kg
-		private Client ClientProprietaire;
-		private Salarie chauffeurAffile;
+		private string proprietaireNom;
+        private string proprietairePrenom;
+        private Salarie chauffeurAffile;
 		private Vehicule vehiculeAffile;
 		private PathCityWritter ptw;
 		private int distance;
@@ -22,17 +29,15 @@ namespace TransconnectProject.Model.CommandeModel
 		private DateTime dateDeLivraison;
 
 		//TOTEST
-		public Commande(Client client,Salarie chauffeur,Vehicule vehicule,Produit produit,int quantity, string villeA, string villeB = null,DateTime? dateDeLivraison=null)
+		public Commande(string clientNom,string clientPrenom,Salarie chauffeur,Vehicule vehicule,Produit produit,int quantity, string villeA, string villeB,DateTime? dateDeLivraison=null)
 		{
-            this.ptw = new PathCityWritter();
             try
 			{
-                
+                this.ptw = new PathCityWritter();
+                this.proprietaireNom = clientNom;
+                this.proprietairePrenom = clientPrenom;
                 this.villeA = villeA;
-                if (villeB != null)
-                    this.villeB = villeB;
-                else
-                    this.villeB = client.Ville;
+                this.villeB = villeB;
 				if (!ptw.CitiesList.Contains(this.villeA) || !ptw.CitiesList.Contains(this.villeB))
 					throw new Exception("Erreur, l'une des villes saisie n'existe pas");
 				/*********** Dijkstra PART **********/
@@ -48,27 +53,26 @@ namespace TransconnectProject.Model.CommandeModel
 				}
 				this.produit = produit;
 				this.quantite = quantity;
-				
-				this.ClientProprietaire = client;
                 this.vehiculeAffile = vehicule;
-                //usefull for test, or specific delevery city
-               
-
-                if (chauffeur.Poste is Chauffeur)
-                    this.chauffeurAffile = chauffeur;
-                else throw new Exception("Erreur, le salarie choisis n'est pas un chauffeur ! Bye !");
-                
+				this.chauffeurAffile = chauffeur;
 				this.distance = DijkstraFeatures.Dijkstra(ptw.PathMatrice, this.villeA, this.villeB, ptw.CitiesList);
 				if (this.distance == -1) throw new Exception("Erreur, nous ne pouvons effectuer de course entre ces deux villes");
+				this.prix = (this.produit.PrixKg * quantite) + (this.distance * 0.5) + (Chauffeur.getTarif() + chauffeurAffile.getEncienneteEnjours() * 0.015); //+ this.vehiculeAffile.PrixLocation; //+ (distance * 0.5) + (Chauffeur.getTarif() + chauffeurAffile.getEncienneteEnjours() * 0.015);//0,5 euro par km
 
-				this.prix = (this.produit.PrixKg * quantite) + this.vehiculeAffile.PrixLocation + (distance * 0.5) + (Chauffeur.getTarif() + chauffeurAffile.getEncienneteEnjours() * 0.015);//0,5 euro par km                                                                                                                                                                   //TOTEST
-                ((Chauffeur)this.chauffeurAffile.Poste).addCommande(this);
-			}catch(Exception e)
+            }
+            catch(Exception e)
 			{
 				Console.WriteLine("Objet non cree car: "+e);
 			}
         }
-		public Client ClientCom { get => this.ClientProprietaire; set => this.ClientProprietaire = value; }
+		public string VilleA { get => this.villeA; set => this.villeA = value; }
+        public string VilleB { get => this.villeB; set => this.villeB = value; }
+		public int Distance { get => this.distance; set => this.distance = value; }
+		public Vehicule VehiculeAffile { get => this.vehiculeAffile; set => this.vehiculeAffile = value; }
+		public int Quantite { get => this.quantite; set => this.quantite = value; }
+		public Produit Produit { get => this.produit; set => this.produit = value; }
+        public string ProprietaireNom { get => this.proprietaireNom; set => this.proprietaireNom = value; }
+        public string ProprietairePrenom { get => this.proprietairePrenom; set => this.proprietairePrenom = value; }
         public Salarie ChauffeurCom { get => this.chauffeurAffile; set => this.chauffeurAffile = value; }
         public DateTime DateDeLivraison { get => this.dateDeLivraison; set => this.dateDeLivraison = value; }
 		public double Prix { get => this.prix; }
@@ -79,7 +83,7 @@ namespace TransconnectProject.Model.CommandeModel
         }
         public override string ToString()
         {
-            return "\nCommande de "+this.produit.NomProduit+", quantité: "+this.quantite+"Kg\n- À livré le "+this.dateDeLivraison.ToString("d")+"\n- Info Points livraison: "+ptw.CurrentPath+"\n- Livreur: "+chauffeurAffile.ToString()+"\n- Prix total = "+this.Prix+" euro\n\n";
+            return "\nCommande de "+this.produit.NomProduit+""+"\n- quantité: "+this.quantite+"Kg\n"+"- Propriétaire: "+this.proprietairePrenom+" "+this.proprietaireNom+"\n- À livré le "+this.dateDeLivraison.ToString("d")+"\n- Info Points livraison: "+ptw.CurrentPath+"\n- Livreur: "+chauffeurAffile.ToString()+"\n- Vehicule info: "+this.vehiculeAffile.ToString()+"\nPrix total = "+this.Prix+" euro\n\n";
         }
     }
 }

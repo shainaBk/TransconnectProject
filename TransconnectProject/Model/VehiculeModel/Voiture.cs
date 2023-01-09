@@ -8,6 +8,7 @@ namespace TransconnectProject.Model.VehiculeModel
 		{
 			this.nombrePersonnes = nbPersonnes;
 		}
+		public int NombrePersonne { get => this.nombrePersonnes; set => this.nombrePersonnes = value;}
         public override string ToString()
         {
             return base.ToString()+", nombre places disponoble: "+this.nombrePersonnes+"\n";

@@ -8,6 +8,7 @@ namespace TransconnectProject.Model.VehiculeModel
 		{
 			this.usage = usage;
 		}
+		public string Usage { get => this.usage; set => this.usage = value; }
         public override string ToString()
         {
 			return base.ToString() + ", usage: " + this.usage+"\n";

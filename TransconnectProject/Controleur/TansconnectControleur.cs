@@ -26,7 +26,7 @@ namespace TransconnectProject.Controleur
         //TODO: Implanter methode Dijskra
         private PathCityWritter ptw;//dijskra tools
 
-        public TransconnectControleur(List<Salarie> salaries,List<Client>?clients=null, List<Produit>? Produits = null, List<Vehicule>? vehicules= null)
+        public TransconnectControleur(List<Salarie> salaries,List<Client>?clients=null, List<Produit>? Produits = null, List<Vehicule>? vehicules= null,List<Commande>?commandes=null)
         {
             if (vehicules != null)
                 this.ListeVehiculeDisponible= vehicules;
@@ -40,7 +40,10 @@ namespace TransconnectProject.Controleur
                 this.clients = clients;
             else
                 this.clients = new List<Client>();
-            this.commandes = new List<Commande>();
+            if (commandes != null)
+                this.commandes = commandes;
+            else
+                this.commandes = new List<Commande>();
             this.salaries = salaries;
             this.organigramme = new SalarieTree(new SalarieNode(null));
             ptw = new PathCityWritter();
@@ -428,7 +431,8 @@ namespace TransconnectProject.Controleur
                 Console.WriteLine("\nLe client n'est pas dans nos bases de donnees\n");
                 clt = Client.createClient();
             }
-            c = new Commande(clt, chauffeur, vehicule, produit, quantite, from, dateDeLivraison: dateLiv);
+            c = new Commande(clt.Nom,clt.Prenom, chauffeur, vehicule, produit, quantite, from,clt.Ville, dateDeLivraison: dateLiv);
+            ((Chauffeur)c.ChauffeurCom.Poste).addCommande(c);
             this.commandes.Add(c);
             clt.doOrder(c);
             if (!this.clients.Contains(clt))
@@ -438,7 +442,7 @@ namespace TransconnectProject.Controleur
         }
         public void updateCommande(string nomClient, string nomChauffeur, DateTime date)
         {
-            Commande c = this.commandes.Find(x => x.ClientCom.Nom == nomClient && x.ChauffeurCom.Nom == nomChauffeur && x.DateDeLivraison.ToString("d") == date.ToString("d"));
+            Commande c = this.commandes.Find(x => x.ProprietaireNom == nomClient && x.ChauffeurCom.Nom == nomChauffeur && x.DateDeLivraison.ToString("d") == date.ToString("d"));
             if (c != null)
             {
                 //TODO:Faire condition changement
@@ -455,6 +459,7 @@ namespace TransconnectProject.Controleur
                 Console.WriteLine(item.ToString());
             }
         }
+
         #endregion
 
         #region Produit
@@ -497,8 +502,6 @@ namespace TransconnectProject.Controleur
 
         }
         #endregion
-
-
         #region Statistique
         //TOTEST:showChauffeurCommandesNumber
         /// <summary>
@@ -529,10 +532,10 @@ namespace TransconnectProject.Controleur
         /// <summary>
         /// 
         /// </summary>
-        public void showAverageCommande()
+        public void showAveragePriceCommandes()
         {
-            double Average = this.commandes.Sum(x => x.Prix) / this.commandes.Count();
-            Console.WriteLine("\n Le prix moyen des commandes est de: " + Average + " Euros");
+            double price = this.commandes.Count() > 0 ? this.commandes.Average(x => x.Prix) : 0.0;
+            Console.WriteLine("\nPrix moyen des commandes = " + price + "\n");
         }
         //TOTEST:showAverageAchatCompteClient
         /// <summary>

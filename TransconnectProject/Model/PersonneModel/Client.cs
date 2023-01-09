@@ -28,7 +28,7 @@ namespace TransconnectProject.Model
         /// </summary>
         //TOTEST
         public void doOrder(string from,Produit produit, int quantite,Salarie chauffeur,Vehicule vehicule,DateTime?dateLiv=null) {
-            Commande c = new Commande(this, chauffeur, vehicule, produit, quantite, from, dateDeLivraison: dateLiv);
+            Commande c = new Commande(this.Nom,this.Prenom, chauffeur, vehicule, produit, quantite, from,this.Ville, dateDeLivraison: dateLiv);
             this.commandes.Add(c);
             this.achatCumulle += c.Prix;
         }
@@ -40,7 +40,8 @@ namespace TransconnectProject.Model
         //avarege commande
         public double getAverageCommande()
         {
-            return achatCumulle / this.commandes.Count();
+            double average = this.commandes.Count() > 0 ? achatCumulle / this.commandes.Count() : 0;
+            return average;
         }
         public string getListCommande()
         {
