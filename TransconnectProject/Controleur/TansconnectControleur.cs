@@ -162,9 +162,17 @@ namespace TransconnectProject.Controleur
                     if (nomSuperieur != null)
                     {
                         Salarie chef = Dep.Find(x => x.Nom == nomSuperieur && x.Prenom == prenomSuperieur);
-                        Salarie chefViaCeo = DepViaCeo.Find(x => x.Nom == nomSuperieur && x.Prenom == prenomSuperieur);
+                        Salarie oldViaChef = chef.Employ.Find(x => x.Poste.NomPoste == s.Poste.NomPoste && x.Nom == "Vacant");
+                        Salarie chefViaCeo = DepViaCeo.Find(x => x.Nom == nomSuperieur && x.Prenom == prenomSuperieur && x.Nom == "Vacant");
+                        Salarie oldViachefViaCeo = chefViaCeo.Employ.Find(x => x.Poste.NomPoste == s.Poste.NomPoste);
                         if (chef != null)
                         {
+                            if(oldViachefViaCeo != null)
+                            {
+                                s.Employ = oldViachefViaCeo.Employ;
+                                chefViaCeo.Employ.Remove(oldViaChef);
+                                oldViachefViaCeo.Employ.Remove(oldViachefViaCeo);
+                            }
                             //list
                             chef.Employ.Add(s);
                             //orga
@@ -177,11 +185,19 @@ namespace TransconnectProject.Controleur
                     {
                         /**to get only members of the same Departement**/
                         List<Salarie> Dep2 = salaries.FindAll((x) => x.Poste.NomPoste != "Directeur general" && x.Poste.Departement.NomDep.Equals(s.Poste.Departement.NomDep));
+                        Salarie old = Dep2.Find(x => x.Poste.NomPoste == s.Poste.NomPoste && x.Nom == "Vacant");
+                        Salarie old2 = this.salaries.Find((x) => x.Poste.NomPoste == "Directeur general").Employ.Find(x => x.Poste.Departement.NomDep.Equals(s.Poste.Departement.NomDep)).Employ.Find(x => x.Poste.NomPoste == s.Poste.NomPoste && x.Nom == "Vacant");
                         //Temporary
                         if (Dep2.Count == 0)
                             Console.WriteLine("none");
                         else
                         {
+                            if (old2 != null)
+                            {
+                                s.Employ = old2.Employ;
+                                this.salaries.Find((x) => x.Poste.NomPoste == "Directeur general").Employ.Find(x => x.Poste.Departement.NomDep.Equals(s.Poste.Departement.NomDep)).Employ.Remove(old2);
+                                this.salaries.Remove(old);
+                            }
                             this.salaries.Find((x) => x.Poste.NomPoste == "Directeur general").Employ.Find(x => x.Poste.Departement.NomDep.Equals(s.Poste.Departement.NomDep)).Employ.Add(s);
                             this.salaries.Add(s);
                             ok = true;
@@ -294,7 +310,6 @@ namespace TransconnectProject.Controleur
             this.organigramme.Root.Childs = listeSalariesNode;
         }
         #endregion
-
         #region Clients
         /// <summary>
         /// this method show clients with or without "critère"
@@ -444,7 +459,6 @@ namespace TransconnectProject.Controleur
             JsonUtil.sendJsonClients(this.clients);
         }
         #endregion
-
         #region Commandes
         public void updateCommande(Commande toUpdate)
         {
@@ -547,7 +561,6 @@ namespace TransconnectProject.Controleur
         }
 
         #endregion
-
         #region Produit
         public void showProduitsAvailable()
         {

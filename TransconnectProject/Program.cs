@@ -568,16 +568,16 @@ public class main
                                 continue;
                             case 3:
                                 int INPUTproduit;
-                                Console.WriteLine("- Fonctionnalite suppression de produit -\n");
-                                Console.WriteLine("Veuillez entrer le numero du produit a supprimmer: \n");
-                                for (int i = 0; i < controleur.ListeDesProduits.Count(); i++)
-                                {
-                                    Console.WriteLine((i + 1) + ". " + controleur.ListeDesProduits[i].ToString());
-                                }
-                                Console.Write("Votre saisie: ");
-                                string numProduitINPUT = Console.ReadLine();
                                 do
                                 {
+                                    Console.WriteLine("- Fonctionnalite suppression de produit -\n");
+                                    Console.WriteLine("Veuillez entrer le numero du produit a supprimmer: \n");
+                                    for (int i = 0; i < controleur.ListeDesProduits.Count(); i++)
+                                    {
+                                        Console.WriteLine((i + 1) + ". " + controleur.ListeDesProduits[i].ToString());
+                                    }
+                                    Console.Write("Votre saisie: ");
+                                    string numProduitINPUT = Console.ReadLine();
                                     while (!int.TryParse(numProduitINPUT, out INPUTproduit))
                                     {
                                         Console.WriteLine("Sorry, nous n'avons pas compris votre saisie...\n");
@@ -590,7 +590,9 @@ public class main
                                         numProduitINPUT = Console.ReadLine();
                                         Console.Clear();
                                     }
-                                } while (INPUTproduit < 1 || INPUTproduit > controleur.ListeDesCommandes.Count());
+                                    if(INPUTproduit < 1 || INPUTproduit > controleur.ListeDesProduits.Count())
+                                        Console.WriteLine("Vous etes hors bornes !\n");
+                                } while (INPUTproduit < 1 || INPUTproduit > controleur.ListeDesProduits.Count());
                                 Produit p= controleur.ListeDesProduits[INPUTproduit - 1];
                                 controleur.ListeDesProduits.Remove(p);
                                 Console.WriteLine("Produit supprimé !");
@@ -608,8 +610,8 @@ public class main
                     bool VEHICULESMENU = true;
                     while (VEHICULESMENU)
                     {
-                        Console.WriteLine("-------------------------- GESTIONNAIRE DE CLIENTS --------------------------\n");
-                        Console.WriteLine("Que voulez vous faire ?\n\n1. Afficher produits disponible \n2. Ajouter un nouveau produit \n3. supprimer un produit\nTOUT AUTRE CHIFFRE => Menu principal");
+                        Console.WriteLine("-------------------------- GESTIONNAIRE DE VEHICULES --------------------------\n");
+                        Console.WriteLine("Que voulez vous faire ?\n\n1. Afficher vehicules disponible \n2. Ajouter un nouveau vehicule \n3. supprimer un vehicule\nTOUT AUTRE CHIFFRE => Menu principal");
                         Console.Write("\nVotre saisie: ");
                         String ProduitINPUT = Console.ReadLine();
 
@@ -617,7 +619,7 @@ public class main
                         while (!int.TryParse(ProduitINPUT, out INPUT))
                         {
                             Console.WriteLine("Sorry, nous n'avons pas compris votre saisie...\n");
-                            Console.WriteLine("Que voulez vous faire ?\n\n1. Afficher listes des vehicules disponible \n2. Ajouter un nouveau vehicule\n3. supprimer un vehicule\nTOUT AUTRE CHIFFRE => Menu principal");
+                            Console.WriteLine("Que voulez vous faire ?\n\n1. Afficher vehicules disponible \n2. Ajouter un nouveau vehicule \n3. supprimer un vehicule\nTOUT AUTRE CHIFFRE => Menu principal");
                             Console.Write("\nVotre saisie: ");
                             ProduitINPUT = Console.ReadLine();
                             Console.Clear();
@@ -635,16 +637,16 @@ public class main
                                 continue;
                             case 3:
                                 int INPUTVehicule;
-                                Console.WriteLine("- Fonctionnalite suppression de Vehicule -\n");
-                                Console.WriteLine("Veuillez entrer le numero du vehicule a supprimmer: \n");
-                                for (int i = 0; i < controleur.ListeDesVehicules.Count(); i++)
-                                {
-                                    Console.WriteLine((i + 1) + ". " + controleur.ListeDesVehicules[i].ToString());
-                                }
-                                Console.Write("Votre saisie: ");
-                                string numVehiculeINPUT = Console.ReadLine();
                                 do
                                 {
+                                    Console.WriteLine("- Fonctionnalite suppression de Vehicule -\n");
+                                    Console.WriteLine("Veuillez entrer le numero du vehicule a supprimmer: \n");
+                                    for (int i = 0; i < controleur.ListeDesVehicules.Count(); i++)
+                                    {
+                                        Console.WriteLine((i + 1) + ". " + controleur.ListeDesVehicules[i].ToString());
+                                    }
+                                    Console.Write("Votre saisie: ");
+                                    string numVehiculeINPUT = Console.ReadLine();
                                     while (!int.TryParse(numVehiculeINPUT, out INPUTVehicule))
                                     {
                                         Console.WriteLine("Sorry, nous n'avons pas compris votre saisie...\n");
@@ -657,7 +659,9 @@ public class main
                                         numVehiculeINPUT = Console.ReadLine();
                                         Console.Clear();
                                     }
-                                } while (INPUTVehicule < 1 || INPUTVehicule > controleur.ListeDesCommandes.Count());
+                                    if (INPUTVehicule < 1 || INPUTVehicule > controleur.ListeDesVehicules.Count())
+                                        Console.WriteLine("Vous etes hors bornes !\n");
+                                } while (INPUTVehicule < 1 || INPUTVehicule > controleur.ListeDesVehicules.Count());
                                 Vehicule p = controleur.ListeDesVehicules[INPUTVehicule - 1];
                                 controleur.ListeDesVehicules.Remove(p);
                                 Console.WriteLine("Vehicule supprimé !");

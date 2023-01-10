@@ -77,7 +77,7 @@ namespace TransconnectProject.Model.VehiculeModel
 					else
 						type = "Camion benne";
                     Console.WriteLine("Camion cree !");
-                    return new Camion(kg, saisie4,type);
+                    return new Camion(kg, saisie3,type);
                     break;
 			}
 			return null;
