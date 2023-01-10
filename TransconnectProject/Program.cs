@@ -38,7 +38,7 @@ public class main
         }
         /**********************************************/
         /********** Chargement des commandes chauffeurs ************/
-        List<Salarie> chauf = lesSalaries.FindAll(x => x.Poste.NomPoste == "Chauffeur");
+        /*List<Salarie> chauf = lesSalaries.FindAll(x => x.Poste.NomPoste == "Chauffeur");
         if (lesCommandes.Count() > 0)
         {
             foreach (var item in chauf)
@@ -49,7 +49,7 @@ public class main
                         ((Chauffeur)item.Poste).ListeDeCommandes.Add(item2);
                 }
             }
-        }
+        }*/
         /**********************************************/
         TransconnectControleur controleur = new TransconnectControleur(lesSalaries,lesClients,lesProduits,lesVehicules,lesCommandes);
         controleur.BuildSalariesTree();
