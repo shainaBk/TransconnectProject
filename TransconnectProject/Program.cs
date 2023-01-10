@@ -7,6 +7,7 @@ using TransconnectProject.Model.ProduitModel;
 using TransconnectProject.Model.VehiculeModel;
 using TransconnectProject.Model.CommandeModel;
 using TransconnectProject.Model.DepartementModel;
+using System;
 
 public class main
 {
@@ -23,7 +24,7 @@ public class main
         List<Client> lesClients = new List<Client>();
         List<Commande> lesCommandes = new List<Commande>();
         List<Produit> lesProduits = new List<Produit> { new Produit("Chocolat", 5.5), new Produit("Huile", 2.5), new Produit("Vin", 10.6), new Produit("Cuire", 5.0), new Produit("Metal", 25.0), new Produit("Argent", 22.41), new Produit("Platine", 1024.0), new Produit("Or", 1754.1) };
-        List<Vehicule> lesVehicules = new List<Vehicule> { new Voiture(6),new Camionette("Transport chocolat"), new Camion(1500, "Metal", "Camion benne"), new Camion(1500, "Cuire", "Camion benne"), new Camion(1500, "Platine", "Camion benne"), new Camion(2000, "or", "Camion benne"), new Camion(1000, "Huile", "camion-citerne"), new Camion(1000, "Vin", "camion-citerne") };
+        List<Vehicule> lesVehicules = new List<Vehicule> { new Voiture(6),new Camionette("Transport chocolat"), new Camion(1500, "Metal", "Camion benne"), new Camion(1500, "Cuire", "Camion benne"), new Camion(1500, "Platine", "Camion benne"), new Camion(2000, "or", "Camion benne"), new Camion(1000, "Huile", "Camion-citerne"), new Camion(1000, "Vin", "Camion-citerne") };
         JsonUtil.getJsonSalaries(ref lesSalaries, converter);
         JsonUtil.getJsonClients(ref lesClients);
         /********** Chargement des commandes ************/
@@ -53,16 +54,6 @@ public class main
         TransconnectControleur controleur = new TransconnectControleur(lesSalaries,lesClients,lesProduits,lesVehicules,lesCommandes);
         controleur.BuildSalariesTree();
         #endregion
-
-        //TODO: !!!!!!!!!!!IL FAUT AJOUTER DANS TOUT LES EMPLOYÉ QUI ON L'EMPLOYÉ ET PAREILLE POUR SUPRIMER
-        /* foreach (var item in controleur.Salaries.Find(x => x.Nom == "Fetard").Employ.Find(x => x.Nom=="Royal").Employ)
-         {
-             Console.WriteLine(item.ToString());
-         }*/
-        /*Salarie s17 = new Salarie("Romeffso", "Vanislle", new DateTime(1965, 07, 21), new Adresse("Paris", "Rue de calouil"), "RomeVan@transco.fr", "0706055689", new DateTime(2000, 01, 07), new Chauffeur(), new List<Salarie>());
-        controleur.addSalarie(s17, "Royal", "Louis");*/
-        //controleur.deleteSalarie("Romeffso", "Vanislle");
-        //Console.WriteLine("\n" + controleur.showOrgannigramme() + "\n");
 
         #region MenuZone
         string SFirstINPUT;
@@ -211,15 +202,15 @@ public class main
                                     {
                                         Console.WriteLine("Sorry, nous n'avons pas compris votre saisie...\n");
                                         Console.WriteLine("Veuillez entrer le numero du client a modifier: \n");
-                                        for (int i = 0; i < controleur.ListeDesProduits.Count(); i++)
+                                        for (int i = 0; i < controleur.Clients.Count(); i++)
                                         {
-                                            Console.WriteLine((i + 1) + ". " + controleur.ListeDesProduits[i].ToString());
+                                            Console.WriteLine((i + 1) + ". " + controleur.Clients[i].ToString());
                                         }
                                         Console.Write("Votre saisie: ");
                                         numClientINPUT = Console.ReadLine();
                                         Console.Clear();
                                     }
-                                } while (INPUTclient < 1 || INPUTclient > controleur.ListeDesProduits.Count());
+                                } while (INPUTclient < 1 || INPUTclient > controleur.Clients.Count());
                                 Client p = controleur.Clients[INPUTclient - 1];
                                 controleur.updateClient(p);
                                 pressToContinue();
@@ -496,8 +487,34 @@ public class main
                                 pressToContinue();
                                 continue;
                             case 2:
-                                //TODO
+                                #region Update Commandes
+                                int INPUTcommandes;
                                 Console.WriteLine("- Fonctionnalite Modification de commande -\n");
+                                Console.WriteLine("Veuillez entrer le numero de la commande a modifier: \n");
+                                for (int i = 0; i < controleur.ListeDesCommandes.Count(); i++)
+                                {
+                                    Console.WriteLine((i + 1) + ". " + controleur.ListeDesCommandes[i].ToString());
+                                }
+                                Console.Write("Votre saisie: ");
+                                string numCommandeINPUT = Console.ReadLine();
+                                do
+                                {
+                                    while (!int.TryParse(numCommandeINPUT, out INPUTcommandes))
+                                    {
+                                        Console.WriteLine("Sorry, nous n'avons pas compris votre saisie...\n");
+                                        Console.WriteLine("Veuillez entrer le numero du client a modifier: \n");
+                                        for (int i = 0; i < controleur.ListeDesProduits.Count(); i++)
+                                        {
+                                            Console.WriteLine((i + 1) + ". " + controleur.ListeDesCommandes[i].ToString());
+                                        }
+                                        Console.Write("Votre saisie: ");
+                                        numCommandeINPUT = Console.ReadLine();
+                                        Console.Clear();
+                                    }
+                                } while (INPUTcommandes < 1 || INPUTcommandes > controleur.ListeDesCommandes.Count());
+                                Commande C = controleur.ListeDesCommandes[INPUTcommandes - 1];
+                                controleur.updateCommande(C);
+                                #endregion
                                 pressToContinue();
                                 continue;
                             case 3:
@@ -520,7 +537,7 @@ public class main
                     continue;
                 #endregion
                 case 4:
-                    #region GESTIONNAIRE CLIENT 
+                    #region GESTIONNAIRE PRODUIT 
                     bool PRODUITSMENU = true;
                     while (PRODUITSMENU)
                     {
@@ -541,10 +558,43 @@ public class main
                         switch (INPUT)
                         {
                             case 1:
+                                Console.WriteLine("- Affichage liste produit disponible -");
+                                controleur.showProduitsAvailable();
+                                pressToContinue();
                                 continue;
                             case 2:
+                                controleur.ListeDesProduits.Add(Produit.createProduit());
+                                pressToContinue();
                                 continue;
                             case 3:
+                                int INPUTproduit;
+                                Console.WriteLine("- Fonctionnalite suppression de produit -\n");
+                                Console.WriteLine("Veuillez entrer le numero du produit a supprimmer: \n");
+                                for (int i = 0; i < controleur.ListeDesProduits.Count(); i++)
+                                {
+                                    Console.WriteLine((i + 1) + ". " + controleur.ListeDesProduits[i].ToString());
+                                }
+                                Console.Write("Votre saisie: ");
+                                string numProduitINPUT = Console.ReadLine();
+                                do
+                                {
+                                    while (!int.TryParse(numProduitINPUT, out INPUTproduit))
+                                    {
+                                        Console.WriteLine("Sorry, nous n'avons pas compris votre saisie...\n");
+                                        Console.WriteLine("Veuillez entrer le numero du produit a supprimmer: \n");
+                                        for (int i = 0; i < controleur.ListeDesProduits.Count(); i++)
+                                        {
+                                            Console.WriteLine((i + 1) + ". " + controleur.ListeDesProduits[i].ToString());
+                                        }
+                                        Console.Write("Votre saisie: ");
+                                        numProduitINPUT = Console.ReadLine();
+                                        Console.Clear();
+                                    }
+                                } while (INPUTproduit < 1 || INPUTproduit > controleur.ListeDesCommandes.Count());
+                                Produit p= controleur.ListeDesProduits[INPUTproduit - 1];
+                                controleur.ListeDesProduits.Remove(p);
+                                Console.WriteLine("Produit supprimé !");
+                                pressToContinue();
                                 continue;
                             default:
                                 PRODUITSMENU = false;
@@ -575,10 +625,43 @@ public class main
                         switch (INPUT)
                         {
                             case 1:
+                                Console.WriteLine("- Affichage liste des vehicules disponible-");
+                                controleur.showVehiculeAvailable();
+                                pressToContinue();
                                 continue;
                             case 2:
+                                controleur.ListeDesVehicules.Add(Vehicule.createVehicule());
+                                pressToContinue();
                                 continue;
                             case 3:
+                                int INPUTVehicule;
+                                Console.WriteLine("- Fonctionnalite suppression de Vehicule -\n");
+                                Console.WriteLine("Veuillez entrer le numero du vehicule a supprimmer: \n");
+                                for (int i = 0; i < controleur.ListeDesVehicules.Count(); i++)
+                                {
+                                    Console.WriteLine((i + 1) + ". " + controleur.ListeDesVehicules[i].ToString());
+                                }
+                                Console.Write("Votre saisie: ");
+                                string numVehiculeINPUT = Console.ReadLine();
+                                do
+                                {
+                                    while (!int.TryParse(numVehiculeINPUT, out INPUTVehicule))
+                                    {
+                                        Console.WriteLine("Sorry, nous n'avons pas compris votre saisie...\n");
+                                        Console.WriteLine("Veuillez entrer le numero du vehicule a supprimmer: \n");
+                                        for (int i = 0; i < controleur.ListeDesVehicules.Count(); i++)
+                                        {
+                                            Console.WriteLine((i + 1) + ". " + controleur.ListeDesVehicules[i].ToString());
+                                        }
+                                        Console.Write("Votre saisie: ");
+                                        numVehiculeINPUT = Console.ReadLine();
+                                        Console.Clear();
+                                    }
+                                } while (INPUTVehicule < 1 || INPUTVehicule > controleur.ListeDesCommandes.Count());
+                                Vehicule p = controleur.ListeDesVehicules[INPUTVehicule - 1];
+                                controleur.ListeDesVehicules.Remove(p);
+                                Console.WriteLine("Vehicule supprimé !");
+                                pressToContinue();
                                 continue;
                             default:
                                 VEHICULESMENU = false;

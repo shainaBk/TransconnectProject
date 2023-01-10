@@ -2,16 +2,649 @@
   {
     "commandes": [
       {
-        "VilleA": "Bordeaux",
-        "VilleB": "Paris",
-        "Distance": 583,
+        "ptw": {
+          "CurrentPath": "\n224Km entre Monaco et Marseille !!\n Chemin: Marseille <-- Monaco",
+          "PathMatrice": [
+            [
+              0,
+              52,
+              172,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              483,
+              2147483647,
+              746,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647
+            ],
+            [
+              52,
+              0,
+              126,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              289,
+              716,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647
+            ],
+            [
+              172,
+              126,
+              0,
+              99,
+              2147483647,
+              2147483647,
+              2147483647,
+              224,
+              2147483647,
+              649,
+              2147483647,
+              777,
+              2147483647,
+              2147483647,
+              313,
+              2147483647
+            ],
+            [
+              2147483647,
+              2147483647,
+              99,
+              0,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              226,
+              2147483647
+            ],
+            [
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              0,
+              121,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              193,
+              791,
+              2147483647,
+              2147483647,
+              464,
+              2147483647
+            ],
+            [
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              121,
+              0,
+              2147483647,
+              2147483647,
+              2147483647,
+              202,
+              309,
+              779,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647
+            ],
+            [
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              0,
+              169,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647
+            ],
+            [
+              2147483647,
+              2147483647,
+              224,
+              2147483647,
+              2147483647,
+              2147483647,
+              169,
+              0,
+              2147483647,
+              824,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647
+            ],
+            [
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              0,
+              183,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              187
+            ],
+            [
+              483,
+              2147483647,
+              649,
+              2147483647,
+              2147483647,
+              202,
+              2147483647,
+              824,
+              183,
+              0,
+              2147483647,
+              583,
+              2147483647,
+              2147483647,
+              551,
+              2147483647
+            ],
+            [
+              2147483647,
+              289,
+              2147483647,
+              2147483647,
+              193,
+              309,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              0,
+              675,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647
+            ],
+            [
+              746,
+              716,
+              777,
+              2147483647,
+              791,
+              779,
+              2147483647,
+              2147483647,
+              2147483647,
+              583,
+              675,
+              0,
+              179,
+              133,
+              464,
+              294
+            ],
+            [
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              179,
+              0,
+              2147483647,
+              375,
+              2147483647
+            ],
+            [
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              133,
+              2147483647,
+              0,
+              2147483647,
+              2147483647
+            ],
+            [
+              2147483647,
+              2147483647,
+              313,
+              226,
+              464,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              551,
+              2147483647,
+              464,
+              375,
+              2147483647,
+              0,
+              2147483647
+            ],
+            [
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              2147483647,
+              187,
+              2147483647,
+              2147483647,
+              294,
+              2147483647,
+              2147483647,
+              2147483647,
+              0
+            ]
+          ],
+          "PathList": [
+            {
+              "CityA": "Montpellier",
+              "CityB": "Nimes",
+              "Distance": 52
+            },
+            {
+              "CityA": "Nimes",
+              "CityB": "Montpellier",
+              "Distance": 52
+            },
+            {
+              "CityA": "Marseille",
+              "CityB": "Avignon",
+              "Distance": 99
+            },
+            {
+              "CityA": "Avignon",
+              "CityB": "Marseille",
+              "Distance": 99
+            },
+            {
+              "CityA": "Pau",
+              "CityB": "Biarritz",
+              "Distance": 121
+            },
+            {
+              "CityA": "Biarritz",
+              "CityB": "Pau",
+              "Distance": 121
+            },
+            {
+              "CityA": "Nimes",
+              "CityB": "Marseille",
+              "Distance": 126
+            },
+            {
+              "CityA": "Marseille",
+              "CityB": "Nimes",
+              "Distance": 126
+            },
+            {
+              "CityA": "Toulon",
+              "CityB": "Monaco",
+              "Distance": 169
+            },
+            {
+              "CityA": "Monaco",
+              "CityB": "Toulon",
+              "Distance": 169
+            },
+            {
+              "CityA": "La Rochelle",
+              "CityB": "Bordeaux",
+              "Distance": 183
+            },
+            {
+              "CityA": "Bordeaux",
+              "CityB": "La Rochelle",
+              "Distance": 183
+            },
+            {
+              "CityA": "Montpellier",
+              "CityB": "Marseille",
+              "Distance": 172
+            },
+            {
+              "CityA": "Marseille",
+              "CityB": "Montpellier",
+              "Distance": 172
+            },
+            {
+              "CityA": "Pau",
+              "CityB": "Toulouse",
+              "Distance": 193
+            },
+            {
+              "CityA": "Toulouse",
+              "CityB": "Pau",
+              "Distance": 193
+            },
+            {
+              "CityA": "Paris",
+              "CityB": "Troyes",
+              "Distance": 179
+            },
+            {
+              "CityA": "Troyes",
+              "CityB": "Paris",
+              "Distance": 179
+            },
+            {
+              "CityA": "Paris",
+              "CityB": "Rouen",
+              "Distance": 133
+            },
+            {
+              "CityA": "Rouen",
+              "CityB": "Paris",
+              "Distance": 133
+            },
+            {
+              "CityA": "Bordeaux",
+              "CityB": "Biarritz",
+              "Distance": 202
+            },
+            {
+              "CityA": "Biarritz",
+              "CityB": "Bordeaux",
+              "Distance": 202
+            },
+            {
+              "CityA": "Avignon",
+              "CityB": "Lyon",
+              "Distance": 226
+            },
+            {
+              "CityA": "Lyon",
+              "CityB": "Avignon",
+              "Distance": 226
+            },
+            {
+              "CityA": "Angers",
+              "CityB": "La Rochelle",
+              "Distance": 187
+            },
+            {
+              "CityA": "La Rochelle",
+              "CityB": "Angers",
+              "Distance": 187
+            },
+            {
+              "CityA": "Toulouse",
+              "CityB": "Nimes",
+              "Distance": 289
+            },
+            {
+              "CityA": "Nimes",
+              "CityB": "Toulouse",
+              "Distance": 289
+            },
+            {
+              "CityA": "Monaco",
+              "CityB": "Marseille",
+              "Distance": 224
+            },
+            {
+              "CityA": "Marseille",
+              "CityB": "Monaco",
+              "Distance": 224
+            },
+            {
+              "CityA": "Biarritz",
+              "CityB": "Toulouse",
+              "Distance": 309
+            },
+            {
+              "CityA": "Toulouse",
+              "CityB": "Biarritz",
+              "Distance": 309
+            },
+            {
+              "CityA": "Lyon",
+              "CityB": "Marseille",
+              "Distance": 313
+            },
+            {
+              "CityA": "Marseille",
+              "CityB": "Lyon",
+              "Distance": 313
+            },
+            {
+              "CityA": "Troyes",
+              "CityB": "Lyon",
+              "Distance": 375
+            },
+            {
+              "CityA": "Lyon",
+              "CityB": "Troyes",
+              "Distance": 375
+            },
+            {
+              "CityA": "Paris",
+              "CityB": "Angers",
+              "Distance": 294
+            },
+            {
+              "CityA": "Angers",
+              "CityB": "Paris",
+              "Distance": 294
+            },
+            {
+              "CityA": "Pau",
+              "CityB": "Lyon",
+              "Distance": 464
+            },
+            {
+              "CityA": "Lyon",
+              "CityB": "Pau",
+              "Distance": 464
+            },
+            {
+              "CityA": "Bordeaux",
+              "CityB": "Montpellier",
+              "Distance": 483
+            },
+            {
+              "CityA": "Montpellier",
+              "CityB": "Bordeaux",
+              "Distance": 483
+            },
+            {
+              "CityA": "Bordeaux",
+              "CityB": "Lyon",
+              "Distance": 551
+            },
+            {
+              "CityA": "Lyon",
+              "CityB": "Bordeaux",
+              "Distance": 551
+            },
+            {
+              "CityA": "Paris",
+              "CityB": "Lyon",
+              "Distance": 464
+            },
+            {
+              "CityA": "Lyon",
+              "CityB": "Paris",
+              "Distance": 464
+            },
+            {
+              "CityA": "Bordeaux",
+              "CityB": "Paris",
+              "Distance": 583
+            },
+            {
+              "CityA": "Paris",
+              "CityB": "Bordeaux",
+              "Distance": 583
+            },
+            {
+              "CityA": "Bordeaux",
+              "CityB": "Marseille",
+              "Distance": 649
+            },
+            {
+              "CityA": "Marseille",
+              "CityB": "Bordeaux",
+              "Distance": 649
+            },
+            {
+              "CityA": "Paris",
+              "CityB": "Toulouse",
+              "Distance": 675
+            },
+            {
+              "CityA": "Toulouse",
+              "CityB": "Paris",
+              "Distance": 675
+            },
+            {
+              "CityA": "Paris",
+              "CityB": "Nimes",
+              "Distance": 716
+            },
+            {
+              "CityA": "Nimes",
+              "CityB": "Paris",
+              "Distance": 716
+            },
+            {
+              "CityA": "Paris",
+              "CityB": "Montpellier",
+              "Distance": 746
+            },
+            {
+              "CityA": "Montpellier",
+              "CityB": "Paris",
+              "Distance": 746
+            },
+            {
+              "CityA": "Paris",
+              "CityB": "Biarritz",
+              "Distance": 779
+            },
+            {
+              "CityA": "Biarritz",
+              "CityB": "Paris",
+              "Distance": 779
+            },
+            {
+              "CityA": "Paris",
+              "CityB": "Pau",
+              "Distance": 791
+            },
+            {
+              "CityA": "Pau",
+              "CityB": "Paris",
+              "Distance": 791
+            },
+            {
+              "CityA": "Paris",
+              "CityB": "Marseille",
+              "Distance": 777
+            },
+            {
+              "CityA": "Marseille",
+              "CityB": "Paris",
+              "Distance": 777
+            },
+            {
+              "CityA": "Bordeaux",
+              "CityB": "Monaco",
+              "Distance": 824
+            },
+            {
+              "CityA": "Monaco",
+              "CityB": "Bordeaux",
+              "Distance": 824
+            }
+          ],
+          "CitiesList": [
+            "Montpellier",
+            "Nimes",
+            "Marseille",
+            "Avignon",
+            "Pau",
+            "Biarritz",
+            "Toulon",
+            "Monaco",
+            "La Rochelle",
+            "Bordeaux",
+            "Toulouse",
+            "Paris",
+            "Troyes",
+            "Rouen",
+            "Lyon",
+            "Angers"
+          ]
+        },
+        "VilleA": "Monaco",
+        "VilleB": "Marseille",
+        "Distance": 224,
         "VehiculeAffile": {
           "prixLocation": 50,
           "NombrePersonne": 6,
           "PrixLocation": 50,
           "Nom": "Voiture"
         },
-        "Quantite": 200,
+        "Quantite": 120,
         "Produit": {
           "PrixKg": 5.5,
           "NomProduit": "Chocolat"
@@ -46,15 +679,15 @@
           "mail": "RomeVan@transco.fr",
           "telNum": "0706055689"
         },
-        "DateDeLivraison": "2025-06-08T00:00:00"
+        "DateDeLivraison": "2023-12-12T00:00:00"
       }
     ],
-    "achatCumulle": 1577.545,
+    "achatCumulle": 1346.56,
     "adressePostal": {
       "ville": "Paris",
       "rue": "4 allee manon des sources"
     },
-    "nom": "Bakili",
+    "nom": "Bakili Mumbuku",
     "prenom": "Shaina",
     "dob": "2001-03-11T00:00:00",
     "mail": "shaina3322@hotmail.com",

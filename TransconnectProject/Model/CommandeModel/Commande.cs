@@ -21,7 +21,7 @@ namespace TransconnectProject.Model.CommandeModel
         private string proprietairePrenom;
         private Salarie chauffeurAffile;
 		private Vehicule vehiculeAffile;
-		private PathCityWritter ptw;
+		public PathCityWritter ptw;
 		private int distance;
 		private string villeA;
 		private string villeB;
@@ -78,8 +78,13 @@ namespace TransconnectProject.Model.CommandeModel
 		//Show path for the order
 		public double getPrice()
 		{
-			return (this.produit.PrixKg * quantite) + (this.distance * 0.5) + (Chauffeur.getTarif() + chauffeurAffile.getEncienneteEnjours() * 0.015);
+            return (this.produit.PrixKg * quantite) + (this.distance * 0.5) + (Chauffeur.getTarif() + chauffeurAffile.getEncienneteEnjours() * 0.015);
 
+        }
+		public void updatePath()
+		{
+			this.ptw = new PathCityWritter();
+            this.distance = DijkstraFeatures.Dijkstra(this.ptw.PathMatrice, this.villeA, VilleB, ptw.CitiesList,this.ptw);
         }
 		public void getTrajetLivraison()
 		{

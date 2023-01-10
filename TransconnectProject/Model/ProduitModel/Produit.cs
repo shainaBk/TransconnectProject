@@ -17,6 +17,27 @@ namespace TransconnectProject.Model.ProduitModel
         {
             return "Nom du produit: "+this.nomProduit+", Prix au Kg: "+this.prixKg+" Euros\n";	
         }
+
+		public static Produit createProduit()
+		{
+			string priceKg ="";
+            int kg;
+            Console.WriteLine("\n- Fonctionnalite de creation de Produit -\n");
+            Console.Write("veuillez saisir le nom du Produit: ");
+            string nom = Console.ReadLine();
+			do
+			{
+                Console.WriteLine();
+                Console.Write("Veuillez saisir le Prix au kilo: ");
+                priceKg = Console.ReadLine();
+				Console.Clear();
+            } while (!int.TryParse(priceKg,out kg));
+            
+            Produit p = new Produit(nom,kg);
+			if(p!=null)
+				Console.WriteLine("Produit cree !\n");
+			return p;
+		}
     }
 }
 

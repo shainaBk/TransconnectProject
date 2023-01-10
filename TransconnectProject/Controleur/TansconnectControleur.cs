@@ -55,6 +55,7 @@ namespace TransconnectProject.Controleur
         public PathCityWritter Ptw { get => this.ptw;}
         public List<Produit> ListeDesProduits { get => this.listeDesProduits; set => this.listeDesProduits = value; }
         public List<Vehicule> ListeDesVehicules { get => this.ListeVehiculeDisponible; set => this.ListeVehiculeDisponible= value; }
+        public List<Commande> ListeDesCommandes { get => this.commandes; set => this.commandes = value; }
         #region Salaries
         /// <summary>
         /// 
@@ -64,53 +65,54 @@ namespace TransconnectProject.Controleur
         public void deleteSalarie(string nom, string prenom)
         {
             var toDelete = this.salaries.Find(x => x.Nom.Equals(nom) && x.Prenom.Equals(prenom));
+            Salarie vacant = new Salarie("Vacant", "Vacant", new DateTime(), null, null, null, new DateTime(), toDelete.Poste, toDelete.Employ);
+            Salarie Ceo = this.salaries.Find(x => x.Poste.NomPoste == "Directeur general");
             if (toDelete != null)
             {
-                //Pour liste controleur
-                List<Salarie> Dep = this.salaries.FindAll(x => x.Poste.NomPoste != "Directeur general" && x.Poste.Departement.NomDep.Equals(toDelete.Poste.Departement.NomDep) && x.Poste.getNumHierarchique() < toDelete.Poste.getNumHierarchique());
-                //pour organigramme
-                List<Salarie> DepViaCeo = this.salaries.Find((x) => x.Poste.NomPoste == "Directeur general").Employ.Find(x => x.Poste.Departement.NomDep.Equals(toDelete.Poste.Departement.NomDep)).Employ;
-                //CEO PART;
-                List<string> listeDic = new List<string> { "Directeur commercial", "Directeur des opérations", "Directeur financier", "Directeur RH" };
+                List<string> listeDic = new List<string> { "Directeur commercial", "Directeur des operations", "Directeur financier", "Directeur RH" };
+
                 if (listeDic.Contains(toDelete.Poste.NomPoste))
                 {
-                    Salarie vacant = new Salarie("Vacant", "Vacant", new DateTime(), null, null, null, new DateTime(), toDelete.Poste, toDelete.Employ);
-                    this.salaries.Find(x => x.Poste.NomPoste == "Directeur general").Employ.Remove(toDelete);
-                    this.salaries.Find(x => x.Poste.NomPoste == "Directeur general").Employ.Add(vacant);
+                    Ceo.Employ.Remove(toDelete);
+                    Ceo.Employ.Add(vacant);
                     this.salaries.Remove(toDelete);
                     this.salaries.Add(vacant);
                 }
                 else
                 {
-                    //NORMAL EMPLOYÉS PART
-
-                    if (Dep != null)
+                    if (toDelete.Employ.Count() > 0)
                     {
-                        if (toDelete.Poste.getNumHierarchique() == 2)
+                        List<Salarie> degOne = Ceo.Employ;
+                        foreach (var item in degOne)
                         {
-
-                        }
-                        else
-                        {
-                            foreach (var item in Dep)
+                            if (item.Employ.Contains(toDelete))
                             {
                                 item.Employ.Remove(toDelete);
+                                item.Employ.Add(vacant);
                             }
                         }
-                        
+                        this.salaries.Remove(toDelete);
+                        this.salaries.Add(vacant);
                     }
-                    if (DepViaCeo != null)
+                    else
                     {
-                        foreach (var item in DepViaCeo)
+                        List<Salarie> degOne = Ceo.Employ;
+                        foreach (var item in degOne)
                         {
                             if (item.Employ.Contains(toDelete))
                                 item.Employ.Remove(toDelete);
+                            else
+                            {
+                                foreach (var item2 in item.Employ)
+                                {
+                                    if (item2.Employ.Contains(toDelete))
+                                        item2.Employ.Remove(toDelete);
+                                }
+                            }
                         }
+                        this.salaries.Remove(toDelete);
                     }
-
                 }
-                this.salaries.Remove(toDelete);
-
                 //JSON PART
                     try
                     {
@@ -388,6 +390,7 @@ namespace TransconnectProject.Controleur
         }
         public void updateClient(Client toUpdate)
         {
+            Console.Clear();
             int choose;
             do
             {
@@ -412,24 +415,29 @@ namespace TransconnectProject.Controleur
             switch (choose)
              {
                 case 1:
+                    Console.Clear();
                     Console.WriteLine("\nVeuillez entrer le prenom du client: ");
                     String firstname = Console.ReadLine();
                     Console.WriteLine("\nVeuillez entrer le nom du client: ");
                     String lastname = Console.ReadLine();
                     toUpdate.Prenom = firstname;
                     toUpdate.Nom = lastname;
+                    JsonUtil.sendJsonClients(clients);
                     Console.WriteLine("\nNom et prénom modifiés !\n");
                     break;
                 case 2:
+                    Console.Clear();
                     Console.WriteLine("\nVeuillez saisir le nom de la ville:");
                     string ville = Console.ReadLine();
                     Console.WriteLine("\nVeuillez saisir le nom de la rue");
                     string rue = Console.ReadLine();
                     Adresse newAd = new Adresse(ville,rue);
                     toUpdate.Adresse = newAd;
+                    JsonUtil.sendJsonClients(clients);
                     Console.WriteLine("\nAdresse modifié !\n");
                     break;
                 default:
+                    Console.Clear();
                     Console.WriteLine("\nExit ! Bye");
                     break;
             }
@@ -438,7 +446,70 @@ namespace TransconnectProject.Controleur
         #endregion
 
         #region Commandes
-        //TOTEST:addCommande
+        public void updateCommande(Commande toUpdate)
+        {
+            Console.Clear();
+            int choose;
+            do
+            {
+                Console.WriteLine("\nVeuillez saisir ce que vous voulez modifier: \n");
+                Console.WriteLine("1. Ville de livraison\n2. Date de livraison\n3. Exit");
+                Console.Write("\nvotre saisie: ");
+                string input = Console.ReadLine();
+
+                while (!int.TryParse(input, out choose))
+                {
+                    Console.WriteLine("\nSorry, nous n'avons pas compris votre saisie...\n");
+                    Console.WriteLine("\nVeuillez saisir ce que vous voulez modifier\n: ");
+                    Console.WriteLine("1. Ville de livraison\n2. Date de livraison\n3. Exit");
+                    Console.Write("\nvotre saisie: ");
+                    input = Console.ReadLine();
+                    Console.Clear();
+                }
+                if (choose < 0 || choose > 3)
+                    Console.WriteLine("\nErreur, la saisie est hors borne...");
+            } while (choose < 0 || choose > 3);
+
+            switch (choose)
+            {
+                case 1:
+                    Console.Clear();
+                    Console.WriteLine("\nVeuillez entrer le nom de la ville: ");
+                    string v = Console.ReadLine();
+                    foreach (var item in clients)
+                    {
+                        Commande find = item.CommandesClient.Find(x=>x.ProprietaireNom == toUpdate.ProprietaireNom);
+                        if (find != null)
+                        {
+                            find.VilleB = v;
+                            find.updatePath();
+                        }
+                            
+                    }
+                    toUpdate.VilleB = v;
+                    toUpdate.updatePath();
+                    JsonUtil.sendJsonClients(clients);
+                    Console.WriteLine("\nLa ville de livraision a bien ete modifie !\n");
+                    break;
+                case 2:
+                    Console.Clear();
+                    Console.WriteLine("\nVeuillez saisir la date de livraison (yyyy/mm/dd):");
+                    string date = Console.ReadLine();
+                    foreach (var item in clients)
+                    {
+                        Commande find = item.CommandesClient.Find(x => x.ProprietaireNom == toUpdate.ProprietaireNom);
+                        if (find != null)
+                            find.DateDeLivraison = new DateTime(int.Parse(date.Split("/")[0]), int.Parse(date.Split("/")[1]), int.Parse(date.Split("/")[2])); ;
+                    }
+                    toUpdate.DateDeLivraison = new DateTime(int.Parse(date.Split("/")[0]), int.Parse(date.Split("/")[1]),int.Parse(date.Split("/")[2]));
+                    JsonUtil.sendJsonClients(clients);
+                    Console.WriteLine("\nDate modifié !\n");
+                    break;
+                default:
+                    Console.WriteLine("\nExit ! Bye");
+                    break;
+            }
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -465,17 +536,6 @@ namespace TransconnectProject.Controleur
                 this.addClient(clt);
             Console.WriteLine("Confirmation de: \n"+c.ToString());
             JsonUtil.sendJsonClients(this.Clients);
-        }
-        public void updateCommande(string nomClient, string nomChauffeur, DateTime date)
-        {
-            Commande c = this.commandes.Find(x => x.ProprietaireNom == nomClient && x.ChauffeurCom.Nom == nomChauffeur && x.DateDeLivraison.ToString("d") == date.ToString("d"));
-            if (c != null)
-            {
-                //TODO:Faire condition changement
-            }
-            else
-                Console.WriteLine("\nil n'existe aucune livraison pour la date donné.");
-
         }
         public void showCommandes()
         {

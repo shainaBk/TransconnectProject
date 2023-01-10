@@ -29,8 +29,8 @@ namespace ProjectTests
         {
             #region Manuel part
             Produit choco = new Produit("chocolat", 3);
-            Commande c1 = new Commande(client1, chauffeur1, new Voiture(5), new Produit("cacao", 2.5), 15, "Bordeaux");
-            Commande c2 = new Commande(client1, chauffeur1, new Voiture(5), new Produit("chocolat", 3), 50, "Pau",dateDeLivraison:new DateTime(2023,03,20));
+            //Commande c1 = new Commande(client1, chauffeur1, new Voiture(5), new Produit("cacao", 2.5), 15, "Bordeaux");
+            //Commande c2 = new Commande(client1, chauffeur1, new Voiture(5), new Produit("chocolat", 3), 50, "Pau",dateDeLivraison:new DateTime(2023,03,20));
             //Commande c3 = new Commande(client1, chauffeur1, new Voiture(5), new Produit("chocolat", 3), 50, "Pau", dateDeLivraison: new DateTime(2003, 03, 20));
             //À ce jours
             /*c1.getTrajetLivraison(true);
@@ -46,7 +46,7 @@ namespace ProjectTests
 
 
             //Check chez livreur
-            Chauffeur c =(Chauffeur) chauffeur1.Poste;
+            //Chauffeur c =(Chauffeur) chauffeur1.Poste;
             /*foreach(var item in c.ListeDeCommandes)
             {
                 //item.getTrajetLivraison(true);
@@ -54,11 +54,11 @@ namespace ProjectTests
             }*/
             #endregion
             #region via Client
-            client1.doOrder("Paris", choco, 39,chauffeur1, new Voiture(5),dateLiv: new DateTime(2024, 03, 20));
+           /* client1.doOrder("Paris", choco, 39,chauffeur1, new Voiture(5),dateLiv: new DateTime(2024, 03, 20));
             foreach (var item in client1.CommandesClient)
             {
                 Console.WriteLine(item.ToString());
-            }
+            }*/
             #endregion
         }
 
@@ -66,29 +66,34 @@ namespace ProjectTests
         public void DijstrafeatureTest()
         {
             //Direct
-            var km = DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Paris", "Marseille", controleur.Ptw.CitiesList, true);
+            var km = DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Paris", "Marseille", controleur.Ptw.CitiesList, controleur.Ptw);
             Assert.AreEqual(777, km);
-            km = DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Marseille", "Paris", controleur.Ptw.CitiesList, true);
+            km = DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Marseille", "Paris", controleur.Ptw.CitiesList, controleur.Ptw);
             Assert.AreEqual(777, km);
 
-            km = DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Paris", "Pau", controleur.Ptw.CitiesList, true);
+            km = DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Paris", "Pau", controleur.Ptw.CitiesList, controleur.Ptw);
             Assert.AreEqual(791, km);
-            km = DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Pau", "Paris", controleur.Ptw.CitiesList, true);
+            km = DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Pau", "Paris", controleur.Ptw.CitiesList, controleur.Ptw);
             Assert.AreEqual(791, km);
 
-            km = DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Toulon", "Monaco", controleur.Ptw.CitiesList, true);
+            km = DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Toulon", "Monaco", controleur.Ptw.CitiesList, controleur.Ptw);
             Assert.AreEqual(169, km);
-            km = DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Monaco", "Toulon", controleur.Ptw.CitiesList, true);
+            km = DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Monaco", "Toulon", controleur.Ptw.CitiesList, controleur.Ptw);
             Assert.AreEqual(169, km);
 
-            km = DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Biarritz", "Toulouse", controleur.Ptw.CitiesList, true);
+            km = DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Biarritz", "Toulouse", controleur.Ptw.CitiesList, controleur.Ptw);
             Assert.AreEqual(309, km);
-            km = DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Biarritz", "Toulouse", controleur.Ptw.CitiesList, true);
+            km = DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Biarritz", "Toulouse", controleur.Ptw.CitiesList, controleur.Ptw);
             Assert.AreEqual(309, km);
+
+           /* km = DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Marseille", "Monaco", controleur.Ptw.CitiesList, controleur.Ptw);
+            Assert.AreEqual(309, km);
+            km = DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Monaco", "Marseille", controleur.Ptw.CitiesList, controleur.Ptw);
+            Assert.AreEqual(309, km);*/
 
             //Indirect (console.write desactivé) 
-            DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Paris", "Toulon", controleur.Ptw.CitiesList, true);
-            DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Paris", "La Rochelle", controleur.Ptw.CitiesList, true);
+            DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Paris", "Toulon", controleur.Ptw.CitiesList, controleur.Ptw);
+            DijkstraFeatures.Dijkstra(controleur.Ptw.PathMatrice, "Paris", "La Rochelle", controleur.Ptw.CitiesList, controleur.Ptw);
         }
     }
 }

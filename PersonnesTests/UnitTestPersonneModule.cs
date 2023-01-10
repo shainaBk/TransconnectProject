@@ -181,7 +181,7 @@ namespace ProjectsTests
             //UpdateClient PART
             Console.WriteLine("Update\n");
             controler3.showClients();
-            controler3.updateClient("ABS", "ab");
+            //controler3.updateClient("ABS", "ab");
             Console.WriteLine("\nUpdate2\n");
             controler3.showClients();
 

@@ -82,10 +82,8 @@ namespace TransconnectProject.Util
             noWay = Distance[villeArrive] == int.MaxValue?true:false;//Si aucun chemin n'existe
 			if (!noWay)
 			{
-                /*Console.WriteLine("\n"+Distance[villeArrive] + "Km entre " + villeDepart + " et " + villeArrive + " !!");
-                Console.WriteLine();*/
+
                 string currentDad = villeArrive;
-                //Console.Write("Chemin: " + villeArrive + " <-- ");
                 //output part
                 outString = "\n" + Distance[villeArrive] + "Km entre " + villeDepart + " et " + villeArrive + " !!\n Chemin: " + villeArrive + " <-- ";
                 do
@@ -94,13 +92,11 @@ namespace TransconnectProject.Util
                     if (currentDad == null) break;
                     if (currentDad == villeDepart)
                     {
-                        //Console.Write(currentDad + "\n");
                         //output part
                         outString += currentDad;
                     }
                     else
                     {
-                        //Console.Write(currentDad + " <-- ");
                         //output part
                         outString += currentDad + " <-- ";
                     }
@@ -200,7 +196,13 @@ namespace TransconnectProject.Util
         public int[,] PathMatrice { get => this.pathMatrice; }
         public List<PathCity> PathList { get => this.pathList; }
         public HashSet<string> CitiesList { get => this.citiesList; }
-
+        public void ShowAllPath()
+        {
+            foreach (var item in PathList)
+            {
+                Console.WriteLine(item.ToString());
+            }
+        }
     }
 }
 

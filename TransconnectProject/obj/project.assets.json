@@ -93,19 +93,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/shainaBk/.nuget/packages/": {}
+    "/Users/e25286/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/shainaBk/Projects/TransconnectProject/TransconnectProject/TransconnectProject.csproj",
+      "projectUniqueName": "/Users/e25286/Documents/devPerso/TransconnectProject/TransconnectProject/TransconnectProject.csproj",
       "projectName": "TransconnectProject",
-      "projectPath": "/Users/shainaBk/Projects/TransconnectProject/TransconnectProject/TransconnectProject.csproj",
-      "packagesPath": "/Users/shainaBk/.nuget/packages/",
-      "outputPath": "/Users/shainaBk/Projects/TransconnectProject/TransconnectProject/obj/",
+      "projectPath": "/Users/e25286/Documents/devPerso/TransconnectProject/TransconnectProject/TransconnectProject.csproj",
+      "packagesPath": "/Users/e25286/.nuget/packages/",
+      "outputPath": "/Users/e25286/Documents/devPerso/TransconnectProject/TransconnectProject/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/shainaBk/.nuget/NuGet/NuGet.Config"
+        "/Users/e25286/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
