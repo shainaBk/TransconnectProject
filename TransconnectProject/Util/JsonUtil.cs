@@ -16,14 +16,23 @@ namespace TransconnectProject.Util
 {
     public class JsonUtil
     {
-        //Get all salaries from Json files
+        /// <summary>
+        /// Get all salaries from Json files
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="converter"></param>
         public static void getJsonSalaries(ref List<Salarie> list, PosteConverter converter)
         {
             StreamReader r = new StreamReader(@"../../../../TransconnectProject/serializationFiles/Salaries.json");
             string json = @r.ReadToEnd();
             list = JsonConvert.DeserializeObject<List<Salarie>>(json, new PosteConverter(), new VehiculeConverter(), new DepConverter());
         }
-        //Get salarie from Json file (when it's one object file)
+        /// <summary>
+        /// Get salarie from Json file (when it's one object file)
+        /// </summary>
+        /// <param name="FilePath"></param>
+        /// <param name="converter"></param>
+        /// <returns></returns>
         public static Salarie getJsonSalarie(String FilePath, PosteConverter converter)
         {
             StreamReader r = new StreamReader(FilePath);
@@ -31,7 +40,10 @@ namespace TransconnectProject.Util
             Salarie s = JsonConvert.DeserializeObject<Salarie>(json, new PosteConverter(), new VehiculeConverter(), new DepConverter());
             return s;
         }
-        //Salaries parser
+        /// <summary>
+        /// Salaries parser
+        /// </summary>
+        /// <param name="list"></param>
         public static void sendJsonSalaries(List<Salarie> list)
         {
             var jsonTest = JsonConvert.SerializeObject(list, Formatting.Indented, new JsonSerializerSettings
@@ -40,14 +52,22 @@ namespace TransconnectProject.Util
             });
             File.WriteAllText(@"../../../../TransconnectProject/serializationFiles/Salaries.json", jsonTest);
         }
-        //Get all Clients from Json files
+
+        /// <summary>
+        /// Get all Clients from Json files
+        /// </summary>
+        /// <param name="list"></param>
         public static void getJsonClients(ref List<Client> list)
         {
             StreamReader r = new StreamReader(@"../../../../TransconnectProject/serializationFiles/Clients.json");
             string json = @r.ReadToEnd();
             list = JsonConvert.DeserializeObject<List<Client>>(json,new PosteConverter(),new VehiculeConverter(),new DepConverter());
         }
-        //Client parser
+
+        /// <summary>
+        /// Client parser
+        /// </summary>
+        /// <param name="list"></param>
         public static void sendJsonClients(List<Client> list)
         {
             var jsonTest = JsonConvert.SerializeObject(list,Formatting.Indented,new JsonSerializerSettings
@@ -57,7 +77,6 @@ namespace TransconnectProject.Util
             File.WriteAllText(@"../../../../TransconnectProject/serializationFiles/Clients.json", jsonTest);
         }
     }
-
     #region Convertisseur Obj
     public abstract class AbstractJsonConverter<T> : JsonConverter
     {
@@ -103,7 +122,6 @@ namespace TransconnectProject.Util
             return jObject.GetValue(name).ToString().Equals(value);
         }
     }
-
     public class PosteConverter : AbstractJsonConverter<Poste>
     {
         protected override Poste Create(Type objectType, JObject jObject)

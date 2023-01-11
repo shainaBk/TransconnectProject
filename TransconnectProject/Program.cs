@@ -563,7 +563,7 @@ public class main
                                 pressToContinue();
                                 continue;
                             case 2:
-                                controleur.ListeDesProduits.Add(Produit.createProduit());
+                                controleur.addNewProduict();
                                 pressToContinue();
                                 continue;
                             case 3:
@@ -594,7 +594,7 @@ public class main
                                         Console.WriteLine("Vous etes hors bornes !\n");
                                 } while (INPUTproduit < 1 || INPUTproduit > controleur.ListeDesProduits.Count());
                                 Produit p= controleur.ListeDesProduits[INPUTproduit - 1];
-                                controleur.ListeDesProduits.Remove(p);
+                                controleur.deleteProduict(p);
                                 Console.WriteLine("Produit supprimé !");
                                 pressToContinue();
                                 continue;
@@ -632,7 +632,7 @@ public class main
                                 pressToContinue();
                                 continue;
                             case 2:
-                                controleur.ListeDesVehicules.Add(Vehicule.createVehicule());
+                                controleur.addNewVehicule();
                                 pressToContinue();
                                 continue;
                             case 3:
@@ -663,7 +663,7 @@ public class main
                                         Console.WriteLine("Vous etes hors bornes !\n");
                                 } while (INPUTVehicule < 1 || INPUTVehicule > controleur.ListeDesVehicules.Count());
                                 Vehicule p = controleur.ListeDesVehicules[INPUTVehicule - 1];
-                                controleur.ListeDesVehicules.Remove(p);
+                                controleur.deleteVehicule(p);
                                 Console.WriteLine("Vehicule supprimé !");
                                 pressToContinue();
                                 continue;

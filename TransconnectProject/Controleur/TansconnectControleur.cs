@@ -58,7 +58,7 @@ namespace TransconnectProject.Controleur
         public List<Commande> ListeDesCommandes { get => this.commandes; set => this.commandes = value; }
         #region Salaries
         /// <summary>
-        /// 
+        /// Delete a salarie
         /// </summary>
         /// <param name="nom"></param>
         /// <param name="prenom"></param>
@@ -132,7 +132,7 @@ namespace TransconnectProject.Controleur
         }
 
         /// <summary>
-        /// 
+        /// Add new salarie
         /// </summary>
         /// <param name="s"></param>
         public void addSalarie(Salarie s,string nomSuperieur =null, string prenomSuperieur=null)
@@ -283,11 +283,8 @@ namespace TransconnectProject.Controleur
             }
         }
 
-        //TODO: modification Le nom, l’adresse, le mail, le téléphone, Le poste, le salaire
-        public void updateSalarie(){}
-
         /// <summary>
-        /// 
+        /// Show Organigramme
         /// </summary>
         /// <returns></returns>
         public String showOrgannigramme()
@@ -358,6 +355,10 @@ namespace TransconnectProject.Controleur
                 }
             }
         }
+        /// <summary>
+        /// Add a new client
+        /// </summary>
+        /// <param name="c"></param>
         public void addClient(Client c) {
             if (!this.clients.Contains(c))
             {
@@ -381,6 +382,11 @@ namespace TransconnectProject.Controleur
             }
                
         }
+        /// <summary>
+        /// Delete client
+        /// </summary>
+        /// <param name="nom"></param>
+        /// <param name="prenom"></param>
         public void deleteClient(string nom, string prenom) {
             var toDelete = this.Clients.Find(x => x.Nom.Equals(nom) && x.Prenom.Equals(prenom));
             if(toDelete != null)
@@ -403,6 +409,10 @@ namespace TransconnectProject.Controleur
 
 
         }
+        /// <summary>
+        /// This methode is a tool to update a specific client
+        /// </summary>
+        /// <param name="toUpdate"></param>
         public void updateClient(Client toUpdate)
         {
             Console.Clear();
@@ -460,6 +470,10 @@ namespace TransconnectProject.Controleur
         }
         #endregion
         #region Commandes
+        /// <summary>
+        /// This methode is a tool to update a specific commande
+        /// </summary>
+        /// <param name="toUpdate"></param>
         public void updateCommande(Commande toUpdate)
         {
             Console.Clear();
@@ -525,7 +539,7 @@ namespace TransconnectProject.Controleur
             }
         }
         /// <summary>
-        /// 
+        /// add a new commande
         /// </summary>
         /// <param name="client"></param>
         /// <param name="from"></param>
@@ -551,6 +565,9 @@ namespace TransconnectProject.Controleur
             Console.WriteLine("Confirmation de: \n"+c.ToString());
             JsonUtil.sendJsonClients(this.Clients);
         }
+        /// <summary>
+        /// Show the liste of commandes
+        /// </summary>
         public void showCommandes()
         {
             Console.WriteLine("Liste des commandes:\n");
@@ -562,6 +579,9 @@ namespace TransconnectProject.Controleur
 
         #endregion
         #region Produit
+        /// <summary>
+        /// Show teh list of products availbles
+        /// </summary>
         public void showProduitsAvailable()
         {
             Console.WriteLine("\n Liste de nos produits disponible:\n");
@@ -570,15 +590,20 @@ namespace TransconnectProject.Controleur
                 Console.WriteLine(item.ToString());
             }
         }
-        //TODO
+        /// <summary>
+        /// Add a new brand produict
+        /// </summary>
         public void addNewProduict()
         {
-
+            ListeDesProduits.Add(Produit.createProduit());
         }
-        //TODO
-        public void deleteProduict(string nomProduit)
+        /// <summary>
+        /// Delete a specific produict
+        /// </summary>
+        /// <param name="p"></param>
+        public void deleteProduict(Produit p )
         {
-
+            this.ListeDesProduits.Remove(p);
         }
         #endregion
         #region Vehicule
@@ -590,15 +615,20 @@ namespace TransconnectProject.Controleur
                 Console.WriteLine(item.ToString());
             }
         }
-        //TODO
+        /// <summary>
+        /// Add a new vehicule
+        /// </summary>
         public void addNewVehicule()
         {
-
+            ListeDesVehicules.Add(Vehicule.createVehicule());
         }
-        //TODO
-        public void deleteVehicule(string nomProduit)
+        /// <summary>
+        /// Delete a specific vehicule
+        /// </summary>
+        /// <param name="p"></param>
+        public void deleteVehicule(Vehicule p)
         {
-
+            ListeDesVehicules.Remove(p);
         }
         #endregion
         #region Statistique

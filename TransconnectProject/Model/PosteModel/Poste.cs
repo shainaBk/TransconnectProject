@@ -21,6 +21,10 @@ namespace TransconnectProject.Model.PosteModel
         public double Salaire { get => this.salaire; }  
         public string getDepartementName() { return departement.NomDep; }
 
+        /// <summary>
+        /// Cette méthode retourne le numéro hierarchique du poste
+        /// </summary>
+        /// <returns></returns>
         public int getNumHierarchique()
         {
             return this.departement.getNumHierarchique(this.NomPoste);

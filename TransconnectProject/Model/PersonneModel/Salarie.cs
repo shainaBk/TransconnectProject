@@ -43,6 +43,10 @@ namespace TransconnectProject.Model
             }
             return false;
         }
+        /// <summary>
+        /// Retourne le nombre de jours d'ancienenté
+        /// </summary>
+        /// <returns></returns>
         public int getEncienneteEnjours()
         {
             var today = DateTime.Now;
@@ -53,8 +57,10 @@ namespace TransconnectProject.Model
         {
             return "["+this.poste.NomPoste + "] " + base.ToString();
         }
-
-        //TODO: créer un salarié
+        /// <summary>
+        /// This methode create a new salarie
+        /// </summary>
+        /// <returns></returns>
         public static Salarie createSalarie()
         {
             Console.WriteLine("\n- Fonctionnalite de creation de salarie -\n");
@@ -68,7 +74,6 @@ namespace TransconnectProject.Model
             string dob = Console.ReadLine();
             Console.WriteLine();
             Console.Write("veuillez saisir la ville du salarie: ");
-            //TODO:ADD VILLE CHECKER
             string ville = Console.ReadLine();
             Console.WriteLine();
             Console.Write("veuillez saisir la rue du salarie: ");

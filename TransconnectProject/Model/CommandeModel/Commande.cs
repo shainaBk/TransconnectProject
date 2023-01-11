@@ -14,7 +14,6 @@ namespace TransconnectProject.Model.CommandeModel
 {
     public class Commande
 	{
-        //TODO: lier cette commande des produits
 		private Produit produit;
 		private int quantite;//en Kg
 		private string proprietaireNom;
@@ -27,7 +26,6 @@ namespace TransconnectProject.Model.CommandeModel
 		private string villeB;
 		private DateTime dateDeLivraison;
 
-		//TOTEST
 		public Commande(string clientNom,string clientPrenom,Salarie chauffeur,Vehicule vehicule,Produit produit,int quantity, string villeA, string villeB,DateTime? dateDeLivraison=null)
 		{
             try
@@ -74,18 +72,27 @@ namespace TransconnectProject.Model.CommandeModel
         public string ProprietairePrenom { get => this.proprietairePrenom; set => this.proprietairePrenom = value; }
         public Salarie ChauffeurCom { get => this.chauffeurAffile; set => this.chauffeurAffile = value; }
         public DateTime DateDeLivraison { get => this.dateDeLivraison; set => this.dateDeLivraison = value; }
-		//public double Prix { get => this.prix; set => this.prix = value; }
-		//Show path for the order
+
+		/// <summary>
+		/// Return command price
+		/// </summary>
+		/// <returns> price </returns>
 		public double getPrice()
 		{
             return (this.produit.PrixKg * quantite) + (this.distance * 0.5) + (Chauffeur.getTarif() + chauffeurAffile.getEncienneteEnjours() * 0.015);
 
         }
+		/// <summary>
+		/// Use when villeB is change. Its updating the price and path string.
+		/// </summary>
 		public void updatePath()
 		{
 			this.ptw = new PathCityWritter();
             this.distance = DijkstraFeatures.Dijkstra(this.ptw.PathMatrice, this.villeA, VilleB, ptw.CitiesList,this.ptw);
         }
+		/// <summary>
+		/// Affiche le chemin de livraison
+		/// </summary>
 		public void getTrajetLivraison()
 		{
 			Console.WriteLine(this.ptw.CurrentPath);

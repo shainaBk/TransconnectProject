@@ -37,7 +37,6 @@ namespace TransconnectProject.Util
 
 		/// <summary>
 		/// Dijkra algo
-        /// (showmode quand il faut afficher le chemin)
 		/// </summary>
 		/// <param name="arcs"></param>
 		/// <param name="villeDepart"></param>
@@ -136,6 +135,9 @@ namespace TransconnectProject.Util
             return cityA+" => "+Distance+" => "+cityB; 
         }
     }
+    /// <summary>
+    /// Cette récupère les données du fichier csv et construi un PathCityWritter
+    /// </summary>
     public class PathCityWritter
     {
         private List<PathCity> pathList;

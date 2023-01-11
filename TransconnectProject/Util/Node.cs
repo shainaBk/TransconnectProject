@@ -2,16 +2,7 @@
 using TransconnectProject.Model;
 namespace TransconnectProject.Util
 {
-    /*public class Tree<T>
-    {
-        protected Node<T> root;
 
-        public Tree(Node<T> r)
-        {
-			this.root = r;
-        }
-		
-    }*/
 
     public class Node<T>
 	{
@@ -64,18 +55,7 @@ namespace TransconnectProject.Util
 			return false;
 		}
 
-		/*public string showTree()
-		{
-			if (!this.isEmpty())
-			{
-				if(this.root.isaLeaf())
-					return this.root.Key.ToString();
-				else
-					return this.root.showKids(this.root,true,1);
-            }
-			return null;
-		}*/
-		//À TESTER
+
 		public static SalarieNode getaNewNode(Salarie root)
 		{
 			SalarieNode newNode = new SalarieNode(root);
@@ -117,7 +97,13 @@ namespace TransconnectProject.Util
         public SalarieNode(Salarie k, List<Node<Salarie>> childs) : base(k, childs)
         {
         }
-        //Temporary
+        /// <summary>
+		/// Method showing the organigramme
+		/// </summary>
+		/// <param name="s"></param>
+		/// <param name="isRoot"></param>
+		/// <param name="nbTab"></param>
+		/// <returns></returns>
         public string showKids(SalarieNode s, bool isRoot,int nbTab) {
 			string m=null;
 			if (this.isaLeaf() && !isRoot)
@@ -133,11 +119,6 @@ namespace TransconnectProject.Util
 				return m;
 			}
         }
-		//TODO
-		public void addaNode(Salarie s) { }
-		//TODO
-		public void deleteaNode(String nom,String prenom) { }
-
         /// <summary>
         /// Cette methode return n fois "\t"
         /// </summary>
